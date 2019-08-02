@@ -9,6 +9,9 @@ var hp = 10
 var dead = false
 var resistance_factor = 1
 
+var can_throw = true
+var throw_cooldown = 5
+
 var mousepos
 var aim_speed = deg2rad(3)
 var bullet_s = load("res://Bullet.tscn")
@@ -35,7 +38,11 @@ func spawnProjectile():
 	bullet.set_global_position(spawn_point)
 	bullet.get_node('Bullet_area').velocity = (Vector2(cos(get_rotation()) * bullet_speed, sin(get_rotation()) * bullet_speed))
 func _ready():
-	pass
+	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
+
+func _on_throw_timeout():
+	can_throw = true
+	$ThrowTimer.stop()
 
 func pdmg():
 	pass
@@ -49,7 +56,9 @@ func _input(event):
     	rotation -= aim_speed
 	
 	if event is InputEventMouseButton:
-		if (event.is_pressed() and event.button_index == BUTTON_RIGHT):
+		if (event.is_pressed() && event.button_index == BUTTON_LEFT && can_throw):
+			can_throw = false
+			$ThrowTimer.start(throw_cooldown)
 			spawnProjectile()
 
 func do_resistance(amt):

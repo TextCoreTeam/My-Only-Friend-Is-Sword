@@ -44,7 +44,7 @@ func _physics_process(delta):
 	if (hp < 1):
 		player.reward()
 		get_parent().get_parent().enemies -= 1
-		get_parent().get_parent().get_node("CanvasLayer/ECount").text = "Enemies: "+str(get_parent().get_parent().enemies)
+		get_parent().get_parent().get_node("GUI/ECount").text = "Enemies: "+str(get_parent().get_parent().enemies)
 		queue_free()
 	var dir = (player.global_position - global_position).normalized()
 	if get_angle_to(player.global_position) > 0:

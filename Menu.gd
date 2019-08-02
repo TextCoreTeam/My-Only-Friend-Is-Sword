@@ -14,7 +14,7 @@ func _ready():
 
 
 func _on_NewGameBtn_pressed():
-	get_tree().change_scene("res://World.tscn")
+	get_tree().change_scene("res://Map-0.tscn")
 
 
 func _on_ContinueBtn_pressed():

@@ -8,7 +8,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.4468, 50.6978 )
 
-[node name="Cock" type="KinematicBody2D"]
+[node name="Player" type="KinematicBody2D"]
 position = Vector2( 477.428, 320 )
 script = ExtResource( 1 )
 
@@ -44,3 +44,5 @@ allow_lesser = true
 texture_under = ExtResource( 3 )
 texture_progress = ExtResource( 4 )
 nine_patch_stretch = true
+
+[node name="ThrowTimer" type="Timer" parent="."]

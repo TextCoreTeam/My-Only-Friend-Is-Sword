@@ -1,0 +1,19 @@
+[gd_scene format=2]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+
+[node name="ECount" type="RichTextLabel" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -23.0
+margin_right = 334.0
+margin_bottom = -6.0
+text = "Enemies: 0"
+
+[node name="MCount" type="RichTextLabel" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -40.0
+margin_right = 221.0
+margin_bottom = -24.0
+text = "Score: 0"

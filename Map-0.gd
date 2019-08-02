@@ -12,7 +12,7 @@ var enemies = 0
 const maxenemies = 20
 
 func update_money_counter(mon):
-	$CanvasLayer/MCount.text = "Score: " + str(mon)
+	$GUI/MCount.text = "Score: " + str(mon)
 
 func randVector2(xmin, xmax, ymin, ymax):
 	return Vector2(rand_range(xmin, xmax), rand_range(ymin, ymax))
@@ -26,7 +26,7 @@ func _on_timer_timeout():
 	if (enemies < maxenemies):
 		spawn_instance_in_world(ass_s.instance())
 		enemies += 1
-		$CanvasLayer/ECount.text = "Enemies: "+str(enemies)
+		$GUI/ECount.text = "Enemies: "+str(enemies)
 
 func spawn_instance(obj):
 	objects.append(obj)
