@@ -7,7 +7,7 @@ extents = Vector2( 15.9745, 15.9818 )
 
 [node name="Ground" type="Node2D"]
 
-[node name="Sprite" type="Sprite" parent="."]
+[node name="0" type="Sprite" parent="."]
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )
 region_enabled = true
@@ -16,12 +16,12 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sprite"]
+[node name="StaticBody2D" type="StaticBody2D" parent="0"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="0/StaticBody2D"]
 shape = SubResource( 1 )
 
-[node name="Sprite2" type="Sprite" parent="."]
+[node name="1" type="Sprite" parent="."]
 position = Vector2( 30.5483, 0 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 1 )
@@ -31,7 +31,7 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="StaticBody2D" type="StaticBody2D" parent="Sprite2"]
+[node name="StaticBody2D" type="StaticBody2D" parent="1"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Sprite2/StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1/StaticBody2D"]
 shape = SubResource( 1 )

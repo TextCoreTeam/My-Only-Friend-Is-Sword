@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="Platformer"
-run/main_scene="res://World.tscn"
+run/main_scene="res://Menu.tscn"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/resizable=false
 
 [physics]
 

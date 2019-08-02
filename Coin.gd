@@ -1,6 +1,6 @@
 extends KinematicBody2D
 
-var velocity = Vector2()
+var velocity = Vector2.ZERO
 var collision
 
 func _physics_process(delta):
