@@ -14,6 +14,12 @@ JUMP_FORCE = 600
 [node name="Coin" parent="." instance=ExtResource( 2 )]
 position = Vector2( 314.8, 212.918 )
 
+[node name="Coin2" parent="." instance=ExtResource( 2 )]
+position = Vector2( 483.568, 41.4434 )
+
+[node name="Coin3" parent="." instance=ExtResource( 2 )]
+position = Vector2( 973.351, 417.947 )
+
 [node name="TileMap" type="TileMap" parent="."]
 position = Vector2( 2, 1 )
 tile_set = ExtResource( 3 )
