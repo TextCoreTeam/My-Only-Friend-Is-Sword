@@ -39,18 +39,24 @@ custom_constants/separation = 35
 [node name="NewGameBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer"]
 margin_right = 94.0
 margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "New Game"
 
 [node name="ContinueBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer"]
 margin_left = 129.0
 margin_right = 210.0
 margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Continue"
 
 [node name="QuitBtn" type="Button" parent="CenterContainer/MenuCol"]
 margin_top = 100.0
 margin_right = 210.0
 margin_bottom = 120.0
+focus_mode = 0
+enabled_focus_mode = 0
 text = "Quit"
 
 [node name="Camera2D" type="Camera2D" parent="."]

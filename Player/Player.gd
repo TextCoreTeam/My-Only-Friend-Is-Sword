@@ -125,7 +125,6 @@ func _physics_process(delta):
 	if (knock_baking):
 		axis = knock_dir
 		thrust -= knock_resistance
-		print(str(thrust))
 		if (thrust <= thrust_v):
 			thrust = thrust_v
 			knock_baking = false

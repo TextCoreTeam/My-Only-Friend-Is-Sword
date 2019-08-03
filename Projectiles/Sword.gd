@@ -27,11 +27,17 @@ func _physics_process(delta):
 		drop()
 
 func _on_RigidBody2D_body_entered(body):
+
+	if (body.has_method("mob") && !on_floor && body.can_take_dmg):
+		body.dmg()
+
 	if (body.has_method("pdmg") && !on_floor):
 		body.knockback(linear_velocity)
+
 	if (body.has_method("pdmg") && on_floor):
 		body.return_sword()
 		queue_free()
+
 	if (!bouncing):
 		print("Sword is bouncing")
 		bouncing = true

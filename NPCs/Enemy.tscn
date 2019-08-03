@@ -36,3 +36,6 @@ autostart = true
 explosiveness = 0.77
 
 [node name="BloodTimer" type="Timer" parent="KinematicBody2D"]
+
+[node name="TakeDMGTimer" type="Timer" parent="KinematicBody2D"]
+process_mode = 0

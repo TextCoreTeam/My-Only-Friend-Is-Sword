@@ -1,13 +1,19 @@
 extends KinematicBody2D
 
-var hp = 5
+var hp = 2
 var speed
 var player
+var can_take_dmg = true
+
+func _on_takedmg_timeout():
+	can_take_dmg = true
+	$TakeDMGTimer.stop()
 
 func _ready():
 	$Blood.emitting = false
 	player = get_parent().get_parent().get_node("Player")
 	pid = player.get_instance_id()
+	$TakeDMGTimer.connect("timeout", self, "_on_takedmg_timeout")
 	$Timer.connect("timeout", self, "_on_timer_timeout")
 	$ShootTimer.connect("timeout", self, "_on_shoot_timeout")
 	$ShootTimer.start()
@@ -24,7 +30,7 @@ func _on_shoot_timeout():
 	var spawn_point = get_global_position() + direction * spawn_distance
 	var bullet = bullet_s.instance()
 	var world  = get_parent().get_parent()
-	bullet.get_node("Bullet_area/Sprite").frame = 1
+	bullet.get_node("Bullet_area/Sprite").frame = 0
 	world.add_child(bullet)
 	bullet.set_global_position(spawn_point)
 	bullet.get_node('Bullet_area').velocity = (Vector2(cos(get_rotation()) * bullet_speed, sin(get_rotation()) * bullet_speed))
@@ -32,11 +38,19 @@ func _on_shoot_timeout():
 
 func _on_timer_timeout():
 	can_attack = true
+	$Timer.stop()
 
-var blood_s = load("res://Blood.tscn")
+func mob():	#kludge for mob identification because im a f4g
+	pass
+
+var blood_s = load("res://Particles/Blood.tscn")
 func dmg():
-	$Blood.emitting = true
-	hp -= 1
+	if (can_take_dmg):
+		print("Mob took damage")
+		$TakeDMGTimer.start(1)
+		can_take_dmg = false
+		$Blood.emitting = true
+		hp -= 1
 
 var pid
 var can_attack = true
