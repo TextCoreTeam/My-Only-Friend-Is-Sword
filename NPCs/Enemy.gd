@@ -6,6 +6,7 @@ var speed
 var player
 var can_take_dmg = true
 
+var attack_frame
 var melee_cooldown
 var bullet_speed
 
@@ -69,6 +70,8 @@ var can_attack = true
 var collision
 var turn_speed = deg2rad(4)
 
+var attack_in_progress = false
+
 var dir	# vector difference between player and enemy
 var dst	# distance to player
 
@@ -79,20 +82,26 @@ func turn_right():
 	if (!heading_right):
 		heading_right = true
 		$Aim.rotation -= turn_speed
-		set_scale(Vector2(-mscale.x, mscale.y))
+		set_scale(Vector2(mscale.x, mscale.y))
 
 func turn_left():
 	if (heading_right):
 		heading_right = false
 		$Aim.rotation += turn_speed
-		set_scale(Vector2(mscale.x, -mscale.y))
+		set_scale(Vector2(-mscale.x, mscale.y))
 
 var player_in_melee_hitbox = false
 
 func attack(body):
+	body.knockback(dir * (-1))
 	body.dmg(damage_amount)
 	can_attack = false
 	$AttackCooldown.start(melee_cooldown)
+
+func attack_prepare():
+	attack_in_progress = true
+	print("Playing attack animation")
+	$AnimationPlayer.play("attack_lr")
 
 func _physics_process(delta):
 	if (hp < 1):
@@ -112,22 +121,35 @@ func _physics_process(delta):
 		detected = false
 	
 	if (detected):
+		if (attack_in_progress &&
+				stepify($AnimationPlayer.current_animation_position, 0.1) == attack_frame &&
+				$MeleeHitbox.overlaps_body(player) && player_in_melee_hitbox &&
+				can_attack &&
+				has_melee_attack):
+			print("Gotcha, fucker!")
+			attack(player)
 		if $Aim.get_angle_to(player.global_position) > 0:
     		turn_left()
 		else:
     		turn_right()
 		collision = move_and_collide(dir * speed * delta)
-		
-		if ($MeleeHitbox.overlaps_body(player) && player_in_melee_hitbox && can_attack && has_melee_attack):
-			attack(player)
+		if (!attack_in_progress &&
+				$MeleeZone.overlaps_body(player) &&
+				can_attack &&
+				has_melee_attack):
+			print("Player is in melee zone, preparing attack")
+			attack_prepare()
 
 
 func _on_MeleeHitbox_body_entered(body):
-	print("Est probitie")
-	if (has_melee_attack && can_attack && body.has_method("pdmg")):
+	if (body.has_method("pdmg")):
 			player_in_melee_hitbox = true
-			attack(body)
 
 func _on_MeleeHitbox_body_exited(body):
 	if (body.has_method("pdmg")):
 		player_in_melee_hitbox = false
+
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	if (anim_name == "attack_lr"):
+		attack_in_progress = false

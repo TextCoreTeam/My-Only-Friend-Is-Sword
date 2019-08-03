@@ -1,17 +1,39 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://NPCs/Skeleton.gd" type="Script" id=2]
-[ext_resource path="res://NPCs/Sprites/SkullGuy0.png" type="Texture" id=3]
+[ext_resource path="res://NPCs/Golem.gd" type="Script" id=2]
+[ext_resource path="res://NPCs/Sprites/golem_lr.png" type="Texture" id=3]
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
 [ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
 
+[sub_resource type="Animation" id=3]
+resource_name = "attack_lr"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0, 6 ]
+}
+
+[sub_resource type="Animation" id=4]
+resource_name = "idle"
+
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 10.1854, 6.68251 )
+extents = Vector2( 20.9246, 12.2081 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 34.4653, 51.2972 )
+extents = Vector2( 37.726, 102.789 )
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 112.53, 101.54 )
 
 [node name="Enemy" type="Node2D"]
 
@@ -26,9 +48,18 @@ script = ExtResource( 2 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D"]
 texture = ExtResource( 3 )
+hframes = 7
+frame = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
+autoplay = "idle"
+playback_process_mode = 0
+playback_speed = 1.6
+anims/attack_lr = SubResource( 3 )
+anims/idle = SubResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 0.220612, 0.134088 )
+position = Vector2( -39.6195, 21.765 )
 rotation = 4.71239
 scale = Vector2( 5, 4.5 )
 shape = SubResource( 1 )
@@ -53,13 +84,21 @@ texture = ExtResource( 5 )
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
-position = Vector2( 65.0744, 0.402107 )
-scale = Vector2( 0.452364, 2.00947 )
+visible = false
+position = Vector2( 60.144, 22.4421 )
+scale = Vector2( 0.521859, 4.05147 )
 texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
-position = Vector2( 64.6607, 0.438972 )
+position = Vector2( 61.6657, 18.8677 )
 shape = SubResource( 2 )
+
+[node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeZone"]
+position = Vector2( 20.1025, 17.1216 )
+shape = SubResource( 5 )
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
+[connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]
 [connection signal="body_exited" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_exited"]
