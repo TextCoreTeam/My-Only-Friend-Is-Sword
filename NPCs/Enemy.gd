@@ -16,16 +16,11 @@ var lose_dst	# Distance at which enemy loses sight of player
 var has_range_attack
 var has_melee_attack
 
-var mscale = Vector2.ZERO
 func _on_takedmg_timeout():
 	can_take_dmg = true
 	$TakeDMGTimer.stop()
 	$Blood.emitting = false
-var cscale
 func _ready():
-	cscale = get_scale()
-	mscale.x = cscale.x
-	mscale.y = cscale.y
 	$Blood.emitting = false
 	player = get_parent().get_parent().get_node("Player")
 	pid = player.get_instance_id()
@@ -79,18 +74,16 @@ var detected = false
 var heading_right = true #false->left true->right
 
 func turn_right():
-	print("to the right")
 	if (!heading_right):
 		heading_right = true
 		$Aim.rotation -= turn_speed
-		set_scale(Vector2(cscale.x, cscale.y))
+		scale.x = 1
 
 func turn_left():
-	print("to the left")
 	if (heading_right):
 		heading_right = false
 		$Aim.rotation += turn_speed
-		set_scale(Vector2(cscale.x, cscale.y))
+		scale.x = -1
 
 var player_in_melee_hitbox = false
 
@@ -101,11 +94,15 @@ func attack(body):
 	$AttackCooldown.start(melee_cooldown)
 
 func attack_prepare():
+	$WalkAnimLR.visible = false
+	$AttackAnimLR.visible = true
+	moving = false
 	attack_in_progress = true
 	print("Playing attack animation")
 	$AnimationPlayer.play("attack_lr")
 
 var angle
+var moving = false
 func _physics_process(delta):
 	if (hp < 1):
 		player.reward()
@@ -124,6 +121,11 @@ func _physics_process(delta):
 		detected = false
 	
 	if (detected):
+		if (!moving && !attack_in_progress):
+			$WalkAnimLR.visible = true
+			$AnimationPlayer.play("walk_lr")
+			$AttackAnimLR.visible = false
+			moving = true
 		if (attack_in_progress &&
 				stepify($AnimationPlayer.current_animation_position, 0.1) == attack_frame &&
 				$MeleeHitbox.overlaps_body(player) && player_in_melee_hitbox &&
