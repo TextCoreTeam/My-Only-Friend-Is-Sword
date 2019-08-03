@@ -4,9 +4,11 @@ var box_s = load("res://Objects/Box_a.tscn")
 var mob_s = load("res://NPCs/Enemy.tscn")
 
 const WSX = -2000
-const WSY = -520
+const WSY = -520 #sho za huinia
 const WEX = 1000
 const WEY = 3000
+
+onready var fire = preload("res://Objects/Fire.tscn")
 
 var enemies = 0
 const maxenemies = 20
@@ -40,13 +42,22 @@ func spawn_instance_in_world(obj):
 	spawn_instance_at_r(obj, WSX, WEX, WSY, WEY)
 
 func _ready():
+	
 	randomize()
 	$Timer.connect("timeout", self, "_on_timer_timeout")
 	$Timer.stop()
+	set_process(true)
 	var i = 0
+	#spawn_fires(40)
 	while (i < boxes):
 		spawn_instance_in_world(box_s.instance())
+		spawn_instance_in_world(fire.instance())
 		i += 1
 
 #func _process(delta):
 #	pass
+func spawn_fires(num):
+    for i in range(num):
+       var f = fire.instance()
+       f.position = Vector2(rand_range(WSX, WSY),
+                          rand_range(WEX, WEY))

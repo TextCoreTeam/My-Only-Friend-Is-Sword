@@ -3,10 +3,6 @@
 [ext_resource path="res://Objects/Box.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Sprites/box_anim.png" type="Texture" id=2]
 
-
-
-
-
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 30 )
 

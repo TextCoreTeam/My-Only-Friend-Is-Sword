@@ -25,6 +25,11 @@ func drop():
 
 func pick():
 	pass
+	
+	# Upgrade fucking sword
+func upgrade(upgrade):
+	if upgrade == "f":   # Fire upgrade
+		linear_velocity.x += 2500	
 
 func _physics_process(delta):
 	if (abs(linear_velocity.x) < abs(speed_cap.x) && abs(linear_velocity.x) < abs(speed_cap.x) && !on_floor && !bouncing):
@@ -37,9 +42,7 @@ func _on_RigidBody2D_body_entered(body):
 
 	if (body.has_method("pdmg") && !on_floor):
 		body.knockback(linear_velocity)
-		
-
-
+	
 	if (body.has_method("pdmg")): #&& on_floor):
 		body.return_sword()
 		queue_free()
