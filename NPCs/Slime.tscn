@@ -132,12 +132,14 @@ explosiveness = 0.77
 process_mode = 0
 
 [node name="Aim" type="Sprite" parent="KinematicBody2D"]
+visible = false
 position = Vector2( -30.4778, 27.1238 )
 scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 6 )
 offset = Vector2( -1.71, -23.13 )
 
 [node name="PAim" type="Sprite" parent="KinematicBody2D"]
+visible = false
 position = Vector2( -3.84373, 26.2807 )
 scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 6 )

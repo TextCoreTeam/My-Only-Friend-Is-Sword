@@ -139,7 +139,15 @@ rotation = 3.14159
 scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 7 )
 
+[node name="PAim" type="Sprite" parent="KinematicBody2D"]
+visible = false
+position = Vector2( -0.33174, 12.2733 )
+rotation = 3.14159
+scale = Vector2( 0.137554, 1.43786 )
+texture = ExtResource( 7 )
+
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
+editor/display_folded = true
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
 visible = false

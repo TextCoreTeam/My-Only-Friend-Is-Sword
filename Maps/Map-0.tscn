@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Maps/Map-0.gd" type="Script" id=1]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Tiles/Tileset_main.tres" type="TileSet" id=3]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
 [ext_resource path="res://NPCs/Slime.tscn" type="PackedScene" id=5]
+[ext_resource path="res://NPCs/Golem.tscn" type="PackedScene" id=6]
 
 [node name="World" type="Node2D"]
 position = Vector2( -14.1426, -16.0933 )
@@ -33,3 +34,6 @@ position = Vector2( 529.23, 1302.36 )
 
 [node name="Enemy" parent="." instance=ExtResource( 5 )]
 position = Vector2( 727.732, 1273.51 )
+
+[node name="Enemy2" parent="." instance=ExtResource( 6 )]
+position = Vector2( 272.285, 1047.8 )
