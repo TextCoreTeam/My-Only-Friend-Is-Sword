@@ -33,12 +33,10 @@ drag_margin_right = 0.1
 drag_margin_bottom = 0.1
 
 [node name="HPBar" type="TextureProgress" parent="."]
-visible = false
-margin_left = -50.3345
-margin_top = -66.757
-margin_right = 77.6655
-margin_bottom = -55.757
-rect_rotation = 90.0
+margin_left = -37.0
+margin_top = 52.0
+margin_right = 34.0
+margin_bottom = 60.0
 max_value = 10.0
 value = 10.0
 rounded = true
