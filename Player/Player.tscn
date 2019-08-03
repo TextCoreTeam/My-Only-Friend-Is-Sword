@@ -51,7 +51,7 @@ nine_patch_stretch = true
 [node name="ThrowTimer" type="Timer" parent="."]
 
 [node name="SwordSprite" type="Sprite" parent="."]
-position = Vector2( 25.7926, 19.573 )
+position = Vector2( 26.1801, 13.1805 )
 rotation = 3.14159
 texture = ExtResource( 5 )
 offset = Vector2( 0, -36.89 )
