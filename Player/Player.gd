@@ -18,7 +18,7 @@ var resistance_factor = 1
 
 var can_throw = true
 var has_sword = true
-var throw_cooldown = 5
+var throw_cooldown = 1
 
 var knock_dir = Vector2.ZERO
 var knock_baking = false
@@ -27,8 +27,10 @@ var mousepos
 var aim_speed = deg2rad(3)
 var sword_s = load("res://Projectiles/Sword.tscn")
 var dialog_s = load("res://UI/MessageBox.tscn")
-var sword_speed = 300
+var sword_speed = 900
 onready var world = get_parent()
+
+var my_weapon = null
 
 func knockback(velocity):
 	if (!knock_baking):
@@ -59,6 +61,15 @@ func throw_sword():
 	world.add_child(sword)
 	sword.set_global_position(spawn_point)
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos($SwordSprite.get_rotation()) * sword_speed, sin($SwordSprite.get_rotation()) * sword_speed))
+	my_weapon = sword
+	
+func resummon_weapon():
+	var velocity = (get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2
+	#my_weapon.set_global_position(my_weapon.get_global_position() + direction * sword_speed)
+	my_weapon.get_node('RigidBody2D').linear_velocity = velocity
+	
+	#return_sword()
+	
 func _ready():
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
 
@@ -84,6 +95,8 @@ func _input(event):
 			$SwordSprite.visible = false
 			$ThrowTimer.start(throw_cooldown)
 			throw_sword()
+		elif (event.is_pressed() && event.button_index == BUTTON_RIGHT && !has_sword):
+			resummon_weapon()
 
 func do_resistance(amt):
 	if (motion.length() > amt):
@@ -117,8 +130,8 @@ func _physics_process(delta):
 	if (hp < 1):
 		die()
 		visible = false
-	if (!dead && !knock_baking):
-		axis = direction()
+	#if (!dead && !knock_baking):
+		#axis = direction()
 	else:
 		axis = Vector2.ZERO
 	

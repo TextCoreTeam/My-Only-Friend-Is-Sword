@@ -34,7 +34,7 @@ func _on_RigidBody2D_body_entered(body):
 	if (body.has_method("pdmg") && !on_floor):
 		body.knockback(linear_velocity)
 
-	if (body.has_method("pdmg") && on_floor):
+	if (body.has_method("pdmg")): #&& on_floor):
 		body.return_sword()
 		queue_free()
 
