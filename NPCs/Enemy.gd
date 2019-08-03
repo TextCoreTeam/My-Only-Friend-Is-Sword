@@ -33,7 +33,8 @@ var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
 	if (!detected || !has_range_attack):
 		return
-	var direction = Vector2(cos($Aim.get_rotation()), sin($Aim.get_rotation()))
+	var rot = $Aim.get_rotation()
+	var direction = Vector2(cos(rot), sin(rot))
 	var spawn_distance = 70
 	var spawn_point = get_global_position() + direction * spawn_distance
 	var bullet = bullet_s.instance()
@@ -41,7 +42,7 @@ func _on_shoot_timeout():
 	bullet.get_node("Bullet_area/Sprite").frame = 0
 	world.add_child(bullet)
 	bullet.set_global_position(spawn_point)
-	bullet.get_node('Bullet_area').velocity = (Vector2(cos($Aim.get_rotation()) * bullet_speed, sin($Aim.get_rotation()) * bullet_speed))
+	bullet.get_node('Bullet_area').velocity = (Vector2(cos(rot) * bullet_speed, sin(rot) * bullet_speed))
 	pass
 
 func _on_AttackCooldown_timeout():
@@ -78,24 +79,14 @@ func turn_right():
 		player_above = -1
 		heading_right = true
 		scale.x = 1
-
-func aim_right():
-	$Aim.rotation -= turn_speed
-
-func aim_left():
-	$Aim.rotation += turn_speed
+		$Aim.flip_h = false
 	
 func turn_left():
 	if (heading_right):
 		player_above = -1
 		heading_right = false
 		scale.x = -1
-
-func left():
-	turn_left()
-
-func right():
-	turn_right()
+		$Aim.flip_h = true
 
 var player_in_melee_hitbox = false
 
@@ -134,6 +125,10 @@ func _physics_process(delta):
 		detected = false
 	
 	if (detected):
+		if $Aim.get_angle_to(player.global_position) > 0:
+			$Aim.rotation += turn_speed
+		else:
+    		$Aim.rotation -= turn_speed
 		if (!moving && !attack_in_progress):
 			$WalkAnimLR.visible = true
 			$AnimationPlayer.play("walk_lr")
@@ -146,21 +141,18 @@ func _physics_process(delta):
 				has_melee_attack):
 			print("Gotcha, fucker!")
 			attack(player)
-		angle = rad2deg($Aim.get_angle_to(player.global_position))
+		angle = rad2deg($PAim.get_angle_to(player.global_position))
 						#90 -> player is above -90 -> player is under enemy
 						#-180 -> player is to the right	0 -> player is to the left
-		if ($Aim.get_angle_to(player.global_position) > 0):
-			aim_left()
-		else:
-			aim_right()
 		if (angle <= 130 && angle >= 30):
 			player_above = 0
 		elif (angle >= -130 && angle <= -30):
 			player_above = 1
 		elif (angle <= 30 && angle >= -30):
-    		left()
+    		turn_left()
 		else:
-    		right()
+    		turn_right()
+
 		collision = move_and_collide(dir * speed * delta)
 		if (!attack_in_progress &&
 				$MeleeZone.overlaps_body(player) &&
