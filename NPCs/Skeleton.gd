@@ -4,6 +4,7 @@ func _ready():
 	var mob = get_parent()
 	mob.hp = 4
 	mob.damage_amount = 2
+	mob.melee_cooldown = 1
 	mob.speed = 120
 	mob.has_range_attack = false
 	mob.bullet_speed = 0
