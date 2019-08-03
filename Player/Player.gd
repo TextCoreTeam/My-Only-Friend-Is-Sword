@@ -65,10 +65,8 @@ func throw_sword():
 	
 func resummon_weapon():
 	var velocity = (get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2
-	#my_weapon.set_global_position(my_weapon.get_global_position() + direction * sword_speed)
 	my_weapon.get_node('RigidBody2D').linear_velocity = velocity
-	
-	#return_sword()
+	#return_sword()     #SHIT
 	
 func _ready():
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")

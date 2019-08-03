@@ -1,10 +1,12 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprites/p_alt.png" type="Texture" id=2]
 [ext_resource path="res://UI/Sprites/progress_back.png" type="Texture" id=3]
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=4]
 [ext_resource path="res://Projectiles/Sprites/sword.png" type="Texture" id=5]
+[ext_resource path="res://UI/Sprites/white.png" type="Texture" id=6]
+[ext_resource path="res://UI/Sprites/green.png" type="Texture" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.5484, 35.0977 )
@@ -51,3 +53,13 @@ position = Vector2( 26.1801, 13.1805 )
 rotation = 3.14159
 texture = ExtResource( 5 )
 offset = Vector2( 0, -36.89 )
+
+[node name="TextureProgress" type="TextureProgress" parent="."]
+visible = false
+margin_left = -36.9861
+margin_top = -62.4668
+margin_right = 35.0139
+margin_bottom = -52.4668
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 7 )
+nine_patch_stretch = true
