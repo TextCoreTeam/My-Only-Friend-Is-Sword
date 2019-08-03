@@ -55,7 +55,6 @@ func knockback(velocity, maxspeed, kthrust):
 
 func reward():
 	money += 1
-	world.update_money_counter(money)
 
 func dmg(amt):
 	$HPBar.value -= 1

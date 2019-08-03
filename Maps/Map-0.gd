@@ -13,9 +13,6 @@ onready var fire = preload("res://Objects/Fire.tscn")
 var enemies = 0
 const maxenemies = 20
 
-func update_money_counter(mon):
-	$GUI/MCount.text = "Score: " + str(mon)
-
 func randVector2(xmin, xmax, ymin, ymax):
 	return Vector2(rand_range(xmin, xmax), rand_range(ymin, ymax))
 
@@ -28,7 +25,6 @@ func _on_timer_timeout():
 	if (enemies < maxenemies):
 		spawn_instance_in_world(mob_s.instance())
 		enemies += 1
-		$GUI/ECount.text = "Enemies: "+str(enemies)
 
 func spawn_instance(obj):
 	objects.append(obj)

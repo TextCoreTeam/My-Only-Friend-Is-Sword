@@ -112,8 +112,6 @@ var player_above = -1	#0 -> player is above the mob || 1-> player is under the m
 func _physics_process(delta):
 	if (hp < 1):
 		player.reward()
-		get_parent().get_parent().enemies -= 1
-		get_parent().get_parent().get_node("GUI/ECount").text = "Enemies: "+str(get_parent().get_parent().enemies)
 		queue_free()
 	dst = (player.global_position - global_position).length()
 	dir = (player.global_position - global_position).normalized()
