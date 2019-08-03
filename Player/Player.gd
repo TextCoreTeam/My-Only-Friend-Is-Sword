@@ -41,10 +41,10 @@ func reward():
 	money += 1
 	world.update_money_counter(money)
 
-func dmg():
+func dmg(amt):
 	$HPBar.value -= 1
 	$HPBar.update()
-	hp -= 1
+	hp -= amt
 
 func return_sword():
 	has_sword = true

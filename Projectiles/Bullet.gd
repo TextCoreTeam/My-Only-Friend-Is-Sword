@@ -17,8 +17,8 @@ var collision
 
 func _physics_process(delta):
 	collision = move_and_collide(velocity)
-	if (collision && collision.collider.has_method("dmg")):
-		collision.collider.dmg()
+	if (collision && collision.collider.has_method("pdmg")):
+		collision.collider.dmg(1)
 		queue_free()
 	elif (collision):
 		queue_free()

@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://NPCs/Skeleton.gd" type="Script" id=2]
+[ext_resource path="res://NPCs/Sprites/SkullGuy0.png" type="Texture" id=3]
+[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=4]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10.1854, 6.68251 )
+
+[node name="Enemy" type="Node2D"]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+
+[node name="Constants" type="Sprite" parent="KinematicBody2D"]
+script = ExtResource( 2 )
+
+[node name="Timer" type="Timer" parent="KinematicBody2D"]
+process_mode = 0
+one_shot = true
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+texture = ExtResource( 3 )
+
+[node name="Collision" type="CollisionShape2D" parent="KinematicBody2D"]
+position = Vector2( 0.220612, 0.134088 )
+rotation = 4.71239
+scale = Vector2( 5, 4.5 )
+shape = SubResource( 1 )
+
+[node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
+wait_time = 3.0
+autostart = true
+
+[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 4 )]
+explosiveness = 0.77
+
+[node name="TakeDMGTimer" type="Timer" parent="KinematicBody2D"]
+process_mode = 0
+
+[node name="Aim" type="Sprite" parent="KinematicBody2D"]
+visible = false
+position = Vector2( -0.33174, 12.2733 )
+rotation = 3.14159
+scale = Vector2( 0.137554, 1.43786 )
+texture = ExtResource( 5 )

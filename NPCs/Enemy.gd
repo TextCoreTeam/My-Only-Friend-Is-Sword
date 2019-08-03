@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 var hp
+var damage_amount
 var speed
 var player
 var can_take_dmg = true
@@ -92,6 +93,6 @@ func _physics_process(delta):
     		$Aim.rotation -= turn_speed
 		collision = move_and_collide(dir * speed * delta)
 		if (has_melee_attack && collision && can_attack && collision.get_collider().has_method("pdmg")):
-			collision.collider.dmg()
+			collision.collider.dmg(damage_amount)
 			can_attack = false
 			$Timer.start()
