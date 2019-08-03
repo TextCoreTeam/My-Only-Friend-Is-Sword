@@ -17,15 +17,14 @@ __meta__ = {
 }
 
 [node name="RichTextLabel" type="RichTextLabel" parent="."]
-margin_left = -244.0
+margin_left = -331.0
 margin_top = -46.0
-margin_right = 245.0
-margin_bottom = 48.0
+margin_right = -111.0
+margin_bottom = -16.0
+rect_scale = Vector2( 3, 3 )
 custom_fonts/normal_font = SubResource( 1 )
-custom_colors/default_color = Color( 0, 0, 0, 1 )
+custom_colors/default_color = Color( 0.14902, 0.278431, 0.305882, 1 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
+custom_colors/font_color_shadow = Color( 0.501961, 0.8, 0.815686, 1 )
 script = ExtResource( 3 )
-__meta__ = {
-"_edit_lock_": true
-}
