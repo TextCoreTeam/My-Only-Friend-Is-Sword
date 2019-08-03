@@ -1,12 +1,13 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://NPCs/Golem.gd" type="Script" id=2]
 [ext_resource path="res://NPCs/Sprites/golem_lr.png" type="Texture" id=3]
 [ext_resource path="res://NPCs/Sprites/golem_walk_lr.png" type="Texture" id=4]
-[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=5]
-[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=6]
-[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=7]
+[ext_resource path="res://NPCs/Sprites/golem_attack_up.png" type="Texture" id=5]
+[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=6]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=7]
+[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=8]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
@@ -79,6 +80,11 @@ texture = ExtResource( 4 )
 hframes = 7
 frame = 5
 
+[node name="AttackAnimU" type="Sprite" parent="KinematicBody2D"]
+position = Vector2( -21.4344, -10.2885 )
+texture = ExtResource( 5 )
+hframes = 7
+
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
 autoplay = "idle"
 playback_process_mode = 0
@@ -97,7 +103,7 @@ shape = SubResource( 4 )
 wait_time = 3.0
 autostart = true
 
-[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 5 )]
+[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 6 )]
 explosiveness = 0.77
 
 [node name="TakeDMGTimer" type="Timer" parent="KinematicBody2D"]
@@ -108,7 +114,7 @@ visible = false
 position = Vector2( -0.33174, 12.2733 )
 rotation = 3.14159
 scale = Vector2( 0.137554, 1.43786 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
 
@@ -116,7 +122,7 @@ texture = ExtResource( 6 )
 visible = false
 position = Vector2( 60.144, 22.4421 )
 scale = Vector2( 0.521859, 4.05147 )
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
 position = Vector2( 61.6657, 18.8677 )

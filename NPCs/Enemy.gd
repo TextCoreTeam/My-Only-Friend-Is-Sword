@@ -134,7 +134,7 @@ func _physics_process(delta):
 			print("Gotcha, fucker!")
 			attack(player)
 		angle = rad2deg($Aim.get_angle_to(player.global_position))
-		print(angle)	#90 -> player is above -90 -> player is under enemy
+						#90 -> player is above -90 -> player is under enemy
 						#-180 -> player is to the right	0 -> player is to the left
 		if (angle <= 130 && angle >= 30):
 			print("above")
