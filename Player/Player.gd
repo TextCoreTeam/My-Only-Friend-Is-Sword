@@ -35,7 +35,7 @@ var charge_pressed = true
 
 func _on_progress_timeout():
 	if $TextureProgress.value < 100 && Input.is_action_pressed("Charge"):
-		$TextureProgress.value += 5
+		$TextureProgress.value += 2.5
 	else:
 		$TextureProgress.visible = false
 		sword_speed = sword_speed + 5*$TextureProgress.value
@@ -78,6 +78,7 @@ func throw_sword():
 	sword.set_global_position(spawn_point)
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos($SwordSprite.get_rotation()) * sword_speed, sin($SwordSprite.get_rotation()) * sword_speed))
 	print(sword.get_global_position())
+	knockback(sword.get_node('RigidBody2D').linear_velocity)
 	my_weapon = sword
 
 	
@@ -149,8 +150,8 @@ func _physics_process(delta):
 	if (hp < 1):
 		die()
 		visible = false
-	#if (!dead && !knock_baking):
-		#axis = direction()
+	if (!dead && !knock_baking):
+		axis = direction()
 	if (!knock_baking):
 		axis = Vector2.ZERO
 	

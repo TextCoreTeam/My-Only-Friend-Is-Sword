@@ -29,7 +29,7 @@ func pick():
 	# Upgrade fucking sword
 func upgrade(upgrade):
 	if upgrade == "f":   # Fire upgrade
-		linear_velocity.x += 2500	
+		linear_velocity.x += 600	
 
 func _physics_process(delta):
 	if (abs(linear_velocity.x) < abs(speed_cap.x) && abs(linear_velocity.x) < abs(speed_cap.x) && !on_floor && !bouncing):

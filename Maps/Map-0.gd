@@ -56,8 +56,3 @@ func _ready():
 
 #func _process(delta):
 #	pass
-func spawn_fires(num):
-    for i in range(num):
-       var f = fire.instance()
-       f.position = Vector2(rand_range(WSX, WSY),
-                          rand_range(WEX, WEY))

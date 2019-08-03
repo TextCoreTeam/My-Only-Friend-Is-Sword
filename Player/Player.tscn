@@ -66,4 +66,4 @@ texture_progress = ExtResource( 7 )
 nine_patch_stretch = true
 
 [node name="ChargeTimer" type="Timer" parent="."]
-wait_time = 0.12
+wait_time = 0.05
