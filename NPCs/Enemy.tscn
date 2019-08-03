@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://NPCs/Sprites/Enemy.png" type="Texture" id=2]
+[ext_resource path="res://NPCs/Sprites/slime.png" type="Texture" id=2]
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]

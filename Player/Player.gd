@@ -108,8 +108,8 @@ func die():
 		var dialog = dialog_s.instance()
 		dialog.get_node("RichTextLabel").dialog_text = "You died bruh"
 		dialog.get_node("RichTextLabel").init()
-		var world  = get_parent().get_node("CanvasLayer")
-		world.add_child(dialog)
+		var overlay  = get_parent().get_node("GUI")
+		overlay.add_child(dialog)
 
 var axis
 var collision
