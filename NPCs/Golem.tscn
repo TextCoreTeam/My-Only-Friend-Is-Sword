@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://NPCs/Golem.gd" type="Script" id=2]
@@ -14,6 +14,22 @@ resource_name = "attack_lr"
 length = 1.6
 tracks/0/type = "value"
 tracks/0/path = NodePath("AttackAnimLR:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0, 6 ]
+}
+
+[sub_resource type="Animation" id=7]
+resource_name = "attack_u"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackAnimU:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/imported = false
@@ -49,10 +65,10 @@ tracks/0/keys = {
 extents = Vector2( 20.9246, 12.2081 )
 
 [sub_resource type="RectangleShape2D" id=5]
-extents = Vector2( 37.726, 102.789 )
+extents = Vector2( 99.5059, 136.997 )
 
 [sub_resource type="RectangleShape2D" id=6]
-extents = Vector2( 112.53, 101.54 )
+extents = Vector2( 116.205, 136.109 )
 
 [node name="Enemy" type="Node2D"]
 position = Vector2( 3.38, 0 )
@@ -81,15 +97,19 @@ hframes = 7
 frame = 5
 
 [node name="AttackAnimU" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( -21.4344, -10.2885 )
+visible = false
+position = Vector2( -22.2917, -5.14424 )
+scale = Vector2( 1.05, 1.05 )
 texture = ExtResource( 5 )
 hframes = 7
+frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
 autoplay = "idle"
 playback_process_mode = 0
 playback_speed = 1.6
 anims/attack_lr = SubResource( 1 )
+anims/attack_u = SubResource( 7 )
 anims/idle = SubResource( 2 )
 anims/walk_lr = SubResource( 3 )
 
@@ -98,6 +118,9 @@ position = Vector2( -39.6195, 21.765 )
 rotation = 4.71239
 scale = Vector2( 5, 4.5 )
 shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 3.0
@@ -125,10 +148,14 @@ scale = Vector2( 0.521859, 4.05147 )
 texture = ExtResource( 8 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
-position = Vector2( 61.6657, 18.8677 )
+position = Vector2( -0.0652885, 18.8677 )
 shape = SubResource( 5 )
 
 [node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeZone"]
 position = Vector2( 20.1025, 17.1216 )

@@ -11,3 +11,4 @@ func _ready():
 	mob.has_melee_attack = true
 	mob.visibility_dst = 300
 	mob.lose_dst = 1500
+	mob.attack_frame = 0.8

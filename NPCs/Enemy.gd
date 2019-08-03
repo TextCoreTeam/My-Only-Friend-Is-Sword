@@ -75,15 +75,27 @@ var heading_right = true #false->left true->right
 
 func turn_right():
 	if (!heading_right):
+		player_above = -1
 		heading_right = true
-		$Aim.rotation -= turn_speed
 		scale.x = 1
 
+func aim_right():
+	$Aim.rotation -= turn_speed
+
+func aim_left():
+	$Aim.rotation += turn_speed
+	
 func turn_left():
 	if (heading_right):
+		player_above = -1
 		heading_right = false
-		$Aim.rotation += turn_speed
 		scale.x = -1
+
+func left():
+	turn_left()
+
+func right():
+	turn_right()
 
 var player_in_melee_hitbox = false
 
@@ -103,6 +115,7 @@ func attack_prepare():
 
 var angle
 var moving = false
+var player_above = -1	#0 -> player is above the mob || 1-> player is under the mob || -1 -> fuck you
 func _physics_process(delta):
 	if (hp < 1):
 		player.reward()
@@ -136,14 +149,18 @@ func _physics_process(delta):
 		angle = rad2deg($Aim.get_angle_to(player.global_position))
 						#90 -> player is above -90 -> player is under enemy
 						#-180 -> player is to the right	0 -> player is to the left
-		if (angle <= 130 && angle >= 30):
-			print("above")
-		elif (angle >= -130 && angle <= -30):
-			print("below")
-		elif (angle <= 30 && angle >= -30):
-    		turn_left()
+		if ($Aim.get_angle_to(player.global_position) > 0):
+			aim_left()
 		else:
-    		turn_right()
+			aim_right()
+		if (angle <= 130 && angle >= 30):
+			player_above = 0
+		elif (angle >= -130 && angle <= -30):
+			player_above = 1
+		elif (angle <= 30 && angle >= -30):
+    		left()
+		else:
+    		right()
 		collision = move_and_collide(dir * speed * delta)
 		if (!attack_in_progress &&
 				$MeleeZone.overlaps_body(player) &&

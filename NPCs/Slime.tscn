@@ -1,21 +1,78 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://NPCs/Slime.gd" type="Script" id=2]
-[ext_resource path="res://NPCs/Sprites/slime.png" type="Texture" id=3]
-[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=4]
-[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
-[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
+[ext_resource path="res://NPCs/Sprites/slime_idle.png" type="Texture" id=3]
+[ext_resource path="res://NPCs/Sprites/golem_attack_up.png" type="Texture" id=4]
+[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=6]
+[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=7]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 4.39378, 10.0436 )
+[sub_resource type="Animation" id=1]
+resource_name = "attack_lr"
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackAnimLR:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0 ]
+}
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 94.7429, 51.2972 )
+[sub_resource type="Animation" id=2]
+resource_name = "attack_u"
+length = 1.6
+tracks/0/type = "value"
+tracks/0/path = NodePath("AttackAnimU:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray(  ),
+"transitions": PoolRealArray(  ),
+"update": 1,
+"values": [  ]
+}
+
+[sub_resource type="Animation" id=3]
+
+[sub_resource type="Animation" id=4]
+length = 1.5
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("WalkAnimLR:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 6, 5, 4, 3, 2, 1, 0 ]
+}
+
+[sub_resource type="RectangleShape2D" id=5]
+extents = Vector2( 4.76012, 9.35977 )
+
+[sub_resource type="RectangleShape2D" id=6]
+extents = Vector2( 74.0348, 63.5883 )
+
+[sub_resource type="RectangleShape2D" id=7]
+extents = Vector2( 89.5461, 82.7603 )
 
 [node name="Enemy" type="Node2D"]
+position = Vector2( 3.38, 0 )
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( 24.9999, -23.9999 )
 script = ExtResource( 1 )
 
 [node name="AttackCooldown" type="Timer" parent="KinematicBody2D"]
@@ -24,44 +81,93 @@ process_mode = 0
 [node name="Constants" type="Sprite" parent="KinematicBody2D"]
 script = ExtResource( 2 )
 
-[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+[node name="AttackAnimLR" type="Sprite" parent="KinematicBody2D"]
+visible = false
+position = Vector2( -22.2057, 12.3668 )
 texture = ExtResource( 3 )
+hframes = 7
+frame = 6
+
+[node name="WalkAnimLR" type="Sprite" parent="KinematicBody2D"]
+position = Vector2( -22.1034, 13.9804 )
+texture = ExtResource( 3 )
+hframes = 7
+frame = 6
+
+[node name="AttackAnimU" type="Sprite" parent="KinematicBody2D"]
+visible = false
+position = Vector2( -22.2917, -5.14424 )
+scale = Vector2( 1.05, 1.05 )
+texture = ExtResource( 4 )
+hframes = 7
+frame = 6
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
+autoplay = "idle"
+playback_process_mode = 0
+playback_speed = 1.6
+anims/attack_lr = SubResource( 1 )
+anims/attack_u = SubResource( 2 )
+anims/idle = SubResource( 3 )
+anims/walk_lr = SubResource( 4 )
 
 [node name="Collision" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 0.220612, 14.7293 )
+visible = false
+position = Vector2( -20.7335, 26.61 )
 rotation = 4.71239
 scale = Vector2( 5, 4.5 )
-shape = SubResource( 1 )
+shape = SubResource( 5 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 3.0
 autostart = true
 
-[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 4 )]
+[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 5 )]
 explosiveness = 0.77
 
 [node name="TakeDMGTimer" type="Timer" parent="KinematicBody2D"]
 process_mode = 0
 
 [node name="Aim" type="Sprite" parent="KinematicBody2D"]
-visible = false
-position = Vector2( -0.33174, 12.2733 )
+position = Vector2( -22.485, 24.8468 )
 rotation = 3.14159
 scale = Vector2( 0.137554, 1.43786 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
 visible = false
-position = Vector2( -104.82, 6.63423 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
-position = Vector2( 109.192, 0.402107 )
-scale = Vector2( 1.25289, 2.00947 )
-texture = ExtResource( 6 )
+visible = false
+position = Vector2( 60.144, 22.4421 )
+scale = Vector2( 0.521859, 4.05147 )
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
-position = Vector2( 108.446, 2.42924 )
-shape = SubResource( 2 )
+position = Vector2( -20.6313, 24.1751 )
+shape = SubResource( 6 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
+visible = false
+position = Vector2( -39.8052, 5.97078 )
+__meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeZone"]
+position = Vector2( 20.1025, 17.1216 )
+shape = SubResource( 7 )
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
+[connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]
 [connection signal="body_exited" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_exited"]
