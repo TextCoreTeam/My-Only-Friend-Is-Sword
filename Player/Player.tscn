@@ -51,7 +51,7 @@ nine_patch_stretch = true
 wait_time = 3.0
 
 [node name="SwordSprite" type="Sprite" parent="."]
-position = Vector2( 26.1801, 13.1805 )
+position = Vector2( 26, 13 )
 rotation = 3.14159
 texture = ExtResource( 5 )
 offset = Vector2( 0, -36.89 )
@@ -68,3 +68,5 @@ nine_patch_stretch = true
 
 [node name="ChargeTimer" type="Timer" parent="."]
 wait_time = 0.05
+
+[node name="MousePtr" type="Sprite" parent="."]

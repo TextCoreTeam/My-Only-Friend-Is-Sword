@@ -2,27 +2,36 @@
 
 [ext_resource path="res://Particles/Blood.gd" type="Script" id=1]
 
-
 [sub_resource type="ParticlesMaterial" id=1]
 render_priority = 100
-emission_shape = 1
-emission_sphere_radius = 22.93
+emission_shape = 3
+emission_point_count = 5
 flag_disable_z = true
+spread = 180.0
+flatness = 1.0
 gravity = Vector3( 0, 0, 0 )
-initial_velocity = 5.0
-initial_velocity_random = 0.5
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+angular_velocity = 25.0
+angular_velocity_random = 1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 damping = 10.0
 damping_random = 1.0
+angle = 33.1
+angle_random = 1.0
+scale = 4.0
+scale_random = 1.0
 color = Color( 0.796078, 0, 0, 1 )
 
 [node name="Blood" type="Particles2D"]
+scale = Vector2( 2, 2 )
 emitting = false
-amount = 50
-lifetime = 3.0
-explosiveness = 0.95
-randomness = 1.0
+amount = 250
+lifetime = 5.0
+speed_scale = 4.0
+explosiveness = 0.9
+randomness = 0.8
 local_coords = false
 process_material = SubResource( 1 )
 script = ExtResource( 1 )

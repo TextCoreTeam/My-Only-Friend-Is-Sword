@@ -9,7 +9,7 @@ func _ready():
 	mob.has_range_attack = false
 	mob.bullet_speed = 0
 	mob.has_melee_attack = true
-	mob.visibility_dst = 300
+	mob.visibility_dst = 450
 	mob.lose_dst = 2000
 	mob.attack_frame = 0.8
 	mob.knock_maxspeed = 3000
