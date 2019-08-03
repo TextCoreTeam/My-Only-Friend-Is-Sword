@@ -6,6 +6,8 @@ var speed
 var player
 var can_take_dmg = true
 
+var knock_maxspeed
+var knock_thrust
 var attack_frame
 var melee_cooldown
 var bullet_speed
@@ -91,7 +93,7 @@ func turn_left():
 var player_in_melee_hitbox = false
 
 func attack(body):
-	body.knockback(dir * (-1))
+	body.knockback(dir * (-1), knock_maxspeed, knock_thrust)
 	body.dmg(damage_amount)
 	can_attack = false
 	$AttackCooldown.start(melee_cooldown)

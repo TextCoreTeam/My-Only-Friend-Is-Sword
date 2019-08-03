@@ -7,9 +7,7 @@ const speed_max_v = 350
 var thrust = 1300
 var speed_max = 350
 
-const knock_thrust = 6000
-const knock_speed_max = 3000
-const knock_resistance = 200
+var knock_resistance = 200
 
 var money = 0
 var hp = 10
@@ -48,10 +46,10 @@ func _on_progress_timeout():
 		$TextureProgress.value = 0
 		sword_speed = 600
 	
-func knockback(velocity):
+func knockback(velocity, maxspeed, kthrust):
 	if (!knock_baking):
-		thrust = knock_thrust
-		speed_max = knock_speed_max
+		thrust = kthrust
+		speed_max = maxspeed
 		knock_baking = true
 		knock_dir = velocity.clamped(1) * (-1)
 
@@ -68,6 +66,8 @@ func return_sword():
 	has_sword = true
 	$SwordSprite.visible = true
 
+var sword_knock_thrust = 3000
+var sword_knock_speed_max = 3000
 func throw_sword():
 	var direction = Vector2(cos($SwordSprite.get_rotation()), sin($SwordSprite.get_rotation()))
 	var spawn_distance = 150
@@ -78,7 +78,7 @@ func throw_sword():
 	sword.set_global_position(spawn_point)
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos($SwordSprite.get_rotation()) * sword_speed, sin($SwordSprite.get_rotation()) * sword_speed))
 	print(sword.get_global_position())
-	knockback(sword.get_node('RigidBody2D').linear_velocity)
+	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust)
 	my_weapon = sword
 
 	
@@ -115,7 +115,10 @@ func _input(event):
 			$TextureProgress.visible = true
 			$ChargeTimer.start()
 			
-		elif (event.is_pressed() && event.button_index == BUTTON_RIGHT && !has_sword):
+		elif (can_throw &&	#kuldaun ne tolko na brosok, no i na vozvrat
+		event.is_pressed() &&
+		event.button_index == BUTTON_RIGHT &&
+		!has_sword):
 			resummon_weapon()
 
 func do_resistance(amt):

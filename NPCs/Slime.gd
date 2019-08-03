@@ -12,3 +12,5 @@ func _ready():
 	mob.visibility_dst = 300
 	mob.lose_dst = 1500
 	mob.attack_frame = 0.8
+	mob.knock_maxspeed = 3000
+	mob.knock_thrust = 6000

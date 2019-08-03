@@ -41,7 +41,7 @@ func _on_RigidBody2D_body_entered(body):
 		body.dmg()
 
 	if (body.has_method("pdmg") && !on_floor):
-		body.knockback(linear_velocity)
+		body.knockback(linear_velocity, body.sword_knock_speed_max, body.sword_knock_thrust)
 	
 	if (body.has_method("pdmg")): #&& on_floor):
 		body.return_sword()

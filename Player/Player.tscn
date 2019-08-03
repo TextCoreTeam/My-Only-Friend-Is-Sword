@@ -48,6 +48,7 @@ texture_progress = ExtResource( 4 )
 nine_patch_stretch = true
 
 [node name="ThrowTimer" type="Timer" parent="."]
+wait_time = 3.0
 
 [node name="SwordSprite" type="Sprite" parent="."]
 position = Vector2( 26.1801, 13.1805 )
