@@ -143,15 +143,15 @@ func die():
 		var overlay  = get_parent().get_node("GUI")
 		overlay.add_child(dialog)
 
-var axis
+var axis = Vector2.ZERO
 var collision
 func _physics_process(delta):
 	if (hp < 1):
 		die()
 		visible = false
-	if (!dead && !knock_baking):
-		axis = direction()
-	else:
+	#if (!dead && !knock_baking):
+		#axis = direction()
+	if (!knock_baking):
 		axis = Vector2.ZERO
 	
 	if (knock_baking):
