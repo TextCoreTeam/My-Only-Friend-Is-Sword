@@ -1,0 +1,28 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Particles/Blood.gd" type="Script" id=1]
+
+
+[sub_resource type="ParticlesMaterial" id=1]
+render_priority = 100
+emission_shape = 1
+emission_sphere_radius = 22.93
+flag_disable_z = true
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 5.0
+initial_velocity_random = 0.5
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 10.0
+damping_random = 1.0
+color = Color( 0.796078, 0, 0, 1 )
+
+[node name="Blood" type="Particles2D"]
+emitting = false
+amount = 50
+lifetime = 3.0
+explosiveness = 0.95
+randomness = 1.0
+local_coords = false
+process_material = SubResource( 1 )
+script = ExtResource( 1 )

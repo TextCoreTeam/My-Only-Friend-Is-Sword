@@ -1,0 +1,38 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://NPCs/Sprites/Enemy.png" type="Texture" id=2]
+[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 11.0694 )
+
+[node name="Enemy" type="Node2D"]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="Timer" type="Timer" parent="KinematicBody2D"]
+process_mode = 0
+one_shot = true
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+rotation = 4.71239
+texture = ExtResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="KinematicBody2D"]
+rotation = 4.71239
+scale = Vector2( 5, 4.5 )
+shape = SubResource( 1 )
+
+[node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
+wait_time = 3.0
+autostart = true
+
+[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 3 )]
+explosiveness = 0.77
+
+[node name="BloodTimer" type="Timer" parent="KinematicBody2D"]

@@ -1,0 +1,57 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://Player/Player.gd" type="Script" id=1]
+[ext_resource path="res://Player/Sprites/p_alt.png" type="Texture" id=2]
+[ext_resource path="res://UI/Sprites/progress_back.png" type="Texture" id=3]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=4]
+[ext_resource path="res://Projectiles/Sprites/sword.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 51.5484, 35.0977 )
+
+[node name="Player" type="KinematicBody2D"]
+position = Vector2( 477.428, 320 )
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.0987887, -0.449768 )
+texture = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -0.938293, -0.279907 )
+rotation = 1.5708
+shape = SubResource( 1 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 0.142395, -0.142426 )
+current = true
+limit_smoothed = true
+smoothing_enabled = true
+drag_margin_left = 0.1
+drag_margin_top = 0.1
+drag_margin_right = 0.1
+drag_margin_bottom = 0.1
+
+[node name="HPBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -50.3345
+margin_top = -66.757
+margin_right = 77.6655
+margin_bottom = -55.757
+rect_rotation = 90.0
+max_value = 10.0
+value = 10.0
+rounded = true
+allow_greater = true
+allow_lesser = true
+texture_under = ExtResource( 3 )
+texture_progress = ExtResource( 4 )
+nine_patch_stretch = true
+
+[node name="ThrowTimer" type="Timer" parent="."]
+
+[node name="SwordSprite" type="Sprite" parent="."]
+position = Vector2( 25.7926, 19.573 )
+rotation = 3.14159
+texture = ExtResource( 5 )
+offset = Vector2( 0, -36.89 )
