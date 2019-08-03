@@ -1,4 +1,9 @@
-[gd_scene format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Font_New.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 1 )
 
 [node name="CanvasLayer" type="CanvasLayer"]
 
@@ -17,3 +22,14 @@ margin_top = -40.0
 margin_right = 221.0
 margin_bottom = -24.0
 text = "Score: 0"
+
+[node name="LevelName" type="Label" parent="."]
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -20.0
+margin_right = 11.0
+margin_bottom = 13.0
+rect_scale = Vector2( 5, 5 )
+custom_fonts/font = SubResource( 1 )
+text = "Level"
+percent_visible = 0.0

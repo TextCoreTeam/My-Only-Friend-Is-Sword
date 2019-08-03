@@ -1,7 +1,11 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/Sprites/dialogue_box.png" type="Texture" id=1]
-[ext_resource path="res://UI/MessageBox.gd" type="Script" id=2]
+[ext_resource path="res://UI/Font_New.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://UI/MessageBox.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 2 )
 
 [node name="MessageBox" type="Node2D"]
 position = Vector2( 534.912, 529.13 )
@@ -17,10 +21,11 @@ margin_left = -244.0
 margin_top = -46.0
 margin_right = 245.0
 margin_bottom = 48.0
+custom_fonts/normal_font = SubResource( 1 )
 custom_colors/default_color = Color( 0, 0, 0, 1 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
