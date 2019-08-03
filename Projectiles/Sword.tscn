@@ -7,7 +7,7 @@
 bounce = 10.0
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 9.64896, 42.6611 )
+extents = Vector2( 10.3768, 42.6611 )
 
 [node name="Sword" type="Node2D"]
 

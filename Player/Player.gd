@@ -27,11 +27,27 @@ var mousepos
 var aim_speed = deg2rad(3)
 var sword_s = load("res://Projectiles/Sword.tscn")
 var dialog_s = load("res://UI/MessageBox.tscn")
-var sword_speed = 900
+var sword_speed = 600
 onready var world = get_parent()
-
 var my_weapon = null
 
+var charge_pressed = true
+
+func _on_progress_timeout():
+	if $TextureProgress.value < 100 && Input.is_action_pressed("Charge"):
+		$TextureProgress.value += 5
+	else:
+		$TextureProgress.visible = false
+		sword_speed = sword_speed + 5*$TextureProgress.value
+		can_throw = false
+		has_sword = false
+		$SwordSprite.visible = false
+		$ThrowTimer.start(throw_cooldown)
+		throw_sword()
+		$ChargeTimer.stop()
+		$TextureProgress.value = 0
+		sword_speed = 600
+	
 func knockback(velocity):
 	if (!knock_baking):
 		thrust = knock_thrust
@@ -55,21 +71,28 @@ func return_sword():
 func throw_sword():
 	var direction = Vector2(cos($SwordSprite.get_rotation()), sin($SwordSprite.get_rotation()))
 	var spawn_distance = 150
-	var spawn_point = get_global_position() + direction * spawn_distance
+	var spawn_point = get_global_position() + direction * spawn_distance		
 	var sword = sword_s.instance()
 	var world  = get_parent()
 	world.add_child(sword)
 	sword.set_global_position(spawn_point)
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos($SwordSprite.get_rotation()) * sword_speed, sin($SwordSprite.get_rotation()) * sword_speed))
+	print(sword.get_global_position())
 	my_weapon = sword
+
+	
 	
 func resummon_weapon():
-	var velocity = (get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2
-	my_weapon.get_node('RigidBody2D').linear_velocity = velocity
-	#return_sword()     #SHIT
+	
+	#var velocity = (get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2 		#SHIT WANNABE GOW
+	#my_weapon.get_node('RigidBody2D').linear_velocity = velocity
+	my_weapon.visible = false
+	return_sword()     
 	
 func _ready():
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
+	$ChargeTimer.connect("timeout", self, "_on_progress_timeout")
+	
 
 func _on_throw_timeout():
 	can_throw = true
@@ -88,11 +111,9 @@ func _input(event):
 	
 	if event is InputEventMouseButton:
 		if (event.is_pressed() && event.button_index == BUTTON_LEFT && can_throw && has_sword):
-			can_throw = false
-			has_sword = false
-			$SwordSprite.visible = false
-			$ThrowTimer.start(throw_cooldown)
-			throw_sword()
+			$TextureProgress.visible = true
+			$ChargeTimer.start()
+			
 		elif (event.is_pressed() && event.button_index == BUTTON_RIGHT && !has_sword):
 			resummon_weapon()
 
@@ -128,8 +149,8 @@ func _physics_process(delta):
 	if (hp < 1):
 		die()
 		visible = false
-	#if (!dead && !knock_baking):
-		#axis = direction()
+	if (!dead && !knock_baking):
+		axis = direction()
 	else:
 		axis = Vector2.ZERO
 	
