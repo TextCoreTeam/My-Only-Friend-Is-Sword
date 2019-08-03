@@ -5,6 +5,7 @@ var speed
 var player
 
 func _ready():
+	$Blood.emitting = false
 	player = get_parent().get_parent().get_node("Player")
 	pid = player.get_instance_id()
 	$Timer.connect("timeout", self, "_on_timer_timeout")
@@ -13,8 +14,10 @@ func _ready():
 	speed = rand_range(50, 200)
 	pass
 
-var bullet_s = load("res://Bullet.tscn")
+var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
+	if (!detected):
+		return
 	var bullet_speed = 6
 	var direction = Vector2(cos(get_rotation()), sin(get_rotation()))
 	var spawn_distance = 70
@@ -40,19 +43,37 @@ var can_attack = true
 var collision
 var turn_speed = deg2rad(4)
 
+var dir	# vector difference between player and enemy
+var dst	# distance to player
+
+var detected = false
+const visibility_dst = 300
+const lose_dst = 1500	# Distance at which enemy loses sight of player
+
 func _physics_process(delta):
 	if (hp < 1):
 		player.reward()
 		get_parent().get_parent().enemies -= 1
 		get_parent().get_parent().get_node("GUI/ECount").text = "Enemies: "+str(get_parent().get_parent().enemies)
 		queue_free()
-	var dir = (player.global_position - global_position).normalized()
-	if get_angle_to(player.global_position) > 0:
-    	rotation += turn_speed
-	else:
-    	rotation -= turn_speed
-	collision = move_and_collide(dir * speed * delta)
-	if (collision && can_attack && collision.get_collider().has_method("pdmg")):
-		collision.collider.dmg()
-		can_attack = false
-		$Timer.start()
+	dst = (player.global_position - global_position).length()
+	dir = (player.global_position - global_position).normalized()
+	
+	if (dst <= visibility_dst && !detected):
+		print("Detected player")
+		detected = true
+	
+	if (dst >= lose_dst && detected):
+		print("Lost sight of player")
+		detected = false
+	
+	if (detected):
+		if get_angle_to(player.global_position) > 0:
+    		rotation += turn_speed
+		else:
+    		rotation -= turn_speed
+		collision = move_and_collide(dir * speed * delta)
+		if (collision && can_attack && collision.get_collider().has_method("pdmg")):
+			collision.collider.dmg()
+			can_attack = false
+			$Timer.start()
