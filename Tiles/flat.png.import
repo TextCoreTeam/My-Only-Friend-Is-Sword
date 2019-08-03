@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SkullGuy3.png-b815ab217866fea427d23b29f831903f.stex"
+path="res://.import/flat.png-e39b40d365a3f3794775125bc09a79fb.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NPCs/Sprites/SkullGuy3.png"
-dest_files=[ "res://.import/SkullGuy3.png-b815ab217866fea427d23b29f831903f.stex" ]
+source_file="res://Tiles/flat.png"
+dest_files=[ "res://.import/flat.png-e39b40d365a3f3794775125bc09a79fb.stex" ]
 
 [params]
 

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/SkullGuy4.png-3aab6f989429eaf740b01875d5cbf763.stex"
+path="res://.import/tile_floor.png-be7bbc71e794d3654cc29f284e7ee711.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NPCs/Sprites/SkullGuy4.png"
-dest_files=[ "res://.import/SkullGuy4.png-3aab6f989429eaf740b01875d5cbf763.stex" ]
+source_file="res://Tiles/tile_floor.png"
+dest_files=[ "res://.import/tile_floor.png-be7bbc71e794d3654cc29f284e7ee711.stex" ]
 
 [params]
 
