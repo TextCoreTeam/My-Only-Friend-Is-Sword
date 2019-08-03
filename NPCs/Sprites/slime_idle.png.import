@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/Enemy.png-6eb48a385b8b705d52fa358144d81ff0.stex"
+path="res://.import/slime_idle.png-a3f825e8252d5ffbed918b4a40996dc8.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://NPCs/Sprites/Enemy.png"
-dest_files=[ "res://.import/Enemy.png-6eb48a385b8b705d52fa358144d81ff0.stex" ]
+source_file="res://NPCs/Sprites/slime_idle.png"
+dest_files=[ "res://.import/slime_idle.png-a3f825e8252d5ffbed918b4a40996dc8.stex" ]
 
 [params]
 

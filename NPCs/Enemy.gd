@@ -21,9 +21,9 @@ func _on_takedmg_timeout():
 	can_take_dmg = true
 	$TakeDMGTimer.stop()
 	$Blood.emitting = false
-
+var cscale
 func _ready():
-	var cscale = get_scale()
+	cscale = get_scale()
 	mscale.x = cscale.x
 	mscale.y = cscale.y
 	$Blood.emitting = false
@@ -79,16 +79,18 @@ var detected = false
 var heading_right = true #false->left true->right
 
 func turn_right():
+	print("to the right")
 	if (!heading_right):
 		heading_right = true
 		$Aim.rotation -= turn_speed
-		set_scale(Vector2(mscale.x, mscale.y))
+		set_scale(Vector2(cscale.x, cscale.y))
 
 func turn_left():
+	print("to the left")
 	if (heading_right):
 		heading_right = false
 		$Aim.rotation += turn_speed
-		set_scale(Vector2(-mscale.x, mscale.y))
+		set_scale(Vector2(cscale.x, cscale.y))
 
 var player_in_melee_hitbox = false
 
@@ -103,6 +105,7 @@ func attack_prepare():
 	print("Playing attack animation")
 	$AnimationPlayer.play("attack_lr")
 
+var angle
 func _physics_process(delta):
 	if (hp < 1):
 		player.reward()
@@ -128,7 +131,14 @@ func _physics_process(delta):
 				has_melee_attack):
 			print("Gotcha, fucker!")
 			attack(player)
-		if $Aim.get_angle_to(player.global_position) > 0:
+		angle = rad2deg($Aim.get_angle_to(player.global_position))
+		print(angle)	#90 -> player is above -90 -> player is under enemy
+						#-180 -> player is to the right	0 -> player is to the left
+		if (angle <= 130 && angle >= 30):
+			print("above")
+		elif (angle >= -130 && angle <= -30):
+			print("below")
+		elif (angle <= 30 && angle >= -30):
     		turn_left()
 		else:
     		turn_right()
