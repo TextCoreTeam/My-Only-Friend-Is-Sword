@@ -1,8 +1,15 @@
 extends KinematicBody2D
 
 var motion = Vector2.ZERO
+const thrust_v = 1300
+const speed_max_v = 350
+
 var thrust = 1300
 var speed_max = 350
+
+const knock_thrust = 6000
+const knock_speed_max = 3000
+const knock_resistance = 200
 
 var money = 0
 var hp = 10
@@ -10,14 +17,25 @@ var dead = false
 var resistance_factor = 1
 
 var can_throw = true
+var has_sword = true
 var throw_cooldown = 5
+
+var knock_dir = Vector2.ZERO
+var knock_baking = false
 
 var mousepos
 var aim_speed = deg2rad(3)
-var bullet_s = load("res://Bullet.tscn")
+var sword_s = load("res://Sword.tscn")
 var dialog_s = load("res://MessageBox.tscn")
-var bullet_speed = 10
+var sword_speed = 300
 onready var world = get_parent()
+
+func knockback(velocity):
+	if (!knock_baking):
+		thrust = knock_thrust
+		speed_max = knock_speed_max
+		knock_baking = true
+		knock_dir = velocity.clamped(1) * (-1)
 
 func reward():
 	money += 1
@@ -28,15 +46,19 @@ func dmg():
 	$HPBar.update()
 	hp -= 1
 
-func spawnProjectile():
+func return_sword():
+	has_sword = true
+	$SwordSprite.visible = true
+
+func throw_sword():
 	var direction = Vector2(cos(get_rotation()), sin(get_rotation()))
-	var spawn_distance = 70
+	var spawn_distance = 100
 	var spawn_point = get_global_position() + direction * spawn_distance
-	var bullet = bullet_s.instance()
+	var sword = sword_s.instance()
 	var world  = get_parent()
-	world.add_child(bullet)
-	bullet.set_global_position(spawn_point)
-	bullet.get_node('Bullet_area').velocity = (Vector2(cos(get_rotation()) * bullet_speed, sin(get_rotation()) * bullet_speed))
+	world.add_child(sword)
+	sword.set_global_position(spawn_point)
+	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos(get_rotation()) * sword_speed, sin(get_rotation()) * sword_speed))
 func _ready():
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
 
@@ -56,10 +78,12 @@ func _input(event):
     	rotation -= aim_speed
 	
 	if event is InputEventMouseButton:
-		if (event.is_pressed() && event.button_index == BUTTON_LEFT && can_throw):
+		if (event.is_pressed() && event.button_index == BUTTON_LEFT && can_throw && has_sword):
 			can_throw = false
+			has_sword = false
+			$SwordSprite.visible = false
 			$ThrowTimer.start(throw_cooldown)
-			spawnProjectile()
+			throw_sword()
 
 func do_resistance(amt):
 	if (motion.length() > amt):
@@ -88,17 +112,33 @@ func die():
 		world.add_child(dialog)
 
 var axis
+var collision
 func _physics_process(delta):
 	if (hp < 1):
 		die()
 		visible = false
-	if (!dead):
+	if (!dead && !knock_baking):
 		axis = direction()
 	else:
 		axis = Vector2.ZERO
+	
+	if (knock_baking):
+		axis = knock_dir
+		thrust -= knock_resistance
+		print(str(thrust))
+		if (thrust <= thrust_v):
+			thrust = thrust_v
+			knock_baking = false
+			speed_max = speed_max_v
 	
 	if (axis == Vector2.ZERO):
 		do_resistance(thrust * delta * resistance_factor)
 	else:
 		move(axis * thrust * delta)
 	motion = move_and_slide(motion)
+	
+	collision = move_and_collide(Vector2.ZERO)
+	if (collision):
+		if (collision.get_collider().has_method("pick")):
+			collision.collider.queue_free()
+			return_sword()

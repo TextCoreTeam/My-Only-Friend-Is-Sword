@@ -42,7 +42,7 @@ func spawn_instance_in_world(obj):
 func _ready():
 	randomize()
 	$Timer.connect("timeout", self, "_on_timer_timeout")
-	$Timer.start()
+	$Timer.stop()
 	var i = 0
 	while (i < boxes):
 		spawn_instance_in_world(box_s.instance())
