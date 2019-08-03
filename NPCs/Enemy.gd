@@ -1,9 +1,17 @@
 extends KinematicBody2D
 
-var hp = 2
+var hp
 var speed
 var player
 var can_take_dmg = true
+
+var bullet_speed
+
+var visibility_dst
+var lose_dst	# Distance at which enemy loses sight of player
+
+var has_range_attack
+var has_melee_attack
 
 func _on_takedmg_timeout():
 	can_take_dmg = true
@@ -18,14 +26,12 @@ func _ready():
 	$Timer.connect("timeout", self, "_on_timer_timeout")
 	$ShootTimer.connect("timeout", self, "_on_shoot_timeout")
 	$ShootTimer.start()
-	speed = rand_range(50, 200)
 	pass
 
 var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
-	if (!detected):
+	if (!detected || !has_range_attack):
 		return
-	var bullet_speed = 6
 	var direction = Vector2(cos($Aim.get_rotation()), sin($Aim.get_rotation()))
 	var spawn_distance = 70
 	var spawn_point = get_global_position() + direction * spawn_distance
@@ -61,8 +67,6 @@ var dir	# vector difference between player and enemy
 var dst	# distance to player
 
 var detected = false
-const visibility_dst = 300
-const lose_dst = 1500	# Distance at which enemy loses sight of player
 
 func _physics_process(delta):
 	if (hp < 1):
@@ -87,7 +91,7 @@ func _physics_process(delta):
 		else:
     		$Aim.rotation -= turn_speed
 		collision = move_and_collide(dir * speed * delta)
-		if (collision && can_attack && collision.get_collider().has_method("pdmg")):
+		if (has_melee_attack && collision && can_attack && collision.get_collider().has_method("pdmg")):
 			collision.collider.dmg()
 			can_attack = false
 			$Timer.start()
