@@ -3,12 +3,12 @@ extends RigidBody2D
 var on_floor = false
 var bouncing = false
 var bounce_timeout = 0.5
-var speed_cap = Vector2(5, 5)
-
-	
+var speed_cap = Vector2(1, 1)
 
 # Called when the node enters the scene tree for the first time.
+var player
 func _ready():
+	player = get_parent().get_parent().get_node("Player")
 	$BounceTimer.connect("timeout", self, "_on_bounce_timeout")
 	
 	
@@ -21,19 +21,23 @@ func _on_bounce_timeout():
 func drop():
 	mode = MODE_STATIC
 	on_floor = true
-	print("Sword dropped")
+	print("Bruh moment")
+	queue_free()
 
 func pick():
 	pass
 	
 	# Upgrade fucking sword
+var fire_upgrade = 3
 func upgrade(upgrade):
 	if upgrade == "f":   # Fire upgrade
-		linear_velocity.x += 600	
+		linear_velocity *= fire_upgrade
 
 func _physics_process(delta):
 	if (abs(linear_velocity.x) < abs(speed_cap.x) || abs(linear_velocity.y) < abs(speed_cap.y) && !on_floor && !bouncing):
 		drop()
+	if (bouncing):
+		linear_velocity = (player.get_global_position() - get_global_position()).normalized() * player.sword_speed
 
 func _on_RigidBody2D_body_entered(body):
 

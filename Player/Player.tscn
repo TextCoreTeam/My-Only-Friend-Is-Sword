@@ -67,7 +67,7 @@ texture_progress = ExtResource( 7 )
 nine_patch_stretch = true
 
 [node name="ChargeTimer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.03
 
 [node name="MousePtr" type="Sprite" parent="."]
 visible = false

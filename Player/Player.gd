@@ -25,7 +25,6 @@ var knock_baking = false
 var mousepos
 var aim_speed = deg2rad(3)
 var sword_s = load("res://Projectiles/Sword.tscn")
-var dialog_s = load("res://UI/MessageBox.tscn")
 var sword_speed = 600
 onready var world = get_parent()
 var my_weapon = null
@@ -37,7 +36,7 @@ func _on_progress_timeout():
 		$TextureProgress.value += 2.5
 	else:
 		$TextureProgress.visible = false
-		sword_speed = sword_speed + 5*$TextureProgress.value
+		sword_speed = sword_speed + 5 * $TextureProgress.value
 		can_throw = false
 		has_sword = false
 		$SwordSprite.visible = false
@@ -83,8 +82,7 @@ func throw_sword():
 	
 	
 func resummon_weapon():
-	#var velocity = (get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2 		#SHIT WANNABE GOW
-	#my_weapon.get_node('RigidBody2D').linear_velocity = velocity
+	#my_weapon.get_node('RigidBody2D').linear_velocity = (player.get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2
 	return_sword()     
 	
 func _ready():
@@ -167,11 +165,7 @@ func die():
 	if (!dead):
 		get_parent().get_node("Timer").stop()
 		dead = true
-		var dialog = dialog_s.instance()
-		dialog.get_node("RichTextLabel").dialog_text = "You died bruh"
-		dialog.get_node("RichTextLabel").init()
-		var overlay  = get_parent().get_node("GUI")
-		overlay.add_child(dialog)
+		# Call showmsg map method
 
 var axis = Vector2.ZERO
 var collision

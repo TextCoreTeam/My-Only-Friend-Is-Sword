@@ -3,7 +3,6 @@ extends RichTextLabel
 var delta_time = 0
 export var speed = 0.1
 export(String, MULTILINE) var dialog_text = ""
-export var confirm_action = "ui_accept"
 var current_page = 0
 var pages = []
 
@@ -37,7 +36,7 @@ func text_update():
 		visible_characters = visible_characters + 1
 
 func _input(event):
-	if(event.is_action_released(confirm_action)):
+	if(event.is_pressed() && event.button_index == BUTTON_LEFT):
 		if(visible_characters == text.length()):
 			text_advance()
 		else:
