@@ -69,7 +69,7 @@ func return_sword():
 var sword_knock_thrust = 3000
 var sword_knock_speed_max = 3000
 func throw_sword():
-	var rot = $SwordSprite.get_rotation()
+	var rot = $MousePtr.get_rotation()
 	var direction = Vector2(cos(rot), sin(rot))
 	var spawn_point = get_global_position() + direction * sword_spawn_distance		
 	var sword = sword_s.instance()
@@ -133,7 +133,7 @@ func _input(event):
 	mousepos = get_global_mouse_position()
 	mouse_angle = rad2deg($MousePtr.get_angle_to(mousepos))
 	print(mouse_angle)
-	if (mouse_angle < 90 && mouse_angle > -90):
+	if (mousepos.x>self.global_position.x):
     	turn_right()
 	else:
     	turn_left()
