@@ -75,218 +75,272 @@ position = Vector2( 248.321, 899.759 )
 scale = Vector2( -2.2204, 3.40884 )
 
 [node name="Death_zone8" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 245.866, 1457.15 )
 scale = Vector2( -2.2204, 3.40884 )
 
 [node name="Death_zone9" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 185.707, 1416.63 )
 scale = Vector2( 3.06707, 1.36008 )
 
 [node name="Death_zone10" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 706.266, 1770.22 )
 scale = Vector2( 1.60788, -3.31239 )
 
 [node name="Death_zone13" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 819.391, 1564.02 )
 scale = Vector2( 9.10187, 3.19345 )
 
 [node name="Death_zone14" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 819.391, 1564.02 )
 scale = Vector2( 9.10187, 3.19345 )
 
 [node name="Death_zone48" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1023.88, 886.943 )
 scale = Vector2( 9.10187, 3.19345 )
 
 [node name="Death_zone49" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2259.88, 850.212 )
 scale = Vector2( 9.10187, 3.19345 )
 
 [node name="Death_zone50" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2137.19, 814.237 )
 scale = Vector2( 9.10187, 3.19345 )
 
 [node name="Death_zone51" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1978.14, 786.972 )
 scale = Vector2( 9.10187, 3.19345 )
 
 [node name="Death_zone52" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1978.14, 786.972 )
 scale = Vector2( 9.10187, 3.19345 )
 
 [node name="Death_zone40" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1100.22, 1156.47 )
 scale = Vector2( 3.96892, 9.2386 )
 
 [node name="Death_zone12" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 980.759, 2062.17 )
 scale = Vector2( 5.20663, -1.73897 )
 
 [node name="Death_zone42" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2047.04, 2079.44 )
 scale = Vector2( 5.20663, -1.73897 )
 
 [node name="Death_zone43" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1706, 2295.28 )
 scale = Vector2( 5.20663, -1.73897 )
 
 [node name="Death_zone44" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1539.8, 2457.17 )
 scale = Vector2( 5.20663, -1.73897 )
 
 [node name="Death_zone45" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2696.74, 2329.82 )
 scale = Vector2( 5.20663, -1.73897 )
 
 [node name="Death_zone15" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1050.48, 2560.45 )
 scale = Vector2( 5.20663, -1.73897 )
 
 [node name="Death_zone35" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1468.39, 3089.13 )
 scale = Vector2( 16.3561, -1.73897 )
 
 [node name="Death_zone16" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( -170.241, 2808.46 )
 scale = Vector2( 16.0163, -18.224 )
 
 [node name="Death_zone11" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 462.315, 2119.02 )
 scale = Vector2( 1.60788, -3.31239 )
 
 [node name="Death_zone38" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 194.212, 2128.11 )
 scale = Vector2( 1.60788, -3.31239 )
 
 [node name="Death_zone39" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 169.219, 2007.69 )
 scale = Vector2( 1.60788, -3.31239 )
 
 [node name="Death_zone37" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 599.944, 1981.39 )
 scale = Vector2( 1.60788, -3.31239 )
 
 [node name="Death_zone21" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2770.11, 2130.48 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone53" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2578.48, 1388.68 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone54" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2575.39, 1033.23 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone55" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2498.12, 940.502 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone56" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2461.03, 909.593 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone57" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2393.03, 875.594 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone59" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1521.41, 779.777 )
 scale = Vector2( 2.65426, -2.92627 )
 
 [node name="Death_zone60" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1521.41, 779.777 )
 scale = Vector2( 2.65426, -2.92627 )
 
 [node name="Death_zone46" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2511.51, 2180.54 )
 scale = Vector2( 0.695698, -2.67395 )
 
 [node name="Death_zone47" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2564.49, 2280.05 )
 scale = Vector2( 2.0119, -0.673942 )
 
 [node name="Death_zone28" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1884.05, 2606.53 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone31" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1962.2, 2752.33 )
 scale = Vector2( 0.781972, -1.91165 )
 
 [node name="Death_zone36" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1697.01, 3062.94 )
 scale = Vector2( 2.8618, -2.27705 )
 
 [node name="Death_zone32" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1906.21, 2718.5 )
 scale = Vector2( 0.781972, -1.91165 )
 
 [node name="Death_zone33" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1835.06, 2556.38 )
 scale = Vector2( 0.781972, -1.91165 )
 
 [node name="Death_zone34" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1867.72, 2498.06 )
 scale = Vector2( 0.781972, -1.91165 )
 
 [node name="Death_zone29" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1810.57, 2468.91 )
 scale = Vector2( 1.32788, -3.31239 )
 
 [node name="Death_zone30" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 626.18, 2141.35 )
 scale = Vector2( 2.6509, -2.72957 )
 
 [node name="Death_zone27" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1360.3, 2535.94 )
 scale = Vector2( 2.80866, -3.31239 )
 
 [node name="Death_zone22" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2648.01, 1968.38 )
 scale = Vector2( 4.52788, -1.03239 )
 
 [node name="Death_zone25" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2614.85, 1721.18 )
 scale = Vector2( 0.477524, -2.83474 )
 
 [node name="Death_zone26" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1211.3, 1543.01 )
 scale = Vector2( 3.03752, -3.87474 )
 
 [node name="Death_zone61" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1211.3, 1543.01 )
 scale = Vector2( 3.03752, -3.87474 )
 
 [node name="Death_zone24" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2414.37, 1906.58 )
 scale = Vector2( 4.52788, -4.79238 )
 
 [node name="Death_zone41" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1479.41, 1865.48 )
 scale = Vector2( 16.8168, -4.79238 )
 
 [node name="Death_zone23" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2617.48, 2042.06 )
 scale = Vector2( 4.19184, 1.13465 )
 
 [node name="Death_zone17" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 722.269, 2970.14 )
 scale = Vector2( 4.32788, -9.81838 )
 
 [node name="Death_zone18" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1058.18, 3407.46 )
 scale = Vector2( 46.6879, -9.81838 )
 
 [node name="Death_zone19" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1179.61, 496.688 )
 scale = Vector2( 46.3559, -10.5787 )
 
 [node name="Death_zone58" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 1179.61, 496.688 )
 scale = Vector2( 46.3559, -10.5787 )
 
 [node name="Death_zone20" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
 position = Vector2( 2761.95, 1042.97 )
 scale = Vector2( 13.4174, -19.3701 )
 
