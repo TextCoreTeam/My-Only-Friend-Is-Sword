@@ -65,7 +65,7 @@ func dmg(amt):
 
 func return_sword():
 	has_sword = true
-	$SwordSprite.visible = true
+	#$SwordSprite.visible = true
 
 var sword_knock_thrust = 3000	#knockback on sword throw
 var sword_knock_speed_max = 3000
@@ -157,7 +157,7 @@ func _input(event):
 			
 		elif (can_throw &&	#kuldaun ne tolko na brosok, no i na vozvrat
 		event.is_pressed() &&
-		event.button_index == BUTTON_RIGHT &&
+		event.button_index == BUTTON_LEFT &&
 		!has_sword):
 			resummon_weapon()
 

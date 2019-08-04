@@ -1,10 +1,54 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Projectiles/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://Projectiles/Sprites/bullets.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7.6056, 8.98684 )
+
+[sub_resource type="ParticlesMaterial" id=2]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+gravity = Vector3( 0, -100, 0 )
+angular_velocity = 50.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 1.0
+radial_accel = -10.0
+scale = 3.0
+scale_random = 1.0
+color = Color( 0.976471, 0, 0.117647, 1 )
+
+[sub_resource type="ParticlesMaterial" id=3]
+emission_shape = 1
+emission_sphere_radius = 4.5
+flag_disable_z = true
+gravity = Vector3( 0, -75, 0 )
+initial_velocity_random = 1.0
+angular_velocity = 388.96
+angular_velocity_random = 0.66
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+linear_accel = 12.65
+linear_accel_random = 0.07
+damping = 1.0
+damping_random = 0.23
+scale = 2.2
+scale_random = 1.0
+color = Color( 1, 0.607843, 0, 1 )
+
+[sub_resource type="ParticlesMaterial" id=4]
+emission_shape = 1
+emission_sphere_radius = 3.0
+flag_disable_z = true
+gravity = Vector3( 0, -100, 0 )
+angular_velocity = 0.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+
+[sub_resource type="CircleShape2D" id=5]
 
 [node name="Bullet" type="Node2D"]
 __meta__ = {
@@ -26,3 +70,34 @@ hframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_area"]
 position = Vector2( -0.85437, 0.142395 )
 shape = SubResource( 1 )
+
+[node name="Fire" type="Area2D" parent="Bullet_area"]
+
+[node name="Krasnovataya" type="Particles2D" parent="Bullet_area/Fire"]
+amount = 150
+lifetime = 0.8
+process_material = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="Zheltovataya" type="Particles2D" parent="Bullet_area/Fire"]
+amount = 150
+lifetime = 0.5
+speed_scale = 1.1
+explosiveness = 0.07
+randomness = 1.0
+process_material = SubResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
+
+[node name="KusokBelixPartiklov" type="Particles2D" parent="Bullet_area/Fire"]
+position = Vector2( -0.247023, 1.14493 )
+amount = 75
+lifetime = 0.2
+process_material = SubResource( 4 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_area/Fire"]
+visible = false
+shape = SubResource( 5 )
