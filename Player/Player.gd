@@ -77,17 +77,14 @@ func throw_sword():
 	world.add_child(sword)
 	sword.set_global_position(spawn_point)
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos(rot) * sword_speed, sin(rot) * sword_speed))
-	print(sword.get_global_position())
 	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust)
 	my_weapon = sword
 
 	
 	
 func resummon_weapon():
-	
 	#var velocity = (get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2 		#SHIT WANNABE GOW
 	#my_weapon.get_node('RigidBody2D').linear_velocity = velocity
-	my_weapon.visible = false
 	return_sword()     
 	
 func _ready():
@@ -106,22 +103,24 @@ func flip():
 	if (!flipped):
 		flipped = true
 		$Sprite.flip_h = true
+		$SwordSprite.flip_h = true
 		$SwordSprite.position = Vector2(-28, 13) #TODO pridumat kak flipat ego bez etoy xuini
 	else:
 		flipped = false
 		scale.x = start_scale.x
 		$Sprite.flip_h = false
+		$SwordSprite.flip_h = false
 		$SwordSprite.position = Vector2(26, 13)
 
 func turn_right():
-	$MousePtr.rotation += aim_speed
-	$SwordSprite.rotation += aim_speed
+	$MousePtr.look_at(mousepos)
+	$SwordSprite.look_at(mousepos)
 	if (flipped):
 		flip()
 	
 func turn_left():
-	$MousePtr.rotation -= aim_speed
-	$SwordSprite.rotation -= aim_speed
+	$MousePtr.look_at(mousepos)
+	$SwordSprite.look_at(mousepos)
 	if (!flipped):
 		flip()
 
@@ -132,8 +131,7 @@ var mouse_angle
 func _input(event):
 	mousepos = get_global_mouse_position()
 	mouse_angle = rad2deg($MousePtr.get_angle_to(mousepos))
-	print(mouse_angle)
-	if (mousepos.x>self.global_position.x):
+	if (mousepos.x > self.global_position.x):
     	turn_right()
 	else:
     	turn_left()

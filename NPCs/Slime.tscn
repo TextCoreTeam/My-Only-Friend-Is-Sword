@@ -127,7 +127,10 @@ autostart = true
 
 [node name="Blood" parent="KinematicBody2D" instance=ExtResource( 5 )]
 position = Vector2( -20.3848, 27.7975 )
+lifetime = 3.5
+one_shot = true
 explosiveness = 0.77
+local_coords = true
 
 [node name="TakeDMGTimer" type="Timer" parent="KinematicBody2D"]
 process_mode = 0

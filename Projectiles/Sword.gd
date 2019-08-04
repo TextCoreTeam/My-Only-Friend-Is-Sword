@@ -32,7 +32,7 @@ func upgrade(upgrade):
 		linear_velocity.x += 600	
 
 func _physics_process(delta):
-	if (abs(linear_velocity.x) < abs(speed_cap.x) && abs(linear_velocity.x) < abs(speed_cap.x) && !on_floor && !bouncing):
+	if (abs(linear_velocity.x) < abs(speed_cap.x) || abs(linear_velocity.y) < abs(speed_cap.y) && !on_floor && !bouncing):
 		drop()
 
 func _on_RigidBody2D_body_entered(body):

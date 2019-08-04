@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprites/p_alt.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://Projectiles/Sprites/sword.png" type="Texture" id=5]
 [ext_resource path="res://UI/Sprites/white.png" type="Texture" id=6]
 [ext_resource path="res://UI/Sprites/green.png" type="Texture" id=7]
+[ext_resource path="res://UI/Sprites/btn_hover.png" type="Texture" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.5484, 35.0977 )
@@ -52,7 +53,6 @@ wait_time = 3.0
 
 [node name="SwordSprite" type="Sprite" parent="."]
 position = Vector2( 26, 13 )
-rotation = 3.14159
 texture = ExtResource( 5 )
 offset = Vector2( 0, -36.89 )
 
@@ -70,3 +70,8 @@ nine_patch_stretch = true
 wait_time = 0.05
 
 [node name="MousePtr" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, 0.340576 )
+scale = Vector2( 1, 0.128161 )
+texture = ExtResource( 8 )
+offset = Vector2( 70.5, 0 )
