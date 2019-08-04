@@ -185,8 +185,10 @@ func direction():
 
 func die():
 	if (!dead):
-		get_parent().get_node("Timer").stop()
 		dead = true
+		get_tree().change_scene("res://UI/Menu.tscn")
+		
+		
 		# Call showmsg map method
 
 var axis = Vector2.ZERO

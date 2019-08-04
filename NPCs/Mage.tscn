@@ -10,7 +10,6 @@
 [sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
 length = 2.0
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("WalkAnimLR:frame")
 tracks/0/interp = 1

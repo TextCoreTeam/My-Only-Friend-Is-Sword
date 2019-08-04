@@ -8,3 +8,4 @@ func _ready():
 func _on_Fire_body_entered(body):
 	if (body.has_method("upgrade")):
 		body.upgrade("f")   #Fire upgrade
+	

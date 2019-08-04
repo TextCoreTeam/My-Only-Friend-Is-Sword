@@ -5,6 +5,9 @@ var fire = load("res://Objects/Fire.tscn")
 var mage = load("res://NPCs/Mage.tscn")
 var iceg = load("res://NPCs/Golem.tscn")
 var slime = load("res://NPCs/Slime.tscn")
+var msg_s = load("res://UI/MessageBox.tscn")
+var overlay
+
 #var shade = load("res://NPCs/Shadow.tscn")
 
 const WSX = -2000	#World min x
@@ -44,3 +47,9 @@ func _ready():
 	spawn_instances_in_world(mage, 10)
 	spawn_instances_in_world(slime, 17)
 	
+func show_msg(msg_str):		# Messagebox. Text can be split in pages using ";" razdelitel epta
+							# Podtverzhdenie na klik mishki
+	var dialog = msg_s.instance()
+	dialog.get_node("RichTextLabel").dialog_text = msg_str
+	dialog.get_node("RichTextLabel").init()
+	overlay.add_child(dialog)	

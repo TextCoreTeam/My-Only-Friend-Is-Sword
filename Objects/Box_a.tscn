@@ -1,24 +1,22 @@
 [gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://Objects/Box.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Box_a.gd" type="Script" id=1]
 [ext_resource path="res://Objects/Sprites/box_anim.png" type="Texture" id=2]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 30, 30 )
 
-[node name="Box_a" type="Node2D"]
-
-[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
-position = Vector2( 20, 0 )
+[node name="Death_zone" type="Area2D"]
 script = ExtResource( 1 )
-__meta__ = {
-"_edit_group_": true
-}
 
-[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 20, 0 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 hframes = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 20, 0 )
 shape = SubResource( 1 )
+[connection signal="area_entered" from="." to="." method="_on_Death_zone_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_Death_zone_body_entered"]
