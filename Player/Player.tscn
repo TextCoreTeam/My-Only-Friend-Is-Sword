@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/Sprites/p_alt.png" type="Texture" id=2]
+[ext_resource path="res://Player/Sprites/mc.png" type="Texture" id=2]
 [ext_resource path="res://UI/Sprites/progress_back.png" type="Texture" id=3]
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=4]
 [ext_resource path="res://Projectiles/Sprites/sword.png" type="Texture" id=5]
@@ -11,7 +11,7 @@
 [ext_resource path="res://Player/MousePtr.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 51.5484, 35.0977 )
+extents = Vector2( 51.5484, 31.6859 )
 
 [sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 86.915, 36.418 )
