@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprites/mc.png" type="Texture" id=2]
@@ -9,6 +9,7 @@
 [ext_resource path="res://UI/Sprites/green.png" type="Texture" id=7]
 [ext_resource path="res://UI/Sprites/btn_hover.png" type="Texture" id=8]
 [ext_resource path="res://Player/MousePtr.gd" type="Script" id=9]
+[ext_resource path="res://UI/Sprites/blue.png" type="Texture" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.5484, 31.6859 )
@@ -124,6 +125,21 @@ shape = SubResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="RetractBar" type="TextureProgress" parent="."]
+visible = false
+margin_left = -38.0
+margin_top = -62.0
+margin_right = 37.0
+margin_bottom = -53.0
+max_value = 2.0
+step = 0.1
+texture_under = ExtResource( 6 )
+texture_progress = ExtResource( 10 )
+nine_patch_stretch = true
+
+[node name="RetractTimer" type="Timer" parent="."]
+wait_time = 0.5
 [connection signal="area_entered" from="AimUp" to="." method="_on_AimUp_area_entered"]
 [connection signal="area_exited" from="AimUp" to="." method="_on_AimUp_area_exited"]
 [connection signal="area_entered" from="AimDown" to="." method="_on_AimDown_area_entered"]

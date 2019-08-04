@@ -15,7 +15,7 @@ __meta__ = {
 
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0
-wait_time = 5.0
+wait_time = 25.0
 autostart = true
 
 [node name="GUI" parent="." instance=ExtResource( 2 )]
@@ -33,3 +33,4 @@ position = Vector2( 420.8, 1091.08 )
 
 [node name="Enemy" parent="." instance=ExtResource( 5 )]
 position = Vector2( -1087.34, 564.625 )
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -19,7 +19,7 @@ var resistance_factor = 1
 
 var can_throw = true
 var has_sword = true
-var throw_cooldown = 1
+var throw_cooldown = 2
 
 var knock_dir = Vector2.ZERO
 var knock_baking = false
@@ -42,8 +42,8 @@ func _on_progress_timeout():
 		can_throw = false
 		has_sword = false
 		$SwordSprite.visible = false
-		$ThrowTimer.start(throw_cooldown)
 		throw_sword()
+		$ThrowTimer.start(throw_cooldown)
 		$ChargeTimer.stop()
 		$TextureProgress.value = 0
 		sword_speed = 600
@@ -99,6 +99,9 @@ func throw_sword():
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos(rot) * sword_speed, sin(rot) * sword_speed))
 	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust)
 	my_weapon = sword
+	$RetractTimer.start(0.1)
+	$RetractBar.visible = true
+	
 
 	
 	
@@ -110,9 +113,19 @@ func resummon_weapon():
 	
 func _ready():
 	start_scale = scale
+	$RetractTimer.connect("timeout", self, "_on_retract_timeout")
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
 	$ChargeTimer.connect("timeout", self, "_on_progress_timeout")
 	
+
+func _on_retract_timeout():
+	$RetractBar.value += 0.1
+	if ($RetractBar.value >= $RetractBar.max_value):
+		$RetractTimer.stop()
+		$RetractBar.visible = false
+		$RetractBar.value = 0
+		if (!has_sword):
+			resummon_weapon()
 
 func _on_throw_timeout():
 	can_throw = true

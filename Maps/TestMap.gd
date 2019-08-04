@@ -53,3 +53,9 @@ func show_msg(msg_str):		# Messagebox. Text can be split in pages using ";" razd
 	dialog.get_node("RichTextLabel").dialog_text = msg_str
 	dialog.get_node("RichTextLabel").init()
 	overlay.add_child(dialog)	
+
+func _on_Timer_timeout():
+	if (objects.size() < 35):
+		spawn_instance_in_world(iceg)
+		spawn_instances_in_world(slime, 4)
+		spawn_instances_in_world(mage, 5)
