@@ -23,7 +23,11 @@ func _on_takedmg_timeout():
 	can_take_dmg = true
 	$TakeDMGTimer.stop()
 	$Blood.emitting = false
+var start_scale
+var player_ptr
 func _ready():
+	player_ptr = get_parent().get_node("PlayerPtr")
+	start_scale = scale
 	$Blood.emitting = false
 	player = get_parent().get_parent().get_node("Player")
 	pid = player.get_instance_id()
@@ -36,8 +40,8 @@ var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
 	if (!detected || !has_range_attack):
 		return
-	var rot = $Aim.get_rotation()
-	var direction = Vector2(cos(rot), sin(rot))
+	var rot = player_ptr.rotation
+	var direction = (player.global_position - global_position).normalized()
 	var spawn_distance = 70
 	var spawn_point = get_global_position() + direction * spawn_distance
 	var bullet = bullet_s.instance()
@@ -45,7 +49,7 @@ func _on_shoot_timeout():
 	bullet.get_node("Bullet_area/Sprite").frame = bullet_type
 	world.add_child(bullet)
 	bullet.set_global_position(spawn_point)
-	bullet.get_node('Bullet_area').velocity = (Vector2(cos(rot) * bullet_speed, sin(rot) * bullet_speed))
+	bullet.get_node('Bullet_area').velocity = (Vector2(direction.x * bullet_speed, direction.y * bullet_speed))
 	pass
 
 func _on_AttackCooldown_timeout():
@@ -79,17 +83,19 @@ var heading_right = true #false->left true->right
 
 func turn_right():
 	if (!heading_right):
+		print("Turned right")
 		player_above = -1
 		heading_right = true
-		scale.x = 1
-		$Aim.flip_h = false
+		scale.x *= -1
+		$Aim.scale.x *= -1
 	
 func turn_left():
 	if (heading_right):
+		print("Turned left")
 		player_above = -1
 		heading_right = false
-		scale.x = -1
-		$Aim.flip_h = true
+		scale.x = -start_scale.x
+		$Aim.scale.x = -start_scale.x
 
 var player_in_melee_hitbox = false
 
@@ -126,10 +132,7 @@ func _physics_process(delta):
 		detected = false
 	
 	if (detected):
-		if $Aim.get_angle_to(player.global_position) > 0:
-			$Aim.rotation += turn_speed
-		else:
-    		$Aim.rotation -= turn_speed
+		player_ptr.look_at(player.global_position)
 		if (!moving && !attack_in_progress):
 			$WalkAnimLR.visible = true
 			$AnimationPlayer.play("walk_lr")
@@ -145,11 +148,12 @@ func _physics_process(delta):
 		angle = rad2deg($PAim.get_angle_to(player.global_position))
 						#90 -> player is above -90 -> player is under enemy
 						#-180 -> player is to the right	0 -> player is to the left
-		if (angle <= 130 && angle >= 30):
-			player_above = 0
-		elif (angle >= -130 && angle <= -30):
-			player_above = 1
-		elif (angle <= 30 && angle >= -30):
+		#if (angle <= 130 && angle >= 30):
+		#	player_above = 0
+		#elif (angle >= -130 && angle <= -30):
+		#	player_above = 1
+		#el
+		if (global_position.x > player.global_position.x):
     		turn_left()
 		else:
     		turn_right()

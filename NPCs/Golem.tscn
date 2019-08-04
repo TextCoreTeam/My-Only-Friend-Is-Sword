@@ -72,6 +72,8 @@ extents = Vector2( 116.205, 136.109 )
 [node name="Enemy" type="Node2D"]
 position = Vector2( 3.38, 0 )
 
+[node name="PlayerPtr" type="Sprite" parent="."]
+
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 position = Vector2( 24.9999, -23.9999 )
 script = ExtResource( 1 )
@@ -117,9 +119,6 @@ position = Vector2( -39.6195, 21.765 )
 rotation = 4.71239
 scale = Vector2( 5, 4.5 )
 shape = SubResource( 5 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 3.0
@@ -150,9 +149,6 @@ scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 7 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
 visible = false
@@ -172,8 +168,7 @@ __meta__ = {
 
 [node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
 __meta__ = {
-"_edit_group_": true,
-"_edit_lock_": true
+"_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeZone"]

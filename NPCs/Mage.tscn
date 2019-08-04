@@ -7,10 +7,9 @@
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
 [ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
 
-[sub_resource type="Animation" id=5]
+[sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
 length = 1.4
-loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("WalkAnimLR:frame")
 tracks/0/interp = 1
@@ -24,8 +23,7 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="Animation" id=1]
-resource_name = "idle"
+[sub_resource type="Animation" id=2]
 length = 1.4
 loop = true
 tracks/0/type = "value"
@@ -41,17 +39,19 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3 ]
 }
 
-[sub_resource type="RectangleShape2D" id=2]
+[sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 11.8132, 8.75723 )
 
-[sub_resource type="RectangleShape2D" id=3]
+[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 76.4933, 89.7904 )
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 96.5621, 113.579 )
 
 [node name="Enemy" type="Node2D"]
 position = Vector2( 3.38, 0 )
+
+[node name="PlayerPtr" type="Sprite" parent="."]
 
 [node name="KinematicBody2D" type="KinematicBody2D" parent="."]
 position = Vector2( 24.9999, -23.9999 )
@@ -61,43 +61,43 @@ script = ExtResource( 1 )
 process_mode = 0
 
 [node name="Constants" type="Sprite" parent="KinematicBody2D"]
+position = Vector2( 32.5716, -25.0246 )
 script = ExtResource( 2 )
 
 [node name="DeathAnim" type="Sprite" parent="KinematicBody2D"]
 visible = false
+position = Vector2( 32.5716, -25.0246 )
 
 [node name="AttackAnimLR" type="Sprite" parent="KinematicBody2D"]
-visible = false
-position = Vector2( -23.3192, 25.21 )
+position = Vector2( 9.25243, 0.185448 )
 texture = ExtResource( 3 )
 hframes = 4
 
 [node name="WalkAnimLR" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( -24.1097, 23.9749 )
+position = Vector2( 8.46193, -1.04965 )
 texture = ExtResource( 3 )
 hframes = 4
 frame = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
-autoplay = "idle"
+autoplay = "walk_lr"
 playback_process_mode = 0
 playback_speed = 1.6
-anims/attack_lr = SubResource( 5 )
-anims/idle = SubResource( 1 )
+anims/attack_lr = SubResource( 1 )
+anims/walk_lr = SubResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="KinematicBody2D"]
-visible = false
-position = Vector2( -32.2555, 26.9728 )
+position = Vector2( 0.316139, 1.94825 )
 rotation = 4.71239
 scale = Vector2( 5, 4.5 )
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 3.0
 autostart = true
 
 [node name="Blood" parent="KinematicBody2D" instance=ExtResource( 4 )]
-position = Vector2( -25.596, 13.6512 )
+position = Vector2( -1.23785, -0.59314 )
 lifetime = 3.0
 one_shot = true
 explosiveness = 0.77
@@ -107,45 +107,39 @@ local_coords = true
 process_mode = 0
 
 [node name="Aim" type="Sprite" parent="KinematicBody2D"]
-visible = false
-position = Vector2( -0.33174, 12.2733 )
-rotation = 3.14159
+position = Vector2( 0.946625, -4.80655 )
 scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 5 )
+offset = Vector2( 0, -22.85 )
 
 [node name="PAim" type="Sprite" parent="KinematicBody2D"]
-visible = false
-position = Vector2( -0.33174, 12.2733 )
-rotation = 3.14159
+position = Vector2( 32.2399, -12.7513 )
 scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 5 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
-visible = false
+editor/display_folded = true
+position = Vector2( 32.5716, -25.0246 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
-visible = false
 position = Vector2( 60.144, 22.4421 )
 scale = Vector2( 0.521859, 4.05147 )
 texture = ExtResource( 6 )
-__meta__ = {
-"_edit_lock_": true
-}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
 position = Vector2( -28.6952, 22.7366 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
-visible = false
-position = Vector2( -29.4036, 4.64268 )
+editor/display_folded = true
+position = Vector2( 3.16805, -20.3819 )
 __meta__ = {
 "_edit_group_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeZone"]
 position = Vector2( 20.1025, 17.1216 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]

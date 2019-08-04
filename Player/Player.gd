@@ -1,5 +1,7 @@
 extends KinematicBody2D
 
+var can_walk = false
+
 var motion = Vector2.ZERO
 const thrust_v = 1300
 const speed_max_v = 350
@@ -183,13 +185,14 @@ func die():
 
 var axis = Vector2.ZERO
 var collision
+
 func _physics_process(delta):
 	if (hp < 1):
 		die()
 		visible = false
 	if (!dead && !knock_baking):
 		axis = direction()
-	if (!knock_baking):
+	if (!knock_baking && !can_walk):
 		axis = Vector2.ZERO
 	
 	if (knock_baking):
