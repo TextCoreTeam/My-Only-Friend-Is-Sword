@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://UI/Theme.tres" type="Theme" id=1]
+[ext_resource path="res://UI/Death.gd" type="Script" id=2]
+
+[node name="Death" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+theme = ExtResource( 1 )
+script = ExtResource( 2 )
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MenuCol" type="VBoxContainer" parent="CenterContainer"]
+margin_left = 451.0
+margin_top = 265.0
+margin_right = 573.0
+margin_bottom = 335.0
+custom_constants/separation = 30
+
+[node name="Title" type="Label" parent="CenterContainer/MenuCol"]
+margin_right = 122.0
+margin_bottom = 20.0
+text = "You Died"
+align = 1
+
+[node name="GameBtnContainer" type="CenterContainer" parent="CenterContainer/MenuCol"]
+margin_top = 50.0
+margin_right = 122.0
+margin_bottom = 70.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MenuCol/GameBtnContainer"]
+margin_right = 122.0
+margin_bottom = 20.0
+custom_constants/separation = 35
+
+[node name="NewGameBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer"]
+margin_right = 50.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Again"
+
+[node name="ContinueBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer"]
+margin_left = 85.0
+margin_right = 122.0
+margin_bottom = 20.0
+focus_mode = 0
+enabled_focus_mode = 0
+text = "Quit"
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 505, 310 )
+current = true
+zoom = Vector2( 0.5, 0.5 )
+[connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer/NewGameBtn" to="." method="_on_NewGameBtn_pressed"]
+[connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer/ContinueBtn" to="." method="_on_ContinueBtn_pressed"]

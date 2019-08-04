@@ -6,6 +6,9 @@ var name_str	# Map name
 #var overlay
 var msg_s = load("res://UI/MessageBox.tscn")
 
+func update_score(points):
+	$GUI/score.text = "Score: " + str(points)
+
 func show_msg(msg_str):		# Messagebox. Text can be split in pages using ";" razdelitel epta
 							# Podtverzhdenie na klik mishki
 	var dialog = msg_s.instance()

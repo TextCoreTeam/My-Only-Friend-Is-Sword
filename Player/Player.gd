@@ -10,7 +10,7 @@ var thrust = 1300
 var speed_max = 350
 
 var knock_resistance = 200
-var sword_spawn_distance = 45
+var sword_spawn_distance = 35
 
 var money = 0
 var hp = 10
@@ -57,6 +57,7 @@ func knockback(velocity, maxspeed, kthrust):
 
 func reward():
 	money += 1
+	get_parent().update_score(money)
 
 func dmg(amt):
 	$HPBar.value -= 1
@@ -75,7 +76,7 @@ func return_sword():
 
 var sword_knock_thrust = 3000	#knockback on sword throw
 var sword_knock_speed_max = 3000
-onready var vertical_spawn_dst = sword_spawn_distance + 35
+onready var vertical_spawn_dst = sword_spawn_distance + 30
 var aim_vertical = -1 #-1 -> no 0 -> up 1 -> down
 func throw_sword():
 	var rot = $MousePtr.get_rotation()
@@ -186,7 +187,7 @@ func direction():
 func die():
 	if (!dead):
 		dead = true
-		get_tree().change_scene("res://UI/Menu.tscn")
+		get_tree().change_scene("res://UI/Death.tscn")
 		
 		
 		# Call showmsg map method
