@@ -35,7 +35,7 @@ var charge_pressed = true
 
 func _on_progress_timeout():
 	if $TextureProgress.value < 100 && Input.is_action_pressed("Charge"):
-		$TextureProgress.value += 2.5
+		$TextureProgress.value += 3.5
 	else:
 		$TextureProgress.visible = false
 		sword_speed = sword_speed + 5 * $TextureProgress.value
