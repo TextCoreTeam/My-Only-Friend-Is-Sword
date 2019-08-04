@@ -36,7 +36,7 @@ func text_update():
 		visible_characters = visible_characters + 1
 
 func _input(event):
-	if(event.is_pressed() && event.button_index == BUTTON_LEFT):
+	if(event.is_pressed() && event.button_index == BUTTON_RIGHT):
 		if(visible_characters == text.length()):
 			text_advance()
 		else:
