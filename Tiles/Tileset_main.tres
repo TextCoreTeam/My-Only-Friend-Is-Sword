@@ -1,4 +1,4 @@
-[gd_resource type="TileSet" load_steps=27 format=2]
+[gd_resource type="TileSet" load_steps=28 format=2]
 
 [ext_resource path="res://Tiles/tileset_main.png" type="Texture" id=1]
 [ext_resource path="res://Tiles/tile_floor.png" type="Texture" id=2]
@@ -56,9 +56,12 @@ points = PoolVector2Array( 0, 0, 50, 0, 50, 50, 0, 50 )
 points = PoolVector2Array( 12.1435, 73.5632, 20.5829, 60.7031, 23.7979, 26.9454, 41.8824, 26.1416, 54.3406, 9.66461, 80.8646, 7.65524, 91.7152, 22.5247, 92.519, 32.1698, 111.005, 41.8148, 107.388, 64.7219, 131.099, 81.6007, 133.51, 109.33, 130.697, 127.817, 125.473, 137.06, 95.3322, 132.639, 74.0326, 137.06, 38.2655, 134.247, 3.70407, 117.368, 5.31158, 86.8251 )
 
 [sub_resource type="ConvexPolygonShape2D" id=16]
-points = PoolVector2Array( 0, 0, 31, 0, 31, 7, 0, 7 )
+points = PoolVector2Array( 0, 0, 33, 0, 33, 7, 0, 7 )
 
 [sub_resource type="ConvexPolygonShape2D" id=17]
+points = PoolVector2Array( 0, 0, 31, 0, 31, 7, 0, 7 )
+
+[sub_resource type="ConvexPolygonShape2D" id=18]
 points = PoolVector2Array( 0, 0, 8, 0, 8, 34, 0, 34 )
 
 [resource]
@@ -156,7 +159,7 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 34, 0, 34 )
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 16 ),
+"shape": SubResource( 17 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 8/z_index = 0
@@ -172,7 +175,7 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 34, 0, 34 )
 "autotile_coord": Vector2( 0, 0 ),
 "one_way": false,
 "one_way_margin": 1.0,
-"shape": SubResource( 17 ),
+"shape": SubResource( 18 ),
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 9/z_index = 0
@@ -438,3 +441,19 @@ points = PoolVector2Array( 0, 0, 8, 0, 8, 34, 0, 34 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 25/z_index = 0
+26/name = "tile_floor.png 26"
+26/texture = ExtResource( 2 )
+26/tex_offset = Vector2( 0, 0 )
+26/modulate = Color( 1, 1, 1, 1 )
+26/region = Rect2( 63, 377, 33, 7 )
+26/tile_mode = 0
+26/occluder_offset = Vector2( 0, 0 )
+26/navigation_offset = Vector2( 0, 0 )
+26/shapes = [ {
+"autotile_coord": Vector2( 0, 0 ),
+"one_way": false,
+"one_way_margin": 1.0,
+"shape": SubResource( 16 ),
+"shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
+} ]
+26/z_index = 0
