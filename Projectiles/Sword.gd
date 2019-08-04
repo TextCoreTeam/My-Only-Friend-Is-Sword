@@ -4,6 +4,10 @@ var on_floor = false
 var bouncing = false
 var bounce_timeout = 0.5
 var speed_cap = Vector2(0.5, 0.5)
+var knock_speed_max = 3000
+var knock_thrust = 5000
+var upgraded = ""
+var dmg_num = 1
 
 var player
 func _ready():
@@ -24,8 +28,12 @@ func _on_bounce_timeout():
 func drop():
 	mode = MODE_STATIC
 	on_floor = true
-	print("Bruh moment")
-	queue_free()
+	knock_speed_max = 3000
+	knock_thrust = 5000
+	upgraded = ""
+	dmg_num = 1
+	#print("Bruh moment")
+	#queue_free()
 
 func pick():
 	pass
@@ -35,9 +43,12 @@ var fire_upgrade = 3
 func upgrade(upgrade):
 	if upgrade == "f":   # Fire upgrade
 		linear_velocity *= fire_upgrade
+		upgraded = "f"
+		knock_speed_max = 4000
+		knock_thrust = 6000
+		
 
-var knock_speed_max = 3000
-var knock_thrust = 5000
+
 
 func return_velocity():
 	return (player.get_global_position() - get_global_position()).normalized() * player.sword_speed
@@ -51,7 +62,10 @@ func _physics_process(delta):
 func _on_RigidBody2D_body_entered(body):
 
 	if (body.has_method("mob") && !on_floor && body.can_take_dmg):
-		body.dmg()
+		if upgraded == "f":
+			dmg_num = 2
+			print(dmg_num)
+		body.dmg(dmg_num)
 
 	if (body.has_method("pdmg")):
 		body.knockback((-1) * return_velocity(), knock_speed_max, knock_thrust)

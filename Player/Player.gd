@@ -65,6 +65,12 @@ func dmg(amt):
 
 func return_sword():
 	has_sword = true
+	print(my_weapon.get_node("RigidBody2D").knock_speed_max)
+	my_weapon.get_node("RigidBody2D").knock_speed_max = 3000
+	my_weapon.get_node("RigidBody2D").knock_thrust = 5000
+	my_weapon.get_node("RigidBody2D").upgraded = ""
+	my_weapon.get_node("RigidBody2D").dmg_num = 1
+	
 	#$SwordSprite.visible = true
 
 var sword_knock_thrust = 3000	#knockback on sword throw

@@ -60,13 +60,13 @@ func _on_AttackCooldown_timeout():
 func mob():	#kludge for mob identification because im a f4g
 	pass
 
-func dmg():
+func dmg(num):
 	if (can_take_dmg):
 		print("Mob took damage")
 		$TakeDMGTimer.start(1)
 		can_take_dmg = false
 		$Blood.emitting = true
-		hp -= 1
+		hp -= num
 
 var pid
 var can_attack = true
