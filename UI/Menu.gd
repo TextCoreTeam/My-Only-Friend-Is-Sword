@@ -14,11 +14,11 @@ func _ready():
 
 
 func _on_NewGameBtn_pressed():
-	print(get_tree().change_scene("res://Maps/TestMap.tscn"))
+	print(get_tree().change_scene("res://Maps/Level-0.tscn"))
 
 
 func _on_ContinueBtn_pressed():
-	pass # Replace with function body.
+	print(get_tree().change_scene("res://Maps/TestMap.tscn"))
 
 
 func _on_QuitBtn_pressed():

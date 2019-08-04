@@ -1,0 +1,21 @@
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="ParticlesMaterial" id=1]
+emission_shape = 1
+emission_sphere_radius = 8.0
+flag_disable_z = true
+gravity = Vector3( 0, 70, 0 )
+angular_velocity = 41.38
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 1.0
+scale = 0.5
+scale_random = 0.82
+color = Color( 0.552941, 0, 0.647059, 1 )
+
+[node name="Particles2D" type="Particles2D"]
+position = Vector2( 0.219894, 0.142403 )
+amount = 50
+lifetime = 0.8
+speed_scale = 0.7
+process_material = SubResource( 1 )
