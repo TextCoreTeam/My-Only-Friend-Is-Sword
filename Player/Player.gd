@@ -83,7 +83,7 @@ func throw_sword():
 		spawn_point = get_global_position() + direction * vertical_spawn_dst
 	else:
 		spawn_point = get_global_position() + direction * sword_spawn_distance		
-	var sword = sword_s.instance()
+	var sword = sword_s.instance()	
 	if (aim_vertical == 1):
 		sword.get_node("RigidBody2D/Sprite").flip_v = true
 	var world  = get_parent()

@@ -2,6 +2,7 @@ extends Node2D
 
 var box_s = load("res://Objects/Box_a.tscn")
 var fire = load("res://Objects/Fire.tscn")
+var mage = load("res://NPCs/Mage.tscn")
 
 const WSX = -2000	#World min x
 const WSY = -520	#World min y
@@ -33,3 +34,4 @@ func _ready():
 	randomize()
 	#spawn_instances_in_world(box_s, 50)
 	spawn_instances_in_world(fire, 15)
+	spawn_instances_in_world(mage, 20)

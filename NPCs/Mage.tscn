@@ -77,7 +77,7 @@ hframes = 4
 position = Vector2( 8.46193, -1.04965 )
 texture = ExtResource( 3 )
 hframes = 4
-frame = 2
+frame = 3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
 autoplay = "walk_lr"
@@ -107,21 +107,23 @@ local_coords = true
 process_mode = 0
 
 [node name="Aim" type="Sprite" parent="KinematicBody2D"]
+visible = false
 position = Vector2( 0.946625, -4.80655 )
 scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 5 )
 offset = Vector2( 0, -22.85 )
 
 [node name="PAim" type="Sprite" parent="KinematicBody2D"]
+visible = false
 position = Vector2( 32.2399, -12.7513 )
 scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 5 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
-editor/display_folded = true
 position = Vector2( 32.5716, -25.0246 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
+visible = false
 position = Vector2( 60.144, 22.4421 )
 scale = Vector2( 0.521859, 4.05147 )
 texture = ExtResource( 6 )
@@ -131,7 +133,6 @@ position = Vector2( -28.6952, 22.7366 )
 shape = SubResource( 4 )
 
 [node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
-editor/display_folded = true
 position = Vector2( 3.16805, -20.3819 )
 __meta__ = {
 "_edit_group_": true
