@@ -14,25 +14,26 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="MenuCol" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 436.0
+margin_left = 403.0
 margin_top = 240.0
-margin_right = 588.0
+margin_right = 621.0
 margin_bottom = 360.0
 custom_constants/separation = 30
 
 [node name="Title" type="Label" parent="CenterContainer/MenuCol"]
-margin_right = 152.0
+margin_right = 218.0
 margin_bottom = 20.0
-text = "GMTK 2019"
+text = "My only friend is sword"
 align = 1
 
 [node name="GameBtnContainer" type="CenterContainer" parent="CenterContainer/MenuCol"]
 margin_top = 50.0
-margin_right = 152.0
+margin_right = 218.0
 margin_bottom = 70.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MenuCol/GameBtnContainer"]
-margin_right = 152.0
+margin_left = 33.0
+margin_right = 185.0
 margin_bottom = 20.0
 custom_constants/separation = 35
 
@@ -53,7 +54,7 @@ text = "Arcade"
 
 [node name="QuitBtn" type="Button" parent="CenterContainer/MenuCol"]
 margin_top = 100.0
-margin_right = 152.0
+margin_right = 218.0
 margin_bottom = 120.0
 focus_mode = 0
 enabled_focus_mode = 0
