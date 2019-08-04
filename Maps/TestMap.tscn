@@ -3,8 +3,8 @@
 [ext_resource path="res://Maps/TestMap.gd" type="Script" id=1]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Tiles/Tileset_main.tres" type="TileSet" id=3]
-[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
-[ext_resource path="res://NPCs/Slime.tscn" type="PackedScene" id=5]
+[ext_resource path="res://NPCs/Slime.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Player/Player.tscn" type="PackedScene" id=5]
 
 [node name="World" type="Node2D"]
 position = Vector2( -14.1426, -16.0933 )
@@ -28,8 +28,12 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Player" parent="." instance=ExtResource( 4 )]
+[node name="Enemy" parent="." instance=ExtResource( 4 )]
+position = Vector2( -1087.34, 564.625 )
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 420.8, 1091.08 )
 
-[node name="Enemy" parent="." instance=ExtResource( 5 )]
-position = Vector2( -1087.34, 564.625 )
+[node name="respawntimer" type="Timer" parent="."]
+wait_time = 6.0
+autostart = true
