@@ -8,7 +8,7 @@ var thrust = 1300
 var speed_max = 350
 
 var knock_resistance = 200
-var sword_spawn_distance = 50
+var sword_spawn_distance = 45
 
 var money = 0
 var hp = 10

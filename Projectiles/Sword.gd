@@ -3,7 +3,7 @@ extends RigidBody2D
 var on_floor = false
 var bouncing = false
 var bounce_timeout = 0.5
-var speed_cap = Vector2(1, 1)
+var speed_cap = Vector2(0.5, 0.5)
 
 var player
 func _ready():
@@ -11,7 +11,7 @@ func _ready():
 	$BounceTimer.connect("timeout", self, "_on_bounce_timeout")
 	self.add_collision_exception_with(player)
 	$TransparentTimer.connect("timeout", self, "_on_transparency_timeout")
-	$TransparentTimer.start(0.15)
+	$TransparentTimer.start(0.13)
 	
 func _on_transparency_timeout():
 	self.remove_collision_exception_with(player)
