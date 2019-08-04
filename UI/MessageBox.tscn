@@ -27,4 +27,5 @@ custom_colors/default_color = Color( 1, 1, 1, 1 )
 custom_colors/selection_color = Color( 0, 0, 0, 1 )
 custom_colors/font_color_selected = Color( 0, 0, 0, 1 )
 custom_colors/font_color_shadow = Color( 0.105882, 0.141176, 0.439216, 1 )
+bbcode_enabled = true
 script = ExtResource( 3 )

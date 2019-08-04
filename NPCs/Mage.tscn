@@ -93,7 +93,7 @@ scale = Vector2( 5, 4.5 )
 shape = SubResource( 3 )
 
 [node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
-wait_time = 3.0
+wait_time = 4.0
 autostart = true
 
 [node name="Blood" parent="KinematicBody2D" instance=ExtResource( 4 )]
