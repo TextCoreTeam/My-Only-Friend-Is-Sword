@@ -1,11 +1,12 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://NPCs/Mage.gd" type="Script" id=2]
-[ext_resource path="res://NPCs/Sprites/mage_idle.png" type="Texture" id=3]
+[ext_resource path="res://NPCs/Sprites/shadow_walk.png" type="Texture" id=3]
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=4]
-[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
-[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
+[ext_resource path="res://Particles/Blood.gd" type="Script" id=5]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=6]
+[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
@@ -43,6 +44,28 @@ tracks/0/keys = {
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 11.8132, 8.75723 )
 
+[sub_resource type="ParticlesMaterial" id=4]
+render_priority = 100
+emission_shape = 3
+emission_point_count = 5
+flag_disable_z = true
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 10.0
+initial_velocity_random = 1.0
+angular_velocity = 25.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 10.0
+damping_random = 1.0
+angle = 33.1
+angle_random = 1.0
+scale = 4.0
+scale_random = 1.0
+color = Color( 0.796078, 0, 0, 1 )
+
 [sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 49.7056, 70.4268 )
 
@@ -66,19 +89,14 @@ position = Vector2( 32.5716, -25.0246 )
 script = ExtResource( 2 )
 
 [node name="DeathAnim" type="Sprite" parent="KinematicBody2D"]
-visible = false
 position = Vector2( 32.5716, -25.0246 )
 
-[node name="AttackAnimLR" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( 9.25243, 0.185448 )
-texture = ExtResource( 3 )
-hframes = 4
-
 [node name="WalkAnimLR" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( 8.46193, -1.04965 )
+position = Vector2( -29.4177, 7.46194 )
+scale = Vector2( 1.64582, 1.05748 )
 texture = ExtResource( 3 )
 hframes = 4
-frame = 3
+frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
 autoplay = "walk_lr"
@@ -88,7 +106,7 @@ anims/attack_lr = SubResource( 1 )
 anims/walk_lr = SubResource( 2 )
 
 [node name="Collision" type="CollisionShape2D" parent="KinematicBody2D"]
-position = Vector2( 0.316139, 1.94825 )
+position = Vector2( -24.6813, 25.3963 )
 rotation = 4.71239
 scale = Vector2( 5, 4.5 )
 shape = SubResource( 3 )
@@ -97,12 +115,18 @@ shape = SubResource( 3 )
 wait_time = 3.0
 autostart = true
 
-[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 4 )]
+[node name="Blood" type="Particles2D" parent="KinematicBody2D" instance=ExtResource( 4 )]
 position = Vector2( -1.23785, -0.59314 )
+scale = Vector2( 2, 2 )
+emitting = false
+amount = 250
 lifetime = 3.0
 one_shot = true
+speed_scale = 4.0
 explosiveness = 0.77
-local_coords = true
+randomness = 0.8
+process_material = SubResource( 4 )
+script = ExtResource( 5 )
 
 [node name="TakeDMGTimer" type="Timer" parent="KinematicBody2D"]
 process_mode = 0
@@ -111,30 +135,30 @@ process_mode = 0
 visible = false
 position = Vector2( 0.946625, -4.80655 )
 scale = Vector2( 0.137554, 1.43786 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 offset = Vector2( 0, -22.85 )
 
 [node name="PAim" type="Sprite" parent="KinematicBody2D"]
 visible = false
 position = Vector2( 32.2399, -12.7513 )
 scale = Vector2( 0.137554, 1.43786 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
-position = Vector2( 32.5716, -25.0246 )
+position = Vector2( 58.0989, 5.78428 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
 visible = false
 position = Vector2( 60.144, 22.4421 )
 scale = Vector2( 0.521859, 4.05147 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
-position = Vector2( -28.6952, 22.7366 )
+position = Vector2( -83.8416, 18.648 )
 shape = SubResource( 5 )
 
 [node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
-position = Vector2( 3.16805, -20.3819 )
+position = Vector2( -46.4343, 7.26128 )
 __meta__ = {
 "_edit_group_": true
 }

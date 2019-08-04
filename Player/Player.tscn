@@ -35,7 +35,7 @@ scale = Vector2( 1.00501, 1 )
 texture = ExtResource( 2 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( -0.938293, -0.279907 )
+position = Vector2( -0.560944, 0.0974121 )
 rotation = 1.5708
 shape = SubResource( 1 )
 
@@ -65,7 +65,8 @@ nine_patch_stretch = true
 wait_time = 3.0
 
 [node name="SwordSprite" type="Sprite" parent="."]
-position = Vector2( 26, 13 )
+position = Vector2( 15.0567, 20.2299 )
+scale = Vector2( 0.610853, 0.935142 )
 texture = ExtResource( 5 )
 offset = Vector2( 0, -36.89 )
 
