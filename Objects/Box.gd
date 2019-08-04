@@ -5,7 +5,7 @@ var hp = 5
 func _ready():
 	pass
 	
-func dmg():
+func odmg():
 	hp -= 1
 	$Sprite.frame += 1
 

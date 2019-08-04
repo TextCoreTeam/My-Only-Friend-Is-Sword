@@ -20,5 +20,8 @@ func _physics_process(delta):
 	if (collision && collision.collider.has_method("pdmg")):
 		collision.collider.dmg(1)
 		queue_free()
+	elif (collision && collision.collider.has_method("odmg")):
+		collision.collider.odmg()
+		queue_free()
 	elif (collision):
 		queue_free()

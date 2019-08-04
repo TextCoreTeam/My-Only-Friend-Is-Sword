@@ -6,6 +6,7 @@ var speed
 var player
 var can_take_dmg = true
 
+var bullet_type
 var knock_maxspeed
 var knock_thrust
 var attack_frame
@@ -41,7 +42,7 @@ func _on_shoot_timeout():
 	var spawn_point = get_global_position() + direction * spawn_distance
 	var bullet = bullet_s.instance()
 	var world  = get_parent().get_parent()
-	bullet.get_node("Bullet_area/Sprite").frame = 0
+	bullet.get_node("Bullet_area/Sprite").frame = bullet_type
 	world.add_child(bullet)
 	bullet.set_global_position(spawn_point)
 	bullet.get_node('Bullet_area').velocity = (Vector2(cos(rot) * bullet_speed, sin(rot) * bullet_speed))

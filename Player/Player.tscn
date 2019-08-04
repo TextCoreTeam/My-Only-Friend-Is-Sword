@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprites/p_alt.png" type="Texture" id=2]
@@ -8,13 +8,26 @@
 [ext_resource path="res://UI/Sprites/white.png" type="Texture" id=6]
 [ext_resource path="res://UI/Sprites/green.png" type="Texture" id=7]
 [ext_resource path="res://UI/Sprites/btn_hover.png" type="Texture" id=8]
+[ext_resource path="res://Player/MousePtr.gd" type="Script" id=9]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.5484, 35.0977 )
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 86.915, 36.418 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 71.0266, 5.58113 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 73.9533, 5.58115 )
+
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 477.428, 320 )
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [  ]
+}
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.349124, -0.449768 )
@@ -75,3 +88,41 @@ position = Vector2( 0, 0.340576 )
 scale = Vector2( 1, 0.128161 )
 texture = ExtResource( 8 )
 offset = Vector2( 70.5, 0 )
+
+[node name="Area2D" type="Area2D" parent="MousePtr"]
+script = ExtResource( 9 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePtr/Area2D"]
+position = Vector2( 81.5337, -3.26245 )
+shape = SubResource( 2 )
+
+[node name="AimUp" type="Area2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="AimUp"]
+position = Vector2( -2.92685, -57.9098 )
+scale = Vector2( 0.938676, 0.222295 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AimUp"]
+position = Vector2( -2.50882, -57.2826 )
+shape = SubResource( 3 )
+
+[node name="AimDown" type="Area2D" parent="."]
+visible = false
+
+[node name="Sprite" type="Sprite" parent="AimDown"]
+position = Vector2( -0.836243, 57.2825 )
+scale = Vector2( 1, 0.147033 )
+texture = ExtResource( 8 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AimDown"]
+position = Vector2( -1.25439, 57.7007 )
+shape = SubResource( 4 )
+__meta__ = {
+"_edit_lock_": true
+}
+[connection signal="area_entered" from="AimUp" to="." method="_on_AimUp_area_entered"]
+[connection signal="area_exited" from="AimUp" to="." method="_on_AimUp_area_exited"]
+[connection signal="area_entered" from="AimDown" to="." method="_on_AimDown_area_entered"]
+[connection signal="area_exited" from="AimDown" to="." method="_on_AimDown_area_exited"]

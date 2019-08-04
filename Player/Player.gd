@@ -8,7 +8,7 @@ var thrust = 1300
 var speed_max = 350
 
 var knock_resistance = 200
-var sword_spawn_distance = 100
+var sword_spawn_distance = 50
 
 var money = 0
 var hp = 10
@@ -65,13 +65,25 @@ func return_sword():
 	has_sword = true
 	$SwordSprite.visible = true
 
-var sword_knock_thrust = 3000
+var sword_knock_thrust = 3000	#knockback on sword throw
 var sword_knock_speed_max = 3000
+onready var vertical_spawn_dst = sword_spawn_distance + 35
+var aim_vertical = -1 #-1 -> no 0 -> up 1 -> down
 func throw_sword():
 	var rot = $MousePtr.get_rotation()
+	mousepos = get_global_mouse_position()
+	var spawn_point
+	print(rot)
 	var direction = Vector2(cos(rot), sin(rot))
-	var spawn_point = get_global_position() + direction * sword_spawn_distance		
+	if (aim_vertical == 0 || aim_vertical == 1):
+		print(mousepos.y - global_position.y)
+		print("Throwing vertically " + str(aim_vertical))
+		spawn_point = get_global_position() + direction * vertical_spawn_dst
+	else:
+		spawn_point = get_global_position() + direction * sword_spawn_distance		
 	var sword = sword_s.instance()
+	if (aim_vertical == 1):
+		sword.get_node("RigidBody2D/Sprite").flip_v = true
 	var world  = get_parent()
 	world.add_child(sword)
 	sword.set_global_position(spawn_point)
@@ -83,6 +95,8 @@ func throw_sword():
 	
 func resummon_weapon():
 	#my_weapon.get_node('RigidBody2D').linear_velocity = (player.get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2
+	print("User-triggered bruh moment")
+	my_weapon.queue_free()
 	return_sword()     
 	
 func _ready():
@@ -197,3 +211,27 @@ func _physics_process(delta):
 		if (collision.get_collider().has_method("pick")):
 			collision.collider.queue_free()
 			return_sword()
+
+
+func _on_AimUp_area_entered(area):
+	if (area.has_method("mouseptr")):
+		print("aim up entered")
+		aim_vertical = 0
+
+
+func _on_AimDown_area_entered(area):
+	if (area.has_method("mouseptr")):
+		print("aim down entered")
+		aim_vertical = 1
+
+
+func _on_AimUp_area_exited(area):
+	if (area.has_method("mouseptr")):
+		print("aim up exited")
+		aim_vertical = -1
+
+
+func _on_AimDown_area_exited(area):
+	if (area.has_method("mouseptr")):
+		print("aim down exited")
+		aim_vertical = -1

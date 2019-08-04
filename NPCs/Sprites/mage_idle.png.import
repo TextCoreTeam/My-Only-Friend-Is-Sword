@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/gemYellow.png-da8f87bd8b6acfc35d0d7136477838ea.stex"
+path="res://.import/mage_idle.png-c20bbb8e39c5d83df6fc793f4fd3949b.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Objects/Sprites/gemYellow.png"
-dest_files=[ "res://.import/gemYellow.png-da8f87bd8b6acfc35d0d7136477838ea.stex" ]
+source_file="res://NPCs/Sprites/mage_idle.png"
+dest_files=[ "res://.import/mage_idle.png-c20bbb8e39c5d83df6fc793f4fd3949b.stex" ]
 
 [params]
 

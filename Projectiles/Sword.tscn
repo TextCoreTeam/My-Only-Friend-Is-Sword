@@ -28,4 +28,6 @@ shape = SubResource( 2 )
 
 [node name="BounceTimer" type="Timer" parent="RigidBody2D"]
 wait_time = 2.0
+
+[node name="TransparentTimer" type="Timer" parent="RigidBody2D"]
 [connection signal="body_entered" from="RigidBody2D" to="RigidBody2D" method="_on_RigidBody2D_body_entered"]

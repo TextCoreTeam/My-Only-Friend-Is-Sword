@@ -31,3 +31,5 @@ func spawn_instances_in_world(obj_res, q):
 
 func _ready():
 	randomize()
+	spawn_instances_in_world(box_s, 50)
+	spawn_instances_in_world(fire, 15)
