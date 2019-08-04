@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/Font_New.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://UI/Font.tres" type="DynamicFont" id=2]
 
 [sub_resource type="DynamicFont" id=1]
 font_data = ExtResource( 1 )
@@ -12,4 +13,11 @@ margin_right = 60.0
 margin_bottom = 13.0
 rect_scale = Vector2( 5, 5 )
 custom_fonts/font = SubResource( 1 )
-percent_visible = -0.0434783
+
+[node name="score" type="Label" parent="."]
+margin_left = 837.722
+margin_top = 10.1054
+margin_right = 954.722
+margin_bottom = 58.1054
+rect_scale = Vector2( 1.5, 1.5 )
+custom_fonts/font = ExtResource( 2 )

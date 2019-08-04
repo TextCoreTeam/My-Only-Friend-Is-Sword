@@ -5,3 +5,6 @@ func _ready():
 	level.name_str = "Shit from the ass"
 	level.update_map_name()
 	pass
+	
+func update_score(points):
+	$GUI/score.text = "Score: "+str(points)

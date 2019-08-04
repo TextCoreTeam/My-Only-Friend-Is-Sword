@@ -3,6 +3,8 @@ extends Node2D
 var box_s = load("res://Objects/Box_a.tscn")
 var fire = load("res://Objects/Fire.tscn")
 var mage = load("res://NPCs/Mage.tscn")
+var iceg = load("res://NPCs/Golem.tscn")
+var slime = load("res://NPCs/Slime.tscn")
 #var shade = load("res://NPCs/Shadow.tscn")
 
 const WSX = -2000	#World min x
@@ -31,9 +33,14 @@ func spawn_instances_in_world(obj_res, q):
 		spawn_instance_in_world(obj_res.instance())
 		i += 1
 
+func update_score(points):
+	$GUI/score.text = "Score: "+str(points)
+	
 func _ready():
 	randomize()
 	#spawn_instances_in_world(box_s, 50)
-	spawn_instances_in_world(fire, 15)
-	spawn_instances_in_world(mage, 15)
+	spawn_instances_in_world(fire, 6)
+	spawn_instances_in_world(iceg, 4)
+	spawn_instances_in_world(mage, 10)
+	spawn_instances_in_world(slime, 17)
 	
