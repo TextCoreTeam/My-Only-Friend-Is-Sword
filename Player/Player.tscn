@@ -65,6 +65,7 @@ nine_patch_stretch = true
 wait_time = 3.0
 
 [node name="SwordSprite" type="Sprite" parent="."]
+visible = false
 position = Vector2( 15.0567, 20.2299 )
 scale = Vector2( 0.610853, 0.935142 )
 texture = ExtResource( 5 )

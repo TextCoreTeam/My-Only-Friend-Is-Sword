@@ -12,6 +12,9 @@ func _ready():
 	$Timer.connect("timeout", self, "_on_timer_timeout")
 	$Timer.start()
 	pass
+	
+func dest_on_col():
+	pass
 
 var collision
 

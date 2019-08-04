@@ -57,6 +57,9 @@ func _on_RigidBody2D_body_entered(body):
 		body.knockback((-1) * return_velocity(), knock_speed_max, knock_thrust)
 		body.return_sword()
 		queue_free()
+		
+	if (body.has_method("dest_on_col")):
+		body.queue_free()
 
 
 	if (!bouncing):
