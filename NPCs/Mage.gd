@@ -19,7 +19,7 @@ func _ready():
 	mob.attack_frame = 0.8
 	mob.knock_maxspeed = 3000
 	mob.knock_thrust = 6000
-	mob.bullet_type = 0
+	mob.bullet_type = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

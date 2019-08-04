@@ -35,5 +35,9 @@ func _ready():
 	randomize()
 	#spawn_instances_in_world(box_s, 50)
 	spawn_instances_in_world(fire, 15)
+<<<<<<< HEAD
 	spawn_instances_in_world(mage, 15)
 	#spawn_instances_in_world(shade, 40)
+=======
+	spawn_instances_in_world(mage, 20)
+>>>>>>> parent of 53d8647... Animated mage projectiles, no ranged attack slimes
