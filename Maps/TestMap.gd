@@ -35,12 +35,18 @@ func spawn_instances_in_world(obj_res, q):
 
 func update_score(points):
 	$GUI/score.text = "Score: "+str(points)
+
+func _on_timeout():
+	print("spawned")
+	spawn_instances_in_world(iceg, 1)
+	spawn_instances_in_world(mage, 1)
+	spawn_instances_in_world(slime, 3)
 	
 func _ready():
 	randomize()
-	#spawn_instances_in_world(box_s, 50)
-	spawn_instances_in_world(fire, 6)
-	spawn_instances_in_world(iceg, 4)
-	spawn_instances_in_world(mage, 10)
-	spawn_instances_in_world(slime, 17)
+	$respawntimer.connect("timeout", self, "_on_timeout")
+	spawn_instances_in_world(fire, 4)
+	spawn_instances_in_world(iceg, 1)
+	spawn_instances_in_world(mage, 3)
+	spawn_instances_in_world(slime, 5)
 	

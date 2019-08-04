@@ -4,8 +4,8 @@ var on_floor = false
 var bouncing = false
 var bounce_timeout = 0.5
 var speed_cap = Vector2(0.5, 0.5)
-var knock_speed_max = 3000
-var knock_thrust = 5000
+var knock_speed_max = 2000
+var knock_thrust = 4000
 var upgraded = ""
 var dmg_num = 1
 
@@ -28,8 +28,8 @@ func _on_bounce_timeout():
 func drop():
 	mode = MODE_STATIC
 	on_floor = true
-	knock_speed_max = 3000
-	knock_thrust = 5000
+	knock_speed_max = 2000
+	knock_thrust = 4000
 	upgraded = ""
 	dmg_num = 1
 	#print("Bruh moment")
@@ -44,7 +44,7 @@ func upgrade(upgrade):
 	if upgrade == "f":   # Fire upgrade
 		linear_velocity *= fire_upgrade
 		upgraded = "f"
-		knock_speed_max = 4000
+		knock_speed_max = 3000
 		knock_thrust = 6000
 		
 

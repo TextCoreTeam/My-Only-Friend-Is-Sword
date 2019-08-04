@@ -63,6 +63,7 @@ extents = Vector2( 33.1706, 39.8077 )
 extents = Vector2( 38.9606, 47.1381 )
 
 [node name="Enemy" type="Node2D"]
+editor/display_folded = true
 position = Vector2( 3.38, 0 )
 
 [node name="PlayerPtr" type="Sprite" parent="."]
