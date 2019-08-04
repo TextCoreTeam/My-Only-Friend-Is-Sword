@@ -15,7 +15,7 @@ func _ready():
 	$BounceTimer.connect("timeout", self, "_on_bounce_timeout")
 	self.add_collision_exception_with(player)
 	$TransparentTimer.connect("timeout", self, "_on_transparency_timeout")
-	$TransparentTimer.start(0.13)
+	$TransparentTimer.start(0.1)
 	
 func _on_transparency_timeout():
 	self.remove_collision_exception_with(player)
