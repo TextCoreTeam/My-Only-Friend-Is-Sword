@@ -7,7 +7,7 @@ var iceg = load("res://NPCs/Golem.tscn")
 var slime = load("res://NPCs/Slime.tscn")
 var msg_s = load("res://UI/MessageBox.tscn")
 var overlay
-
+var wpaused = false
 #var shade = load("res://NPCs/Shadow.tscn")
 
 const WSX = -2000	#World min x

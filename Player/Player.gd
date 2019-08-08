@@ -18,7 +18,7 @@ var resistance_factor = 1
 
 var can_throw = true
 var has_sword = true
-var throw_cooldown = 1
+var throw_cooldown = 0.8
 
 var knock_dir = Vector2.ZERO
 var knock_baking = false
@@ -105,7 +105,7 @@ func throw_sword():
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos(rot) * sword_speed, sin(rot) * sword_speed))
 	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust, false)
 	my_weapon = sword
-	$RetractTimer.start(0.05)
+	$RetractTimer.start(0.07)
 	$RetractBar.visible = true
 
 func resummon_weapon():
