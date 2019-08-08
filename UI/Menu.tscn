@@ -14,48 +14,48 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="MenuCol" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 401.0
-margin_top = 240.0
-margin_right = 623.0
-margin_bottom = 360.0
+margin_left = 387.0
+margin_top = 237.0
+margin_right = 637.0
+margin_bottom = 363.0
 custom_constants/separation = 30
 
 [node name="Title" type="Label" parent="CenterContainer/MenuCol"]
-margin_right = 222.0
-margin_bottom = 20.0
+margin_right = 250.0
+margin_bottom = 22.0
 text = "My Only Friend Is Sword"
 align = 1
 
 [node name="GameBtnContainer" type="CenterContainer" parent="CenterContainer/MenuCol"]
-margin_top = 50.0
-margin_right = 222.0
-margin_bottom = 70.0
+margin_top = 52.0
+margin_right = 250.0
+margin_bottom = 74.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MenuCol/GameBtnContainer"]
-margin_left = 35.0
-margin_right = 187.0
-margin_bottom = 20.0
+margin_left = 42.0
+margin_right = 207.0
+margin_bottom = 22.0
 custom_constants/separation = 35
 
 [node name="NewGameBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer"]
-margin_right = 52.0
-margin_bottom = 20.0
+margin_right = 58.0
+margin_bottom = 22.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Story"
 
 [node name="ContinueBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/HBoxContainer"]
-margin_left = 87.0
-margin_right = 152.0
-margin_bottom = 20.0
+margin_left = 93.0
+margin_right = 165.0
+margin_bottom = 22.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Arcade"
 
 [node name="QuitBtn" type="Button" parent="CenterContainer/MenuCol"]
-margin_top = 100.0
-margin_right = 222.0
-margin_bottom = 120.0
+margin_top = 104.0
+margin_right = 250.0
+margin_bottom = 126.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"

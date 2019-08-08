@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprites/mc.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://Player/MousePtr.gd" type="Script" id=10]
 [ext_resource path="res://UI/Sprites/blue.png" type="Texture" id=11]
 [ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=12]
+[ext_resource path="res://Misc/swordanim.png" type="Texture" id=13]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.5484, 31.6859 )
@@ -25,6 +26,23 @@ extents = Vector2( 71.0266, 5.58113 )
 [sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 73.9533, 5.58115 )
 
+[sub_resource type="Animation" id=5]
+resource_name = "RetractAnim"
+length = 1.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("RetractAnim:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 477.428, 320 )
 script = ExtResource( 1 )
@@ -36,8 +54,12 @@ __meta__ = {
 position = Vector2( 0.349124, -0.449768 )
 scale = Vector2( 1.00501, 1 )
 texture = ExtResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+visible = false
 position = Vector2( -0.560944, 0.0974121 )
 rotation = 1.5708
 shape = SubResource( 1 )
@@ -52,6 +74,9 @@ drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
 script = ExtResource( 3 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="HPBar" type="TextureProgress" parent="."]
 margin_left = -37.0
@@ -95,23 +120,36 @@ position = Vector2( 0, 0.340576 )
 scale = Vector2( 1, 0.128161 )
 texture = ExtResource( 9 )
 offset = Vector2( 70.5, 0 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="Area2D" type="Area2D" parent="MousePtr"]
+visible = false
 script = ExtResource( 10 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MousePtr/Area2D"]
+visible = false
 position = Vector2( 81.5337, -3.26245 )
 shape = SubResource( 2 )
+__meta__ = {
+"_edit_lock_": true
+}
 
 [node name="AimUp" type="Area2D" parent="."]
 visible = false
 
 [node name="Sprite" type="Sprite" parent="AimUp"]
+visible = false
 position = Vector2( -2.92685, -57.9098 )
 scale = Vector2( 0.938676, 0.222295 )
 texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AimUp"]
+visible = false
 position = Vector2( -2.50882, -57.2826 )
 shape = SubResource( 3 )
 
@@ -119,11 +157,13 @@ shape = SubResource( 3 )
 visible = false
 
 [node name="Sprite" type="Sprite" parent="AimDown"]
+visible = false
 position = Vector2( -0.836243, 57.2825 )
 scale = Vector2( 1, 0.147033 )
 texture = ExtResource( 9 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AimDown"]
+visible = false
 position = Vector2( -1.25439, 57.7007 )
 shape = SubResource( 4 )
 __meta__ = {
@@ -152,6 +192,20 @@ margin_right = 4.73578
 margin_bottom = 62.9433
 custom_fonts/font = ExtResource( 12 )
 text = "10"
+
+[node name="RetractAnim" type="Sprite" parent="."]
+visible = false
+position = Vector2( -0.260712, -66.8656 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 13 )
+hframes = 7
+frame = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+playback_process_mode = 0
+playback_default_blend_time = 1.0
+playback_speed = 1.2
+anims/RetractAnim = SubResource( 5 )
 [connection signal="area_entered" from="AimUp" to="." method="_on_AimUp_area_entered"]
 [connection signal="area_exited" from="AimUp" to="." method="_on_AimUp_area_exited"]
 [connection signal="area_entered" from="AimDown" to="." method="_on_AimDown_area_entered"]

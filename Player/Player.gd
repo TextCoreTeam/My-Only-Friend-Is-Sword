@@ -85,6 +85,8 @@ func return_sword():
 	my_weapon.get_node("RigidBody2D").knock_thrust = 5000
 	my_weapon.get_node("RigidBody2D").upgraded = ""
 	my_weapon.get_node("RigidBody2D").dmg_num = 1
+	$RetractAnim.hide()
+	$AnimationPlayer.stop()
 	#$SwordSprite.visible = true
 
 var sword_knock_thrust = 2500	#knockback on sword throw
@@ -221,6 +223,9 @@ var axis = Vector2.ZERO
 var collision
 
 func _physics_process(delta):
+	if (can_throw && !has_sword && $AnimationPlayer.current_animation != "RetractAnim"):
+		$RetractAnim.show()
+		$AnimationPlayer.play("RetractAnim")
 	if (hp < 1):
 		die()
 		visible = false
