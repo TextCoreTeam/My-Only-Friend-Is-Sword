@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
 [ext_resource path="res://Player/Sprites/mc.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://UI/Sprites/btn_hover.png" type="Texture" id=9]
 [ext_resource path="res://Player/MousePtr.gd" type="Script" id=10]
 [ext_resource path="res://UI/Sprites/blue.png" type="Texture" id=11]
+[ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=12]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.5484, 31.6859 )
@@ -55,7 +56,7 @@ script = ExtResource( 3 )
 [node name="HPBar" type="TextureProgress" parent="."]
 margin_left = -37.0
 margin_top = 52.0
-margin_right = 34.0
+margin_right = 35.0
 margin_bottom = 60.0
 max_value = 10.0
 value = 10.0
@@ -143,6 +144,14 @@ nine_patch_stretch = true
 
 [node name="RetractTimer" type="Timer" parent="."]
 wait_time = 0.07
+
+[node name="HPLabel" type="Label" parent="."]
+margin_left = -5.26422
+margin_top = 51.9433
+margin_right = 4.73578
+margin_bottom = 62.9433
+custom_fonts/font = ExtResource( 12 )
+text = "10"
 [connection signal="area_entered" from="AimUp" to="." method="_on_AimUp_area_entered"]
 [connection signal="area_exited" from="AimUp" to="." method="_on_AimUp_area_exited"]
 [connection signal="area_entered" from="AimDown" to="." method="_on_AimDown_area_entered"]

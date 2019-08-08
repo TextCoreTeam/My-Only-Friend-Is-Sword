@@ -74,9 +74,10 @@ func reward(amt):
 	get_parent().update_score(money)
 
 func dmg(amt):
-	$HPBar.value -= 1
-	$HPBar.update()
 	hp -= amt
+	$HPBar.value = hp
+	$HPBar.update()
+	$HPLabel.text = str(hp)
 
 func return_sword():
 	has_sword = true
@@ -115,6 +116,10 @@ func resummon_weapon():
 	
 var rbar_step
 func _ready():
+	$HPBar.max_value = hp
+	$HPBar.value = hp
+	$HPLabel.text = str(hp)
+	$HPBar.update()
 	rbar_step = $RetractBar.max_value / 20
 	retract_step = throw_cooldown / 20
 	if (Globals.checkpoint != Vector2.ZERO):

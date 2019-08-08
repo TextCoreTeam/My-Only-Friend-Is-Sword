@@ -28,4 +28,5 @@ func _physics_process(delta):
 		collision.collider.odmg()
 		queue_free()
 	elif (collision):
+		print(collision.collider.name)
 		queue_free()
