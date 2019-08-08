@@ -9,9 +9,8 @@ const speed_max_v = 350
 var thrust = 1300
 var speed_max = 350
 
-var knock_resistance = 200
+var knock_resistance = 170
 var sword_spawn_distance = 20
-
 var money = 0
 var hp = 10
 var dead = false
@@ -19,7 +18,7 @@ var resistance_factor = 1
 
 var can_throw = true
 var has_sword = true
-var throw_cooldown = 2
+var throw_cooldown = 1
 
 var knock_dir = Vector2.ZERO
 var knock_baking = false
@@ -33,12 +32,15 @@ var my_weapon = null
 
 var charge_pressed = true
 
+var velo_bonus #velocity bonus when thrown back by sword
 func _on_progress_timeout():
-	if $TextureProgress.value < 100 && Input.is_action_pressed("Charge"):
+	if ($TextureProgress.value < $TextureProgress.max_value &&
+		Input.is_action_pressed("Charge")):
 		$TextureProgress.value += 3.5
 	else:
 		$TextureProgress.visible = false
 		sword_speed = sword_speed + 5 * $TextureProgress.value
+		velo_bonus = $TextureProgress.value
 		can_throw = false
 		has_sword = false
 		$SwordSprite.visible = false
@@ -48,12 +50,21 @@ func _on_progress_timeout():
 		$TextureProgress.value = 0
 		sword_speed = 600
 	
-func knockback(velocity, maxspeed, kthrust):
-	if (!knock_baking):
-		thrust = kthrust
+func knockback(velocity, maxspeed, kthrust, use_bonus):
+	if (!false):
+		print("Knock bonus: " + str(velo_bonus) + " " + str(use_bonus))
+		if (use_bonus):
+			if (velo_bonus > 0 && velo_bonus < 100):
+				velo_bonus *= 3
+			else:
+				velo_bonus *= 6
+			thrust = kthrust + velo_bonus
+		else:
+			thrust = kthrust
 		speed_max = maxspeed
 		knock_baking = true
 		knock_dir = velocity.clamped(1) * (-1)
+		print (str(knock_dir) + " | " + str(thrust) + " / "+ str(maxspeed))
 
 func reward():
 	money += 1
@@ -66,15 +77,13 @@ func dmg(amt):
 
 func return_sword():
 	has_sword = true
-	print(my_weapon.get_node("RigidBody2D").knock_speed_max)
 	my_weapon.get_node("RigidBody2D").knock_speed_max = 3000
 	my_weapon.get_node("RigidBody2D").knock_thrust = 5000
 	my_weapon.get_node("RigidBody2D").upgraded = ""
 	my_weapon.get_node("RigidBody2D").dmg_num = 1
-	
 	#$SwordSprite.visible = true
 
-var sword_knock_thrust = 3000	#knockback on sword throw
+var sword_knock_thrust = 2500	#knockback on sword throw
 var sword_knock_speed_max = 3000
 onready var vertical_spawn_dst = sword_spawn_distance + 30
 var aim_vertical = -1 #-1 -> no 0 -> up 1 -> down
@@ -82,11 +91,8 @@ func throw_sword():
 	var rot = $MousePtr.get_rotation()
 	mousepos = get_global_mouse_position()
 	var spawn_point
-	print(rot)
 	var direction = Vector2(cos(rot), sin(rot))
 	if (aim_vertical == 0 || aim_vertical == 1):
-		print(mousepos.y - global_position.y)
-		print("Throwing vertically " + str(aim_vertical))
 		spawn_point = get_global_position() + direction * vertical_spawn_dst
 	else:
 		spawn_point = get_global_position() + direction * sword_spawn_distance		
@@ -97,26 +103,22 @@ func throw_sword():
 	world.add_child(sword)
 	sword.set_global_position(spawn_point)
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos(rot) * sword_speed, sin(rot) * sword_speed))
-	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust)
+	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust, false)
 	my_weapon = sword
-	$RetractTimer.start(0.1)
+	$RetractTimer.start(0.05)
 	$RetractBar.visible = true
-	
 
-	
-	
 func resummon_weapon():
-	#my_weapon.get_node('RigidBody2D').linear_velocity = (player.get_global_position() - my_weapon.get_global_position()).normalized() * sword_speed * 2
 	print("User-triggered bruh moment")
-	my_weapon.queue_free()
-	return_sword()     
+	my_weapon.get_node("RigidBody2D").return_back()
 	
 func _ready():
+	if (Globals.checkpoint != Vector2.ZERO):
+		global_position = Globals.checkpoint
 	start_scale = scale
 	$RetractTimer.connect("timeout", self, "_on_retract_timeout")
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
 	$ChargeTimer.connect("timeout", self, "_on_progress_timeout")
-	
 
 func _on_retract_timeout():
 	$RetractBar.value += 0.1
@@ -124,8 +126,6 @@ func _on_retract_timeout():
 		$RetractTimer.stop()
 		$RetractBar.visible = false
 		$RetractBar.value = 0
-		if (!has_sword):
-			resummon_weapon()
 
 func _on_throw_timeout():
 	can_throw = true
@@ -171,7 +171,7 @@ func _input(event):
     	turn_left()
 	
 	if event is InputEventMouseButton:
-		if (event.is_pressed() && event.button_index == BUTTON_LEFT && can_throw && has_sword):
+		if (!get_parent().wpaused && event.is_pressed() && event.button_index == BUTTON_LEFT && can_throw && has_sword):
 			$TextureProgress.visible = true
 			$ChargeTimer.start()
 			
@@ -200,10 +200,8 @@ func direction():
 func die():
 	if (!dead):
 		dead = true
+		Globals.score = money
 		get_tree().change_scene("res://UI/Death.tscn")
-		
-		
-		# Call showmsg map method
 
 var axis = Vector2.ZERO
 var collision
@@ -240,23 +238,19 @@ func _physics_process(delta):
 
 func _on_AimUp_area_entered(area):
 	if (area.has_method("mouseptr")):
-		print("aim up entered")
 		aim_vertical = 0
 
 
 func _on_AimDown_area_entered(area):
 	if (area.has_method("mouseptr")):
-		print("aim down entered")
 		aim_vertical = 1
 
 
 func _on_AimUp_area_exited(area):
 	if (area.has_method("mouseptr")):
-		print("aim up exited")
 		aim_vertical = -1
 
 
 func _on_AimDown_area_exited(area):
 	if (area.has_method("mouseptr")):
-		print("aim down exited")
 		aim_vertical = -1

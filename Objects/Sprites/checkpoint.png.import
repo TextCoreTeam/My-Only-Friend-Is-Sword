@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/mc.png-112ddeb05363349fe5bb338df1218079.stex"
+path="res://.import/checkpoint.png-bc84d0e0fd766c09a3e7582d1f1a2fec.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Sprites/mc.png"
-dest_files=[ "res://.import/mc.png-112ddeb05363349fe5bb338df1218079.stex" ]
+source_file="res://Objects/Sprites/checkpoint.png"
+dest_files=[ "res://.import/checkpoint.png-bc84d0e0fd766c09a3e7582d1f1a2fec.stex" ]
 
 [params]
 

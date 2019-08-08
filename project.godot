@@ -15,8 +15,13 @@ _global_script_class_icons={
 
 [application]
 
-config/name="GMTK 2019"
+config/name="My Only Friend Is Sword"
 run/main_scene="res://UI/Menu.tscn"
+boot_splash/image="res://Misc/splash.png"
+
+[autoload]
+
+Globals="*res://Globals.gd"
 
 [display]
 

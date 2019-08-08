@@ -37,7 +37,7 @@ func spawn_instances_in_world(obj_res, q):
 		i += 1
 
 func update_score(points):
-	$GUI/score.text = "Score: " + str(points)
+	$GUI/score.text = str(points)
 	
 func _ready():
 	randomize()

@@ -25,7 +25,9 @@ func _on_takedmg_timeout():
 	$Blood.emitting = false
 var start_scale
 var player_ptr
+var world
 func _ready():
+	world = get_parent().get_parent()
 	player_ptr = get_parent().get_node("PlayerPtr")
 	start_scale = scale
 	$Blood.emitting = false
@@ -100,7 +102,7 @@ func turn_left():
 var player_in_melee_hitbox = false
 
 func attack(body):
-	body.knockback(dir * (-1), knock_maxspeed, knock_thrust)
+	body.knockback(dir * (-1), knock_maxspeed, knock_thrust, false)
 	body.dmg(damage_amount)
 	can_attack = false
 	$AttackCooldown.start(melee_cooldown)
@@ -120,6 +122,8 @@ func _physics_process(delta):
 	if (hp < 1):
 		player.reward()
 		queue_free()
+	if (world.wpaused):
+		return
 	dst = (player.global_position - global_position).length()
 	dir = (player.global_position - global_position).normalized()
 	

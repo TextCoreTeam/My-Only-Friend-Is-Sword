@@ -6,8 +6,9 @@
 [sub_resource type="PhysicsMaterial" id=1]
 bounce = 10.0
 
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 24.7471, 31.2461 )
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 11.1198
+height = 54.0283
 
 [node name="Sword" type="Node2D"]
 
@@ -28,6 +29,8 @@ region_rect = Rect2( 0, 0, 64, 64 )
 [node name="AnimationPlayer" type="AnimationPlayer" parent="RigidBody2D/Sprite"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RigidBody2D"]
+position = Vector2( -0.498237, 0.664337 )
+rotation = 2.29162
 shape = SubResource( 2 )
 
 [node name="BounceTimer" type="Timer" parent="RigidBody2D"]

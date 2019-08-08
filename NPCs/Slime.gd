@@ -5,7 +5,7 @@ func _ready():
 	mob.hp = 2
 	mob.damage_amount = 1
 	mob.melee_cooldown = 1.7
-	mob.speed = 30
+	mob.speed = 35
 	mob.has_range_attack = false
 	mob.bullet_speed = 7
 	mob.has_melee_attack = true

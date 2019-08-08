@@ -15,9 +15,16 @@ rect_scale = Vector2( 5, 5 )
 custom_fonts/font = SubResource( 1 )
 
 [node name="score" type="Label" parent="."]
-margin_left = 837.722
-margin_top = 10.1054
-margin_right = 954.722
-margin_bottom = 58.1054
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -5.5
+margin_right = 5.5
+margin_bottom = 31.0
+grow_horizontal = 2
+grow_vertical = 2
 rect_scale = Vector2( 1.5, 1.5 )
+rect_clip_content = true
 custom_fonts/font = ExtResource( 2 )
+text = "0"
+align = 1
+valign = 1

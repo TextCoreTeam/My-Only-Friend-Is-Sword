@@ -12,7 +12,7 @@ var in_zone = false
 var player
 func _physics_process(delta):
 	if (in_zone && player.motion == Vector2.ZERO && player.axis == Vector2.ZERO):
-		player.die()	
+		$Timer.start()
 
 
 
@@ -26,3 +26,7 @@ func _on_Death_zone_body_exited(body):
 	if body.has_method("pdmg"):
 		player = body
 		in_zone = false
+
+func _on_Timer_timeout():
+	if (in_zone):
+		player.die()
