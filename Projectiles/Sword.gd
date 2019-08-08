@@ -29,8 +29,10 @@ func _on_bounce_timeout():
 	$BounceTimer.stop()
 
 func drop():
-	on_floor = true
-	mode = MODE_STATIC
+	if (!returning && !on_floor):
+		on_floor = true
+		print("dropped")
+		mode = MODE_STATIC
 
 func pick():
 	pass
@@ -46,10 +48,12 @@ func upgrade(upgrade):
 
 var returning = false
 func return_back():
-	mode = MODE_RIGID
-	returning = true
-	collision_layer = 30
-	collision_mask = 30
+	if (!returning):
+		print("returning")
+		mode = MODE_RIGID
+		returning = true
+		collision_layer = 30
+		collision_mask = 30
 
 func return_velocity():
 	return (player.get_global_position() - get_global_position()).normalized() * player.sword_speed
@@ -82,5 +86,6 @@ func _on_RigidBody2D_body_entered(body):
 		body.queue_free()
 
 	if (!bouncing):
+		print("bouncing")
 		bouncing = true
 		$BounceTimer.start(bounce_timeout)
