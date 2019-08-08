@@ -22,6 +22,7 @@ func _physics_process(delta):
 	collision = move_and_collide(velocity)
 	if (collision && collision.collider.has_method("pdmg")):
 		collision.collider.dmg(1)
+		collision.collider.get_node("Camera2D").shake(1, 30, 5)
 		queue_free()
 	elif (collision && collision.collider.has_method("odmg")):
 		collision.collider.odmg()

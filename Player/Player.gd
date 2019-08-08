@@ -9,6 +9,7 @@ const speed_max_v = 350
 var thrust = 1300
 var speed_max = 350
 
+var retract_step
 var knock_resistance = 170
 var sword_spawn_distance = 20
 var money = 0
@@ -45,6 +46,8 @@ func _on_progress_timeout():
 		has_sword = false
 		$SwordSprite.visible = false
 		throw_sword()
+		$RetractBar.visible = true
+		$RetractTimer.start(retract_step)
 		$ThrowTimer.start(throw_cooldown)
 		$ChargeTimer.stop()
 		$TextureProgress.value = 0
@@ -66,8 +69,8 @@ func knockback(velocity, maxspeed, kthrust, use_bonus):
 		knock_dir = velocity.clamped(1) * (-1)
 		print (str(knock_dir) + " | " + str(thrust) + " / "+ str(maxspeed))
 
-func reward():
-	money += 1
+func reward(amt):
+	money += amt
 	get_parent().update_score(money)
 
 func dmg(amt):
@@ -105,14 +108,15 @@ func throw_sword():
 	sword.get_node('RigidBody2D').linear_velocity = (Vector2(cos(rot) * sword_speed, sin(rot) * sword_speed))
 	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust, false)
 	my_weapon = sword
-	$RetractTimer.start(0.07)
-	$RetractBar.visible = true
 
 func resummon_weapon():
 	print("User-triggered bruh moment")
 	my_weapon.get_node("RigidBody2D").return_back()
 	
+var rbar_step
 func _ready():
+	rbar_step = $RetractBar.max_value / 20
+	retract_step = throw_cooldown / 20
 	if (Globals.checkpoint != Vector2.ZERO):
 		global_position = Globals.checkpoint
 	start_scale = scale
@@ -120,14 +124,19 @@ func _ready():
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
 	$ChargeTimer.connect("timeout", self, "_on_progress_timeout")
 
+var i = 0
 func _on_retract_timeout():
-	$RetractBar.value += 0.1
+	$RetractBar.value += rbar_step
+	i += 1
 	if ($RetractBar.value >= $RetractBar.max_value):
 		$RetractTimer.stop()
 		$RetractBar.visible = false
 		$RetractBar.value = 0
+		print("retract timeout " + str(i * 0.04))
+		i = 0
 
 func _on_throw_timeout():
+	print("can throw again")
 	can_throw = true
 	$ThrowTimer.stop()
 

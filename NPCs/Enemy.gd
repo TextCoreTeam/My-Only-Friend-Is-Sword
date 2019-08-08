@@ -1,5 +1,6 @@
 extends KinematicBody2D
 
+var reward
 var hp
 var damage_amount
 var speed
@@ -26,6 +27,8 @@ func _on_takedmg_timeout():
 var start_scale
 var player_ptr
 var world
+var shake_amt
+
 func _ready():
 	world = get_parent().get_parent()
 	player_ptr = get_parent().get_node("PlayerPtr")
@@ -85,7 +88,6 @@ var heading_right = true #false->left true->right
 
 func turn_right():
 	if (!heading_right):
-		print("Turned right")
 		player_above = -1
 		heading_right = true
 		scale.x *= -1
@@ -93,7 +95,6 @@ func turn_right():
 	
 func turn_left():
 	if (heading_right):
-		print("Turned left")
 		player_above = -1
 		heading_right = false
 		scale.x = -start_scale.x
@@ -104,6 +105,7 @@ var player_in_melee_hitbox = false
 func attack(body):
 	body.knockback(dir * (-1), knock_maxspeed, knock_thrust, false)
 	body.dmg(damage_amount)
+	body.get_node("Camera2D").shake(1, shake_amt, 5)
 	can_attack = false
 	$AttackCooldown.start(melee_cooldown)
 
@@ -120,7 +122,7 @@ var moving = false
 var player_above = -1	#0 -> player is above the mob || 1-> player is under the mob || -1 -> fuck you
 func _physics_process(delta):
 	if (hp < 1):
-		player.reward()
+		player.reward(reward)
 		queue_free()
 	if (world.wpaused):
 		return

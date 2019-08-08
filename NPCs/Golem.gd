@@ -14,3 +14,5 @@ func _ready():
 	mob.attack_frame = 0.8
 	mob.knock_maxspeed = 3000
 	mob.knock_thrust = 6000
+	mob.reward = 3
+	mob.shake_amt = 25
