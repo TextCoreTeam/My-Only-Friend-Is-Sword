@@ -8,6 +8,15 @@ var msg_s = load("res://UI/MessageBox.tscn")
 func update_score(points):
 	$GUI/score.text = "Score: " + str(points)
 
+var objects = Array()
+
+func spawn_particles_at(obj, x, y):
+	objects.append(obj.instance())
+	add_child(objects.back())
+	objects.back().set_global_position(Vector2(x, y))
+	objects.back().emitting = true
+
+
 func show_msg(msg_str):		# Messagebox. Text can be split in pages using ";" razdelitel epta
 							# Podtverzhdenie na klik mishki
 	wpaused = true

@@ -1,0 +1,41 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Particles/Ondeath.gd" type="Script" id=1]
+
+[sub_resource type="ParticlesMaterial" id=1]
+render_priority = 20
+flag_disable_z = true
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 15.0
+initial_velocity_random = 0.75
+angular_velocity = 25.0
+angular_velocity_random = 1.0
+orbit_velocity = 0.0
+orbit_velocity_random = 0.0
+damping = 20.0
+damping_random = 1.0
+angle = 33.1
+angle_random = 1.0
+scale = 4.0
+scale_random = 1.0
+color = Color( 0.643137, 0.576471, 1, 1 )
+
+[node name="Ondeath" type="Particles2D"]
+scale = Vector2( 2, 2 )
+emitting = false
+amount = 300
+lifetime = 10.0
+one_shot = true
+speed_scale = 4.0
+explosiveness = 0.95
+randomness = 0.5
+local_coords = false
+process_material = SubResource( 1 )
+script = ExtResource( 1 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

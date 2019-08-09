@@ -7,6 +7,8 @@ var speed
 var player
 var can_take_dmg = true
 
+var ondeath_particles = preload("res://Particles/Ondeath.tscn")
+
 var bullet_type
 var knock_maxspeed
 var knock_thrust
@@ -123,6 +125,7 @@ var player_above = -1	#0 -> player is above the mob || 1-> player is under the m
 func _physics_process(delta):
 	if (hp < 1):
 		player.reward(reward)
+		world.spawn_particles_at(ondeath_particles, global_position.x, global_position.y)
 		queue_free()
 	if (world.wpaused):
 		return

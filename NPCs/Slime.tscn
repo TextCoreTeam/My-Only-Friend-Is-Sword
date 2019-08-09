@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://NPCs/Slime.gd" type="Script" id=2]
@@ -6,6 +6,9 @@
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
 [ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
+
+[sub_resource type="CanvasItemMaterial" id=6]
+render_priority = 10
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
@@ -64,6 +67,7 @@ extents = Vector2( 36.7275, 46.2178 )
 extents = Vector2( 38.9606, 47.1381 )
 
 [node name="Enemy" type="Node2D"]
+material = SubResource( 6 )
 position = Vector2( 3.38, 0 )
 
 [node name="PlayerPtr" type="Sprite" parent="."]

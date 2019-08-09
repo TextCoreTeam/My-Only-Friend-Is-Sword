@@ -24,6 +24,12 @@ func spawn_instance(obj):
 	add_child(objects.back())
 	return objects.back()
 
+func spawn_particles_at(obj, x, y):
+	objects.append(obj.instance())
+	add_child(objects.back())
+	objects.back().set_global_position(Vector2(x, y))
+	objects.back().emitting = true
+
 func spawn_instance_at_r(obj, xmin, xmax, ymin, ymax):
 	spawn_instance(obj).set_global_position(randVector2(xmin, xmax, ymin, ymax))
 
