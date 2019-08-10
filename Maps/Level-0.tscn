@@ -32,6 +32,7 @@ color = Color( 0.176471, 0.2, 0.372549, 1 )
 script = ExtResource( 3 )
 
 [node name="TileMap" type="TileMap" parent="."]
+editor/display_folded = true
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -552,7 +553,9 @@ visible = false
 position = Vector2( -164.1, 647.131 )
 scale = Vector2( 6.87266, 339.579 )
 
-[node name="PhysicalLayer" type="TileMap" parent="."]
+[node name="Navigation2D" type="Navigation2D" parent="."]
+
+[node name="PhysicalLayer" type="TileMap" parent="Navigation2D"]
 editor/display_folded = true
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
@@ -562,11 +565,11 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Fire" parent="PhysicalLayer" instance=ExtResource( 7 )]
+[node name="Fire" parent="Navigation2D/PhysicalLayer" instance=ExtResource( 7 )]
 position = Vector2( 1939.24, 1425.75 )
 scale = Vector2( 1.5, 1.5 )
 
-[node name="Fire2" parent="PhysicalLayer" instance=ExtResource( 7 )]
+[node name="Fire2" parent="Navigation2D/PhysicalLayer" instance=ExtResource( 7 )]
 position = Vector2( 1942.42, 1119.78 )
 scale = Vector2( 1.5, 1.5 )
 

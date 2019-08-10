@@ -37,6 +37,9 @@ var player_ptr
 var world
 var shake_amt
 
+onready var navigation = get_parent().get_parent().get_node("Navigation2D")
+onready var map = get_parent().get_parent().get_node("Navigation2D/PhysicalLayer")
+
 func _ready():
 	world = get_parent().get_parent()
 	player_ptr = get_parent().get_node("PlayerPtr")
@@ -143,7 +146,8 @@ func _physics_process(delta):
 	if (world.wpaused):
 		return
 	dst = (player.global_position - global_position).length()
-	dir = (player.global_position - global_position).normalized()
+	dir = ((navigation.get_closest_point(player.global_position)) - global_position).normalized()
+	#(player.global_position - global_position).normalized()
 	if (knock_baking):
 		knock *= knock_speed_damp
 		dir *= -1 * knock
