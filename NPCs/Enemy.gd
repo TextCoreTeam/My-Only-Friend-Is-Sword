@@ -140,7 +140,7 @@ func _physics_process(delta):
 	dir = (player.global_position - global_position).normalized()
 	if (knock_baking):
 		dir *= -1 * knock
-		knock -= 0.01
+		knock -= 0.05
 	
 	if (dst <= visibility_dst && !detected):
 		print("Detected player")

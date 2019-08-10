@@ -32,7 +32,6 @@ color = Color( 0.176471, 0.2, 0.372549, 1 )
 script = ExtResource( 3 )
 
 [node name="TileMap" type="TileMap" parent="."]
-editor/display_folded = true
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -80,6 +79,11 @@ visible = false
 position = Vector2( 239.727, 945.185 )
 scale = Vector2( -2.2204, 3.40884 )
 
+[node name="Death_zone92" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
+position = Vector2( 222.926, 731.946 )
+scale = Vector2( -2.2204, 3.40884 )
+
 [node name="Death_zone8" parent="TileMap" instance=ExtResource( 6 )]
 visible = false
 position = Vector2( 245.866, 1457.15 )
@@ -90,15 +94,35 @@ visible = false
 position = Vector2( 185.707, 1416.63 )
 scale = Vector2( 3.06707, 1.36008 )
 
+[node name="Death_zone95" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
+position = Vector2( 316.156, 1460.04 )
+scale = Vector2( 5.94707, 1.36008 )
+
 [node name="Death_zone29" parent="TileMap" instance=ExtResource( 6 )]
 visible = false
-position = Vector2( 532.369, 1309.92 )
-scale = Vector2( 0.58707, 2.32008 )
+position = Vector2( 527.13, 1311.21 )
+scale = Vector2( 0.867075, 3.40008 )
 
 [node name="Death_zone71" parent="TileMap" instance=ExtResource( 6 )]
 visible = false
-position = Vector2( 502.23, 1218.04 )
+position = Vector2( 494.476, 1234.84 )
 scale = Vector2( 0.58707, 2.32008 )
+
+[node name="Death_zone96" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
+position = Vector2( 491.682, 1438.06 )
+scale = Vector2( 0.58707, 1.32008 )
+
+[node name="Death_zone94" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
+position = Vector2( 491.891, 1112.07 )
+scale = Vector2( 0.58707, 2.32008 )
+
+[node name="Death_zone93" parent="TileMap" instance=ExtResource( 6 )]
+visible = false
+position = Vector2( 525.492, 1051.33 )
+scale = Vector2( 0.58707, 5.80008 )
 
 [node name="Death_zone10" parent="TileMap" instance=ExtResource( 6 )]
 visible = false
@@ -510,7 +534,7 @@ scale = Vector2( 13.4174, -19.3701 )
 
 [node name="Death_zone3" parent="TileMap" instance=ExtResource( 6 )]
 visible = false
-position = Vector2( 701.656, 839.122 )
+position = Vector2( 673.224, 839.122 )
 scale = Vector2( -2.2204, 9.64884 )
 
 [node name="Death_zone4" parent="TileMap" instance=ExtResource( 6 )]
