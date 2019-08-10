@@ -6,6 +6,9 @@ func _ready():
 	mob.damage_amount = 1
 	mob.melee_cooldown = 1.7
 	mob.speed = 35
+	mob.knock_speed = 30
+	mob.knock_speed_damp = 0.9
+	mob.knock_time = 0.15
 	mob.has_range_attack = false
 	mob.bullet_speed = 7
 	mob.has_melee_attack = true

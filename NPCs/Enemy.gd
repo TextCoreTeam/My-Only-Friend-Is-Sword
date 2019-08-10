@@ -7,11 +7,17 @@ var speed
 var player
 var can_take_dmg = true
 
+var knock_speed_damp	#knockback when hit by player
+var knock_speed
+var knock_time
+
 var ondeath_particles = preload("res://Particles/Ondeath.tscn")
 
 var bullet_type
-var knock_maxspeed
+
+var knock_maxspeed	#player knockback
 var knock_thrust
+
 var attack_frame
 var melee_cooldown
 var bullet_speed
@@ -48,7 +54,7 @@ var knock_baking = false
 func knockback(amt):
 	knock = amt
 	knock_baking = true
-	$KnockTimer.start(0.15)
+	$KnockTimer.start(knock_time)
 
 var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
@@ -139,7 +145,7 @@ func _physics_process(delta):
 	dst = (player.global_position - global_position).length()
 	dir = (player.global_position - global_position).normalized()
 	if (knock_baking):
-		knock *= 0.9
+		knock *= knock_speed_damp
 		dir *= -1 * knock
 	
 	if (dst <= visibility_dst && !detected):
@@ -177,8 +183,11 @@ func _physics_process(delta):
 		else:
     		turn_right()
 
-		collision = move_and_collide(dir * speed * delta)
-		
+		if (!knock_baking):
+			collision = move_and_collide(dir * speed * delta)
+		else:
+			collision = move_and_collide(dir * knock_speed * delta)
+
 		if (collision && collision.collider.has_method("mob")):
 			add_collision_exception_with(collision.collider)
 		

@@ -23,9 +23,15 @@ boot_splash/image="res://Misc/splash.png"
 
 Globals="*res://Globals.gd"
 
+[debug]
+
+gdscript/warnings/unassigned_variable=false
+gdscript/warnings/unassigned_variable_op_assign=false
+
 [display]
 
-window/size/resizable=false
+window/stretch/mode="viewport"
+window/stretch/aspect="keep"
 
 [input]
 
@@ -37,4 +43,5 @@ Charge={
 
 [rendering]
 
+quality/driver/fallback_to_gles2=true
 environment/default_environment="res://default_env.tres"
