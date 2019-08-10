@@ -73,7 +73,7 @@ func _on_RigidBody2D_body_entered(body):
 	if (body.has_method("mob") && !on_floor && body.can_take_dmg):
 		if upgraded == "f":
 			dmg_num = 2
-			print(dmg_num)
+		body.knockback(10)
 		body.dmg(dmg_num)
 
 	if (body.has_method("pdmg")):

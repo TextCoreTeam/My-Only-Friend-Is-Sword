@@ -177,6 +177,9 @@ shape = SubResource( 7 )
 __meta__ = {
 "_edit_lock_": true
 }
+
+[node name="KnockTimer" type="Timer" parent="KinematicBody2D"]
+wait_time = 0.15
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]

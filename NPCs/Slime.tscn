@@ -7,11 +7,10 @@
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
 [ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
 
-[sub_resource type="CanvasItemMaterial" id=6]
+[sub_resource type="CanvasItemMaterial" id=1]
 render_priority = 10
 
-[sub_resource type="Animation" id=1]
-resource_name = "attack_lr"
+[sub_resource type="Animation" id=2]
 length = 1.5
 loop = true
 tracks/0/type = "value"
@@ -27,8 +26,7 @@ tracks/0/keys = {
 "values": [ 6, 5, 4, 3, 2, 1, 0 ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "walk_lr"
+[sub_resource type="Animation" id=3]
 length = 1.4
 loop = true
 tracks/0/type = "value"
@@ -56,18 +54,18 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="CapsuleShape2D" id=3]
+[sub_resource type="CapsuleShape2D" id=4]
 radius = 4.5691
 height = 11.8166
 
-[sub_resource type="RectangleShape2D" id=4]
+[sub_resource type="RectangleShape2D" id=5]
 extents = Vector2( 36.7275, 46.2178 )
 
-[sub_resource type="RectangleShape2D" id=5]
+[sub_resource type="RectangleShape2D" id=6]
 extents = Vector2( 38.9606, 47.1381 )
 
 [node name="Enemy" type="Node2D"]
-material = SubResource( 6 )
+material = SubResource( 1 )
 position = Vector2( 3.38, 0 )
 
 [node name="PlayerPtr" type="Sprite" parent="."]
@@ -101,14 +99,14 @@ frame = 1
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
 playback_process_mode = 0
 playback_speed = 1.3
-anims/attack_lr = SubResource( 1 )
-anims/walk_lr = SubResource( 2 )
+anims/attack_lr = SubResource( 2 )
+anims/walk_lr = SubResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="KinematicBody2D"]
 position = Vector2( -3.27429, 1.12913 )
 rotation = 4.71239
 scale = Vector2( 5, 4.5 )
-shape = SubResource( 3 )
+shape = SubResource( 4 )
 
 [node name="ShootTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 3.0
@@ -148,7 +146,7 @@ texture = ExtResource( 6 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
 position = Vector2( -2.42284, 23.1774 )
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
 position = Vector2( 15.0264, -18.5373 )
@@ -159,8 +157,12 @@ __meta__ = {
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeZone"]
 position = Vector2( 20.1025, 17.1216 )
-shape = SubResource( 5 )
+shape = SubResource( 6 )
+
+[node name="KnockTimer" type="Timer" parent="KinematicBody2D"]
+wait_time = 0.15
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]
 [connection signal="body_exited" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_exited"]
+[connection signal="timeout" from="KinematicBody2D/KnockTimer" to="KinematicBody2D" method="_on_KnockTimer_timeout"]

@@ -43,6 +43,13 @@ func _ready():
 	$ShootTimer.start()
 	pass
 
+var knock
+var knock_baking = false
+func knockback(amt):
+	knock = amt
+	knock_baking = true
+	$KnockTimer.start()
+
 var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
 	if (!detected || !has_range_attack):
@@ -131,6 +138,9 @@ func _physics_process(delta):
 		return
 	dst = (player.global_position - global_position).length()
 	dir = (player.global_position - global_position).normalized()
+	if (knock_baking):
+		dir *= -1 * knock
+		knock -= 0.01
 	
 	if (dst <= visibility_dst && !detected):
 		print("Detected player")
@@ -188,3 +198,7 @@ func _on_MeleeHitbox_body_exited(body):
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (anim_name == "attack_lr"):
 		attack_in_progress = false
+
+
+func _on_KnockTimer_timeout():
+	knock_baking = false
