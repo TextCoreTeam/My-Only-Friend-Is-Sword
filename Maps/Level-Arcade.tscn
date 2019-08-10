@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://Maps/TestMap.gd" type="Script" id=1]
+[ext_resource path="res://Maps/Level-Arcade.gd" type="Script" id=1]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=2]
 [ext_resource path="res://Tiles/Tileset_main.tres" type="TileSet" id=3]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=4]
@@ -12,6 +12,8 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [  ]
 }
+
+[node name="Constants" type="Sprite" parent="."]
 
 [node name="Timer" type="Timer" parent="."]
 process_mode = 0

@@ -48,7 +48,7 @@ var knock_baking = false
 func knockback(amt):
 	knock = amt
 	knock_baking = true
-	$KnockTimer.start()
+	$KnockTimer.start(0.15)
 
 var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
@@ -139,8 +139,8 @@ func _physics_process(delta):
 	dst = (player.global_position - global_position).length()
 	dir = (player.global_position - global_position).normalized()
 	if (knock_baking):
+		knock *= 0.9
 		dir *= -1 * knock
-		knock -= 0.05
 	
 	if (dst <= visibility_dst && !detected):
 		print("Detected player")
@@ -178,6 +178,10 @@ func _physics_process(delta):
     		turn_right()
 
 		collision = move_and_collide(dir * speed * delta)
+		
+		if (collision && collision.collider.has_method("mob")):
+			add_collision_exception_with(collision.collider)
+		
 		if (!attack_in_progress &&
 				$MeleeZone.overlaps_body(player) &&
 				can_attack &&
@@ -202,3 +206,4 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 
 func _on_KnockTimer_timeout():
 	knock_baking = false
+	$KnockTimer.stop()

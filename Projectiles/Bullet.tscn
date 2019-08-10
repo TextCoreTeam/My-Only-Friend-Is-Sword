@@ -63,6 +63,7 @@ wait_time = 5.0
 autostart = true
 
 [node name="Sprite" type="Sprite" parent="Bullet_area"]
+visible = false
 texture = ExtResource( 2 )
 hframes = 2
 

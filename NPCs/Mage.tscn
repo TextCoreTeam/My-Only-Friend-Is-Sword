@@ -148,3 +148,4 @@ wait_time = 0.15
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]
 [connection signal="body_exited" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_exited"]
+[connection signal="timeout" from="KinematicBody2D/KnockTimer" to="KinematicBody2D" method="_on_KnockTimer_timeout"]

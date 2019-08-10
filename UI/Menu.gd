@@ -22,7 +22,7 @@ func _on_NewGameBtn_pressed():
 
 func _on_ContinueBtn_pressed():
 	globals.game_mode = 1
-	get_tree().change_scene("res://Maps/TestMap.tscn")
+	get_tree().change_scene("res://Maps/Level-Arcade.tscn")
 
 
 func _on_QuitBtn_pressed():
