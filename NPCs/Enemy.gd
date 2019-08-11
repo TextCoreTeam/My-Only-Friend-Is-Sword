@@ -146,8 +146,9 @@ func _physics_process(delta):
 	if (world.wpaused):
 		return
 	dst = (player.global_position - global_position).length()
-	dir = ((navigation.get_closest_point(player.global_position)) - global_position).normalized()
-	#(player.global_position - global_position).normalized()
+	dir = (player.global_position - global_position).normalized()
+	# ((navigation.get_closest_point(player.global_position)) - global_position).normalized()
+	#
 	if (knock_baking):
 		knock *= knock_speed_damp
 		dir *= -1 * knock

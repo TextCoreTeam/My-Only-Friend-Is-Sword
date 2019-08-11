@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Maps/Map.gd" type="Script" id=1]
 [ext_resource path="res://UI/GUI.tscn" type="PackedScene" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://NPCs/Mage.tscn" type="PackedScene" id=10]
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=11]
 [ext_resource path="res://NPCs/Golem.tscn" type="PackedScene" id=12]
+[ext_resource path="res://NPCs/NPC.tscn" type="PackedScene" id=13]
 
 [sub_resource type="ShaderMaterial" id=1]
 
@@ -606,3 +607,6 @@ scale = Vector2( 0.7, 0.7 )
 
 [node name="Enemy7" parent="." instance=ExtResource( 12 )]
 position = Vector2( 1591.06, 1275.71 )
+
+[node name="NPC" parent="." instance=ExtResource( 13 )]
+position = Vector2( 265.208, 114.023 )
