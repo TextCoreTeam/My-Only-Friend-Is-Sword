@@ -10,9 +10,14 @@ var motion = Vector2.ZERO
 const thrust_v = 1300
 const speed_max_v = 350
 
+var cast_tutorial = false #to lock spell list for tutorial
+
 var thrust_p
 var speed_max_p
 var knock_resistance_p
+
+var ability_current
+var ability_cost
 
 var mana = 0
 var max_mana = 5
@@ -62,6 +67,13 @@ func set_hp(amt, maxhp):
 	$HPBar.value = amt
 	$HPBar.update()
 	$HPLabel.text = str(amt)
+	
+func set_mana(amt, maxmana):
+	mana = amt
+	$ManaProgress.max_value = maxmana
+	$ManaProgress.value = amt
+	$ManaProgress.update()
+	$ManaLabel.text = str(amt)
 
 var p_sprite
 func possess_revert(force = false):
@@ -142,21 +154,15 @@ func knockback(velocity, maxspeed, kthrust, use_bonus = false, resistance = 170)
 		knock_dir = velocity.clamped(1) * (-1)
 		print (str(knock_dir) + " | " + str(thrust) + " / "+ str(maxspeed))
 
-var can_possess = false
-var possess_cost = 5
-
+onready var gui = world.get_node("GUI")
 func add_mana(amt = 1):
 	mana += amt
 	if (mana >= max_mana):
 		mana = max_mana
-		can_possess = true
 	$ManaProgress.value = mana
 	$ManaProgress.update()
 	$ManaLabel.text = str(mana)
-	if (mana >= possess_cost):
-		can_possess = true
-	else:
-		can_possess = false
+	gui.switch_ability()
 
 func reward(money_r):
 	money += money_r
@@ -203,8 +209,10 @@ func throw_sword():
 
 var spell_speed = 500
 func cast_pspell():
-	can_possess = false
-	mana -= possess_cost
+	if (cast_tutorial):
+		cast_tutorial = false
+	mana -= ability_cost
+	set_mana(mana, max_mana)
 	$ManaLabel.text = str(mana)
 	$ManaProgress.value = mana
 	$ManaProgress.update()
@@ -221,7 +229,25 @@ func cast_pspell():
 	#$CollisionShape2D.disabled = true #godot sucks my balls
 	proj.set_global_position(spawn_point)
 	knockback(direction, 3000, 3000, false, 5)
+	gui.switch_ability()
 	pass
+	
+func cast_fireball():
+	mana -= ability_cost
+	set_mana(mana, max_mana)
+	gui.switch_ability()
+	fire_projectile(fireball_s)
+
+var fireball_s = load("res://Projectiles/p_fireball.tscn")
+func fire_projectile(body, speed = 4, dst = 15):
+	var rot = $MousePtr.get_rotation()
+	var spawn_point
+	var direction = Vector2(cos(rot), sin(rot))
+	spawn_point = get_global_position() + direction * dst
+	var bullet = body.instance()	
+	world.add_child_below_node(world.get_node("Bottom"), bullet)
+	bullet.set_global_position(spawn_point)
+	bullet.get_node('Bullet_area').velocity = (Vector2(cos(rot) * speed, sin(rot) * speed))
 
 func resummon_weapon():
 	print("User-triggered bruh moment")
@@ -303,9 +329,15 @@ func _input(event):
     	turn_left()
 	
 	if event is InputEventMouseButton:
+		if (event.is_pressed() && mana >= ability_cost && ability_current == 0 && event.button_index == BUTTON_RIGHT):
+			cast_fireball()
 		if (event.is_pressed() && possessing && event.button_index == BUTTON_RIGHT):
 			possess_revert()
-		if (event.is_pressed() && event.button_index == BUTTON_RIGHT && can_possess && pos_queue):
+		if (event.is_pressed() &&
+		event.button_index == BUTTON_RIGHT &&
+		ability_current == 2 &&
+		mana >= ability_cost &&
+		pos_queue):
 			cast_pspell()
 		if (event.is_pressed() && event.button_index == BUTTON_LEFT &&
 		can_sword_attack &&
@@ -433,7 +465,11 @@ func _on_FadeTimer_timeout():
 var pos_queue = false #possession queue (to select only one mob)
 var pos_body
 func _on_MouseArea_body_entered(body):
-	if (can_possess && !pos_queue && body.has_method("mob") && body.possessable):
+	if (ability_current == 2 &&
+	mana >= ability_cost &&
+	!pos_queue &&
+	body.has_method("mob") &&
+	body.possessable):
 		body.get_node("Possession/PossessionLabel").visible = true
 		pos_queue = true
 		pos_body = body

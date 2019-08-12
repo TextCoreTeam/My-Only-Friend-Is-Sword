@@ -1,31 +1,41 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
-[ext_resource path="res://Projectiles/Bullet.gd" type="Script" id=1]
+[ext_resource path="res://Projectiles/p_fireball.gd" type="Script" id=1]
 [ext_resource path="res://Projectiles/Sprites/bullets.png" type="Texture" id=2]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 7.6056, 8.98684 )
+[sub_resource type="CircleShape2D" id=1]
+radius = 8.28449
 
 [sub_resource type="ParticlesMaterial" id=2]
 emission_shape = 1
-emission_sphere_radius = 8.0
+emission_sphere_radius = 15.0
 flag_disable_z = true
-gravity = Vector3( 0, -100, 0 )
+spread = 180.0
+flatness = 1.0
+gravity = Vector3( 0, 0, 0 )
+initial_velocity = 20.0
+initial_velocity_random = 1.0
 angular_velocity = 50.0
 angular_velocity_random = 1.0
-orbit_velocity = 0.0
-orbit_velocity_random = 0.0
+orbit_velocity = 0.1
+orbit_velocity_random = 1.0
 linear_accel = 1.0
 radial_accel = -10.0
+tangential_accel = 20.0
+tangential_accel_random = 1.0
+damping = 0.5
+damping_random = 1.0
+angle = 180.0
+angle_random = 1.0
 scale = 3.0
 scale_random = 1.0
 color = Color( 0.976471, 0, 0.117647, 1 )
 
 [sub_resource type="ParticlesMaterial" id=3]
 emission_shape = 1
-emission_sphere_radius = 4.5
+emission_sphere_radius = 6.0
 flag_disable_z = true
-gravity = Vector3( 0, -75, 0 )
+gravity = Vector3( 0, 0, 0 )
 initial_velocity_random = 1.0
 angular_velocity = 388.96
 angular_velocity_random = 0.66
@@ -44,11 +54,8 @@ emission_shape = 1
 emission_sphere_radius = 3.0
 flag_disable_z = true
 gravity = Vector3( 0, -100, 0 )
-angular_velocity = -1.#QNAN
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
-
-[sub_resource type="CircleShape2D" id=5]
 
 [node name="Bullet" type="Node2D"]
 __meta__ = {
@@ -58,33 +65,26 @@ __meta__ = {
 [node name="Bullet_area" type="KinematicBody2D" parent="."]
 script = ExtResource( 1 )
 
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_area"]
+position = Vector2( -0.85437, 0.142395 )
+shape = SubResource( 1 )
+
 [node name="Timer" type="Timer" parent="Bullet_area"]
 process_mode = 0
 wait_time = 5.0
 autostart = true
 
-[node name="Sprite" type="Sprite" parent="Bullet_area"]
-visible = false
-texture = ExtResource( 2 )
-hframes = 2
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_area"]
-position = Vector2( -0.85437, 0.142395 )
-shape = SubResource( 1 )
-
-[node name="Fire" type="Area2D" parent="Bullet_area"]
-editor/display_folded = true
-
-[node name="Krasnovataya" type="Particles2D" parent="Bullet_area/Fire"]
+[node name="Krasnovataya" type="Particles2D" parent="Bullet_area"]
 amount = 150
-lifetime = 0.8
+lifetime = 2.0
+explosiveness = 0.3
 process_material = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Zheltovataya" type="Particles2D" parent="Bullet_area/Fire"]
-amount = 150
+[node name="Zheltovataya" type="Particles2D" parent="Bullet_area"]
+amount = 50
 lifetime = 0.5
 speed_scale = 1.1
 explosiveness = 0.07
@@ -94,12 +94,13 @@ __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="KusokBelixPartiklov" type="Particles2D" parent="Bullet_area/Fire"]
+[node name="KusokBelixPartiklov" type="Particles2D" parent="Bullet_area"]
 position = Vector2( -0.247023, 1.14493 )
-amount = 75
+amount = 50
 lifetime = 0.2
 process_material = SubResource( 4 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_area/Fire"]
+[node name="Sprite" type="Sprite" parent="Bullet_area"]
 visible = false
-shape = SubResource( 5 )
+texture = ExtResource( 2 )
+hframes = 2

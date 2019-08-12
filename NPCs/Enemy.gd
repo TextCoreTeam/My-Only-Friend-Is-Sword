@@ -94,7 +94,7 @@ func _on_AttackCooldown_timeout():
 func mob():	#kludge for mob identification because im a f4g
 	pass
 
-func dmg(num):
+func dmg(num = 1):
 	if (can_take_dmg):
 		print("Mob took damage")
 		$TakeDMGTimer.start(1)
