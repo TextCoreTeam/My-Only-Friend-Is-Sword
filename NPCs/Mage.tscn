@@ -1,12 +1,12 @@
 [gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
-[ext_resource path="res://NPCs/Mage.gd" type="Script" id=2]
-[ext_resource path="res://NPCs/Sprites/mage_idle.png" type="Texture" id=3]
-[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=4]
-[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
-[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
-[ext_resource path="res://UI/PossessionLabel.tscn" type="PackedScene" id=7]
+[ext_resource path="res://UI/Possession.tscn" type="PackedScene" id=2]
+[ext_resource path="res://NPCs/Mage.gd" type="Script" id=3]
+[ext_resource path="res://NPCs/Sprites/mage_idle.png" type="Texture" id=4]
+[ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=5]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=6]
+[ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
@@ -58,12 +58,14 @@ position = Vector2( 3.38, 0 )
 position = Vector2( 24.9999, -23.9999 )
 script = ExtResource( 1 )
 
+[node name="Possession" parent="KinematicBody2D" instance=ExtResource( 2 )]
+
 [node name="AttackCooldown" type="Timer" parent="KinematicBody2D"]
 process_mode = 0
 
 [node name="Constants" type="Sprite" parent="KinematicBody2D"]
 position = Vector2( 32.5716, -25.0246 )
-script = ExtResource( 2 )
+script = ExtResource( 3 )
 
 [node name="DeathAnim" type="Sprite" parent="KinematicBody2D"]
 visible = false
@@ -71,12 +73,12 @@ position = Vector2( 32.5716, -25.0246 )
 
 [node name="AttackAnimLR" type="Sprite" parent="KinematicBody2D"]
 position = Vector2( 9.25243, 0.185448 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 hframes = 4
 
 [node name="WalkAnimLR" type="Sprite" parent="KinematicBody2D"]
 position = Vector2( 8.46193, -1.04965 )
-texture = ExtResource( 3 )
+texture = ExtResource( 4 )
 hframes = 4
 frame = 3
 
@@ -97,7 +99,7 @@ shape = SubResource( 3 )
 wait_time = 4.0
 autostart = true
 
-[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 4 )]
+[node name="Blood" parent="KinematicBody2D" instance=ExtResource( 5 )]
 position = Vector2( -1.23785, -0.59314 )
 lifetime = 3.0
 one_shot = true
@@ -111,14 +113,14 @@ process_mode = 0
 visible = false
 position = Vector2( 0.946625, -4.80655 )
 scale = Vector2( 0.137554, 1.43786 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 offset = Vector2( 0, -22.85 )
 
 [node name="PAim" type="Sprite" parent="KinematicBody2D"]
 visible = false
 position = Vector2( 32.2399, -12.7513 )
 scale = Vector2( 0.137554, 1.43786 )
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
 position = Vector2( 32.5716, -25.0246 )
@@ -127,7 +129,7 @@ position = Vector2( 32.5716, -25.0246 )
 visible = false
 position = Vector2( 60.144, 22.4421 )
 scale = Vector2( 0.521859, 4.05147 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D/MeleeHitbox"]
 position = Vector2( -28.6952, 22.7366 )
@@ -145,12 +147,6 @@ shape = SubResource( 5 )
 
 [node name="KnockTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 0.15
-
-[node name="PossessionLabel" parent="." instance=ExtResource( 7 )]
-margin_left = -0.378235
-margin_top = -97.815
-margin_right = 59.6218
-margin_bottom = -83.815
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]

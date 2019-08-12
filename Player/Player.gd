@@ -1,22 +1,34 @@
 extends KinematicBody2D
 
 var can_walk = false
+var can_sword_attack = true
 
 var motion = Vector2.ZERO
+
+# *_v --> standard value, used to reset from powerups, etc
+
 const thrust_v = 1300
 const speed_max_v = 350
 
+var thrust_p
+var speed_max_p
+var knock_resistance_p
+
 var mana = 0
-var max_mana = 10
+var max_mana = 5
+
+var max_hp_v = 10
+var max_hp = max_hp_v
+var hp = max_hp
 
 var thrust = 1300
 var speed_max = 350
 
 var retract_step
 var knock_resistance = 170
+var knock_resistance_v = 170
 var sword_spawn_distance = 20
 var money = 0
-var hp = 10
 var dead = false
 var resistance_factor = 1
 
@@ -29,7 +41,6 @@ var knock_baking = false
 
 var mousepos
 var aim_speed = deg2rad(3)
-var sword_s = load("res://Projectiles/Sword.tscn")
 var sword_speed = 600
 onready var world = get_parent()
 var my_weapon = null
@@ -37,6 +48,60 @@ var my_weapon = null
 var charge_pressed = true
 
 var velo_bonus #velocity bonus when thrown back by sword
+
+var possessing = false
+
+var explosion_s = load("res://Particles/Explosion.tscn")
+var sword_s = load("res://Projectiles/Sword.tscn")
+var pspell_s = load("res://Projectiles/PSpell.tscn")
+
+func set_hp(amt, maxhp):
+	hp = amt
+	$HPBar.max_value = maxhp
+	$HPBar.value = amt
+	$HPBar.update()
+	$HPLabel.text = str(amt)
+
+var p_sprite
+func possess_revert():
+	$Camera2D.shake(3, 30, 10)
+	world.spawn_particles_at(explosion_s, global_position.x, global_position.y)
+	possessing = false
+	get_node(p_sprite).visible = false
+	$Sprite.visible = true
+	can_walk = false
+	can_sword_attack = true
+	thrust = thrust_v
+	speed_max = speed_max_v
+	knock_resistance = knock_resistance_v
+	set_hp(max_hp_v, max_hp_v)
+	$AnimationPlayer.stop()
+
+func possess():
+	$Camera2D.shake(3, 30, 10)
+	global_position = pos_body.global_position
+	world.spawn_particles_at(explosion_s, global_position.x, global_position.y)
+	p_sprite = pos_body.p_sprite
+	print("Possessing " + p_sprite)
+	get_node(p_sprite).visible = true
+	thrust_p = pos_body.p_thrust
+	thrust = thrust_p
+	speed_max_p = pos_body.p_maxspeed
+	speed_max = speed_max_p
+	can_walk = pos_body.p_walk
+	knock_resistance_p = pos_body.p_resist
+	knock_resistance = knock_resistance_p
+	$AnimationPlayer.play(pos_body.p_idle_anim)
+	set_hp(pos_body.p_hp, pos_body.p_hp)
+	pos_body.possessed = true
+	can_sword_attack = false
+	#$CollisionShape2D.disabled = false # It fucking doesn't work, godot devs are cucks
+	collision_layer = start_layer
+	collision_mask = start_mask
+	possessing = true
+	print($CollisionShape2D.disabled)
+	print(knock_baking)
+
 func _on_progress_timeout():
 	if ($TextureProgress.value < $TextureProgress.max_value &&
 		Input.is_action_pressed("Charge")):
@@ -56,7 +121,7 @@ func _on_progress_timeout():
 		$TextureProgress.value = 0
 		sword_speed = 600
 	
-func knockback(velocity, maxspeed, kthrust, use_bonus):
+func knockback(velocity, maxspeed, kthrust, use_bonus = false, resistance = 170):
 	if (!false):
 		print("Knock bonus: " + str(velo_bonus) + " " + str(use_bonus))
 		if (use_bonus):
@@ -68,18 +133,26 @@ func knockback(velocity, maxspeed, kthrust, use_bonus):
 		else:
 			thrust = kthrust
 		speed_max = maxspeed
+		knock_resistance = resistance
 		knock_baking = true
 		knock_dir = velocity.clamped(1) * (-1)
 		print (str(knock_dir) + " | " + str(thrust) + " / "+ str(maxspeed))
 
 var can_possess = false
-var possess_active = false #flag for possession spell activation
+var possess_cost = 5
 
 func add_mana(amt = 5):
 	mana += amt
 	if (mana >= max_mana):
 		mana = max_mana
 		can_possess = true
+	$ManaProgress.value = mana
+	$ManaProgress.update()
+	$ManaLabel.text = str(mana)
+	if (mana >= possess_cost):
+		can_possess = true
+	else:
+		can_possess = false
 
 func reward(money_r):
 	money += money_r
@@ -113,7 +186,7 @@ func throw_sword():
 	if (aim_vertical == 0 || aim_vertical == 1):
 		spawn_point = get_global_position() + direction * vertical_spawn_dst
 	else:
-		spawn_point = get_global_position() + direction * sword_spawn_distance		
+		spawn_point = get_global_position() + direction * sword_spawn_distance
 	var sword = sword_s.instance()	
 	if (aim_vertical == 1):
 		sword.get_node("RigidBody2D/Sprite").flip_v = true
@@ -124,14 +197,42 @@ func throw_sword():
 	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust, false)
 	my_weapon = sword
 
+var spell_speed = 500
+func cast_pspell():
+	can_possess = false
+	mana -= possess_cost
+	$ManaLabel.text = str(mana)
+	$ManaProgress.value = mana
+	$ManaProgress.update()
+	var rot = $MousePtr.get_rotation()
+	var spawn_point
+	var direction = Vector2(cos(rot), sin(rot)) * -1
+	spawn_point = get_global_position()# + direction * sword_spawn_distance
+	var proj = pspell_s.instance()	
+	var world  = get_parent()
+	self.add_child(proj)
+	$Sprite.visible = false
+	collision_layer = 30
+	collision_mask = 30
+	#$CollisionShape2D.disabled = true #godot sucks my balls
+	proj.set_global_position(spawn_point)
+	knockback(direction, 3000, 3000, false, 5)
+	pass
+
 func resummon_weapon():
 	print("User-triggered bruh moment")
 	my_weapon.get_node("RigidBody2D").return_back()
 	
 var rbar_step
 onready var map = get_parent().get_node("Navigation2D/TileMap")
+
+var start_layer
+var start_mask
 func _ready():
-	$HPBar.max_value = hp
+	start_layer = collision_layer
+	start_mask = collision_mask
+	$ManaProgress.max_value = max_mana
+	$HPBar.max_value = max_hp
 	$HPBar.value = hp
 	$HPLabel.text = str(hp)
 	$HPBar.update()
@@ -188,6 +289,8 @@ func pdmg():
 
 var mouse_angle
 func _input(event):
+	if (get_parent().wpaused):
+		return
 	mousepos = get_global_mouse_position()
 	mouse_angle = rad2deg($MousePtr.get_angle_to(mousepos))
 	if (mousepos.x > self.global_position.x):
@@ -196,10 +299,15 @@ func _input(event):
     	turn_left()
 	
 	if event is InputEventMouseButton:
-		if (!get_parent().wpaused && event.is_pressed() && event.button_index == BUTTON_LEFT && can_throw && has_sword):
+		if (event.is_pressed() && possessing && event.button_index == BUTTON_RIGHT):
+			possess_revert()
+		if (event.is_pressed() && event.button_index == BUTTON_RIGHT && can_possess && pos_queue):
+			cast_pspell()
+		if (event.is_pressed() && event.button_index == BUTTON_LEFT &&
+		can_sword_attack &&
+		can_throw && has_sword):
 			$TextureProgress.visible = true
 			$ChargeTimer.start()
-			
 		elif (can_throw &&	#kuldaun ne tolko na brosok, no i na vozvrat
 		event.is_pressed() &&
 		event.button_index == BUTTON_LEFT &&
@@ -223,7 +331,10 @@ func direction():
 	return axis.normalized()
 
 func die():
-	if (!dead):
+	if (!dead && possessing):
+		possess_revert()
+	elif (!dead):
+		visible = false
 		dead = true
 		Globals.score = money
 		get_tree().change_scene("res://UI/Death.tscn")
@@ -232,10 +343,12 @@ var axis = Vector2.ZERO
 var collision
 
 var standing_on
-var void_timeout = 0.99
+var void_timeout = 0.9
 var standing_offset = Vector2(0, 30)
 func _physics_process(delta):
 	standing_on = (map.get_cellv(map.world_to_map(global_position + standing_offset)))
+	if (standing_on == -1 && possessing):
+		possess_revert()
 	if (standing_on != -1 && !$VoidTimer.is_stopped()):
 		print("No longer above the void")
 		$FadeTimer.stop()
@@ -253,7 +366,6 @@ func _physics_process(delta):
 		$AnimationPlayer.play("RetractAnim")
 	if (hp < 1):
 		die()
-		visible = false
 	if (!dead && !knock_baking):
 		axis = direction()
 	if (!knock_baking && !can_walk):
@@ -262,10 +374,16 @@ func _physics_process(delta):
 	if (knock_baking):
 		axis = knock_dir
 		thrust -= knock_resistance
-		if (thrust <= thrust_v):
+		if (!possessing && thrust <= thrust_v):
 			thrust = thrust_v
+			knock_resistance = knock_resistance_v
 			knock_baking = false
 			speed_max = speed_max_v
+		if (possessing && thrust <= thrust_p):
+			thrust = thrust_p
+			knock_resistance = knock_resistance_p
+			knock_baking = false
+			speed_max = speed_max_p
 	
 	if (axis == Vector2.ZERO):
 		do_resistance(thrust * delta * resistance_factor)
@@ -279,26 +397,21 @@ func _physics_process(delta):
 			collision.collider.queue_free()
 			return_sword()
 
-
 func _on_AimUp_area_entered(area):
 	if (area.has_method("mouseptr")):
 		aim_vertical = 0
-
 
 func _on_AimDown_area_entered(area):
 	if (area.has_method("mouseptr")):
 		aim_vertical = 1
 
-
 func _on_AimUp_area_exited(area):
 	if (area.has_method("mouseptr")):
 		aim_vertical = -1
 
-
 func _on_AimDown_area_exited(area):
 	if (area.has_method("mouseptr")):
 		aim_vertical = -1
-
 
 func _on_VoidTimer_timeout():
 	if (standing_on == -1):
@@ -307,8 +420,20 @@ func _on_VoidTimer_timeout():
 	$VoidTimer.stop()
 	$FadeTimer.stop()
 
-
 func _on_FadeTimer_timeout():
 	var amt = 0.09
 	if ($Sprite.modulate.a - amt > 0):
 		$Sprite.modulate.a -= amt
+
+var pos_queue = false #possession queue (to select only one mob)
+var pos_body
+func _on_MouseArea_body_entered(body):
+	if (can_possess && !pos_queue && body.has_method("mob") && body.possessable):
+		body.get_node("Possession/PossessionLabel").visible = true
+		pos_queue = true
+		pos_body = body
+
+func _on_MouseArea_body_exited(body):
+	if (body.has_method("mob") && body.possessable && body == pos_body):
+		body.get_node("Possession/PossessionLabel").visible = false
+		pos_queue = false

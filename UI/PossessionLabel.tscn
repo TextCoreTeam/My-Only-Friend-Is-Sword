@@ -10,5 +10,5 @@ margin_top = -60.0
 margin_right = 30.0
 margin_bottom = -46.0
 custom_fonts/font = ExtResource( 1 )
-text = "[E] Possess"
+text = "[RMB] Possess"
 script = ExtResource( 2 )

@@ -26,6 +26,7 @@ func _ready():
 	mob.reward = 2
 	mob.shake_amt = 7
 	mob.mana_drop = 1
+	mob.possessable = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -20,4 +20,13 @@ func _ready():
 	mob.reward = 1
 	mob.shake_amt = 5
 	mob.mana_drop = 1
+	mob.possessable = true
+	#Possession properties
+	mob.p_sprite = "Slime_S"
+	mob.p_thrust = 150
+	mob.p_maxspeed = 150
+	mob.p_walk = true
+	mob.p_hp = 2
+	mob.p_idle_anim = "SlimeMoveLR"
+	mob.p_resist = 200
 	#mob.bullet_type = 0

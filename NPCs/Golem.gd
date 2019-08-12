@@ -20,3 +20,4 @@ func _ready():
 	mob.reward = 3
 	mob.shake_amt = 25
 	mob.mana_drop = 3
+	mob.possessable = false

@@ -1,24 +1,26 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=22 format=2]
 
 [ext_resource path="res://Player/Player.gd" type="Script" id=1]
-[ext_resource path="res://Player/Sprites/mc.png" type="Texture" id=2]
-[ext_resource path="res://Player/Camera.gd" type="Script" id=3]
-[ext_resource path="res://UI/Sprites/progress_back.png" type="Texture" id=4]
-[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
-[ext_resource path="res://Projectiles/Sprites/sword.png" type="Texture" id=6]
-[ext_resource path="res://UI/Sprites/white.png" type="Texture" id=7]
-[ext_resource path="res://UI/Sprites/green.png" type="Texture" id=8]
-[ext_resource path="res://UI/Sprites/btn_hover.png" type="Texture" id=9]
-[ext_resource path="res://Player/MousePtr.gd" type="Script" id=10]
-[ext_resource path="res://UI/Sprites/blue.png" type="Texture" id=11]
-[ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=12]
-[ext_resource path="res://Misc/swordanim.png" type="Texture" id=13]
+[ext_resource path="res://NPCs/Sprites/slime_idle.png" type="Texture" id=2]
+[ext_resource path="res://Player/Sprites/mc.png" type="Texture" id=3]
+[ext_resource path="res://Player/Camera.gd" type="Script" id=4]
+[ext_resource path="res://UI/Sprites/progress_back.png" type="Texture" id=5]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=6]
+[ext_resource path="res://Projectiles/Sprites/sword.png" type="Texture" id=7]
+[ext_resource path="res://UI/Sprites/white.png" type="Texture" id=8]
+[ext_resource path="res://UI/Sprites/green.png" type="Texture" id=9]
+[ext_resource path="res://UI/Sprites/btn_hover.png" type="Texture" id=10]
+[ext_resource path="res://Player/MousePtr.gd" type="Script" id=11]
+[ext_resource path="res://UI/Sprites/blue.png" type="Texture" id=12]
+[ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=13]
+[ext_resource path="res://Misc/swordanim.png" type="Texture" id=14]
+[ext_resource path="res://UI/Sprites/mana_progress.png" type="Texture" id=15]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 51.5484, 31.6859 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 86.915, 36.418 )
+extents = Vector2( 123.204, 36.418 )
 
 [sub_resource type="RectangleShape2D" id=3]
 extents = Vector2( 71.0266, 5.58113 )
@@ -43,6 +45,23 @@ tracks/0/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6 ]
 }
 
+[sub_resource type="Animation" id=6]
+resource_name = "SlimeMoveLR"
+length = 1.2
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Slime_S:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
 [node name="Player" type="KinematicBody2D"]
 position = Vector2( 477.428, 320 )
 script = ExtResource( 1 )
@@ -50,16 +69,22 @@ __meta__ = {
 "_edit_horizontal_guides_": [  ]
 }
 
+[node name="Slime_S" type="Sprite" parent="."]
+visible = false
+position = Vector2( 0, -10 )
+texture = ExtResource( 2 )
+hframes = 7
+frame = 5
+
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0.349124, -0.449768 )
 scale = Vector2( 1.00501, 1 )
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 __meta__ = {
 "_edit_lock_": true
 }
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-visible = false
 position = Vector2( -0.560944, 0.0974121 )
 rotation = 1.5708
 shape = SubResource( 1 )
@@ -73,7 +98,7 @@ drag_margin_left = 0.1
 drag_margin_top = 0.1
 drag_margin_right = 0.1
 drag_margin_bottom = 0.1
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -86,8 +111,8 @@ margin_bottom = 60.0
 max_value = 10.0
 value = 10.0
 rounded = true
-texture_under = ExtResource( 4 )
-texture_progress = ExtResource( 5 )
+texture_under = ExtResource( 5 )
+texture_progress = ExtResource( 6 )
 nine_patch_stretch = true
 
 [node name="ThrowTimer" type="Timer" parent="."]
@@ -97,7 +122,7 @@ wait_time = 3.0
 visible = false
 position = Vector2( 15.0567, 20.2299 )
 scale = Vector2( 0.610853, 0.935142 )
-texture = ExtResource( 6 )
+texture = ExtResource( 7 )
 offset = Vector2( 0, -36.89 )
 
 [node name="TextureProgress" type="TextureProgress" parent="."]
@@ -107,8 +132,8 @@ margin_top = -62.4668
 margin_right = 35.0139
 margin_bottom = -52.4668
 max_value = 150.0
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 8 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 9 )
 nine_patch_stretch = true
 
 [node name="ChargeTimer" type="Timer" parent="."]
@@ -118,22 +143,20 @@ wait_time = 0.02
 visible = false
 position = Vector2( 0, 0.340576 )
 scale = Vector2( 1, 0.128161 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 offset = Vector2( 70.5, 0 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="Area2D" type="Area2D" parent="MousePtr"]
-visible = false
-script = ExtResource( 10 )
+[node name="MouseArea" type="Area2D" parent="MousePtr"]
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePtr/Area2D"]
-visible = false
-position = Vector2( 81.5337, -3.26245 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MousePtr/MouseArea"]
+position = Vector2( 117.847, -3.26245 )
 shape = SubResource( 2 )
 __meta__ = {
 "_edit_lock_": true
@@ -143,13 +166,11 @@ __meta__ = {
 visible = false
 
 [node name="Sprite" type="Sprite" parent="AimUp"]
-visible = false
 position = Vector2( -2.92685, -57.9098 )
 scale = Vector2( 0.938676, 0.222295 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AimUp"]
-visible = false
 position = Vector2( -2.50882, -57.2826 )
 shape = SubResource( 3 )
 
@@ -160,7 +181,7 @@ visible = false
 visible = false
 position = Vector2( -0.836243, 57.2825 )
 scale = Vector2( 1, 0.147033 )
-texture = ExtResource( 9 )
+texture = ExtResource( 10 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AimDown"]
 visible = false
@@ -178,26 +199,26 @@ margin_right = 37.0
 margin_bottom = -53.0
 max_value = 2.0
 step = 0.01
-texture_under = ExtResource( 7 )
-texture_progress = ExtResource( 11 )
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 12 )
 nine_patch_stretch = true
 
 [node name="RetractTimer" type="Timer" parent="."]
 wait_time = 0.07
 
 [node name="HPLabel" type="Label" parent="."]
-margin_left = -5.26422
-margin_top = 51.9433
-margin_right = 4.73578
-margin_bottom = 62.9433
-custom_fonts/font = ExtResource( 12 )
+margin_left = -5.0
+margin_top = 51.943
+margin_right = 5.0
+margin_bottom = 62.943
+custom_fonts/font = ExtResource( 13 )
 text = "10"
 
 [node name="RetractAnim" type="Sprite" parent="."]
 visible = false
 position = Vector2( -0.260712, -66.8656 )
 scale = Vector2( 0.5, 0.5 )
-texture = ExtResource( 13 )
+texture = ExtResource( 14 )
 hframes = 7
 frame = 3
 
@@ -206,11 +227,33 @@ playback_process_mode = 0
 playback_default_blend_time = 1.0
 playback_speed = 1.2
 anims/RetractAnim = SubResource( 5 )
+anims/SlimeMoveLR = SubResource( 6 )
 
 [node name="VoidTimer" type="Timer" parent="."]
 
 [node name="FadeTimer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="ManaProgress" type="TextureProgress" parent="."]
+margin_left = -37.0
+margin_top = 65.0
+margin_right = 35.0
+margin_bottom = 73.0
+max_value = 5.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 15 )
+nine_patch_stretch = true
+
+[node name="ManaLabel" type="Label" parent="."]
+margin_left = -3.0
+margin_top = 64.723
+margin_right = 3.0
+margin_bottom = 75.723
+custom_fonts/font = ExtResource( 13 )
+text = "0"
+align = 1
+[connection signal="body_entered" from="MousePtr/MouseArea" to="." method="_on_MouseArea_body_entered"]
+[connection signal="body_exited" from="MousePtr/MouseArea" to="." method="_on_MouseArea_body_exited"]
 [connection signal="area_entered" from="AimUp" to="." method="_on_AimUp_area_entered"]
 [connection signal="area_exited" from="AimUp" to="." method="_on_AimUp_area_exited"]
 [connection signal="area_entered" from="AimDown" to="." method="_on_AimDown_area_entered"]

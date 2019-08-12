@@ -8,6 +8,16 @@ var player
 var can_take_dmg = true
 var mana_drop
 
+var p_resist
+var p_sprite
+var p_idle_anim
+var p_hp
+var p_thrust
+var p_maxspeed
+var p_walk
+
+var possessable
+
 var knock_speed_damp	#knockback when hit by player
 var knock_speed
 var knock_time
@@ -111,6 +121,8 @@ func turn_right():
 		heading_right = true
 		scale.x *= -1
 		$Aim.scale.x *= -1
+		if (possessable):
+			$Possession.scale.x *= -1
 	
 func turn_left():
 	if (heading_right):
@@ -118,6 +130,8 @@ func turn_left():
 		heading_right = false
 		scale.x = -start_scale.x
 		$Aim.scale.x = -start_scale.x
+		if (possessable):
+			$Possession.scale.x = -start_scale.x
 
 var player_in_melee_hitbox = false
 
@@ -142,8 +156,11 @@ func spawn_mana():
 
 var angle
 var moving = false
+var possessed = false
 var player_above = -1	#0 -> player is above the mob || 1-> player is under the mob || -1 -> fuck you
 func _physics_process(delta):
+	if (possessed):
+		queue_free()
 	if (hp < 1):
 		player.reward(reward)
 		spawn_mana()
