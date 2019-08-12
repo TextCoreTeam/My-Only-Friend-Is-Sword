@@ -201,6 +201,8 @@ func _physics_process(delta):
 
 		if (collision && collision.collider.has_method("mob")):
 			add_collision_exception_with(collision.collider)
+		if (collision && collision.collider.has_method("object_passable")):
+			add_collision_exception_with(collision.collider)
 		
 		if (!attack_in_progress &&
 				$MeleeZone.overlaps_body(player) &&

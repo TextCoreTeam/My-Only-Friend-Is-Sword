@@ -232,14 +232,21 @@ var axis = Vector2.ZERO
 var collision
 
 var standing_on
-var void_timeout = 1
+var void_timeout = 0.99
+var standing_offset = Vector2(0, 30)
 func _physics_process(delta):
-	standing_on = (map.get_cellv(map.world_to_map(global_position)))
+	standing_on = (map.get_cellv(map.world_to_map(global_position + standing_offset)))
 	if (standing_on != -1 && !$VoidTimer.is_stopped()):
 		print("No longer above the void")
+		$FadeTimer.stop()
+		$Sprite.modulate.a = 1
 		$VoidTimer.stop()
-	if (standing_on == -1 && $VoidTimer.is_stopped()):
+	if (axis == Vector2.ZERO &&
+	motion == Vector2.ZERO &&
+	standing_on == -1 &&
+	$VoidTimer.is_stopped()):
 		print("Void timer start")
+		$FadeTimer.start()
 		$VoidTimer.start(void_timeout)
 	if (can_throw && !has_sword && $AnimationPlayer.current_animation != "RetractAnim"):
 		$RetractAnim.show()
@@ -298,3 +305,10 @@ func _on_VoidTimer_timeout():
 		die()
 	print("Bruh")
 	$VoidTimer.stop()
+	$FadeTimer.stop()
+
+
+func _on_FadeTimer_timeout():
+	var amt = 0.09
+	if ($Sprite.modulate.a - amt > 0):
+		$Sprite.modulate.a -= amt
