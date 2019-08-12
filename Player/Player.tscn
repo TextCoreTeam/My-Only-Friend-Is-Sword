@@ -206,7 +206,10 @@ playback_process_mode = 0
 playback_default_blend_time = 1.0
 playback_speed = 1.2
 anims/RetractAnim = SubResource( 5 )
+
+[node name="VoidTimer" type="Timer" parent="."]
 [connection signal="area_entered" from="AimUp" to="." method="_on_AimUp_area_entered"]
 [connection signal="area_exited" from="AimUp" to="." method="_on_AimUp_area_exited"]
 [connection signal="area_entered" from="AimDown" to="." method="_on_AimDown_area_entered"]
 [connection signal="area_exited" from="AimDown" to="." method="_on_AimDown_area_exited"]
+[connection signal="timeout" from="VoidTimer" to="." method="_on_VoidTimer_timeout"]

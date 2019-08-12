@@ -25,6 +25,7 @@ func _ready():
 	mob.bullet_type = 0
 	mob.reward = 2
 	mob.shake_amt = 7
+	mob.mana_drop = 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

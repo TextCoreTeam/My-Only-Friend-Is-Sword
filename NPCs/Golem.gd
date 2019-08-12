@@ -19,3 +19,4 @@ func _ready():
 	mob.knock_thrust = 6000
 	mob.reward = 3
 	mob.shake_amt = 25
+	mob.mana_drop = 3

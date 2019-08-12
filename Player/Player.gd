@@ -6,6 +6,9 @@ var motion = Vector2.ZERO
 const thrust_v = 1300
 const speed_max_v = 350
 
+var mana = 0
+var max_mana = 10
+
 var thrust = 1300
 var speed_max = 350
 
@@ -60,7 +63,7 @@ func knockback(velocity, maxspeed, kthrust, use_bonus):
 			if (velo_bonus > 0 && velo_bonus < 100):
 				velo_bonus *= 3
 			else:
-				velo_bonus *= 6
+				velo_bonus *= 6.1
 			thrust = kthrust + velo_bonus
 		else:
 			thrust = kthrust
@@ -69,8 +72,17 @@ func knockback(velocity, maxspeed, kthrust, use_bonus):
 		knock_dir = velocity.clamped(1) * (-1)
 		print (str(knock_dir) + " | " + str(thrust) + " / "+ str(maxspeed))
 
-func reward(amt):
-	money += amt
+var can_possess = false
+var possess_active = false #flag for possession spell activation
+
+func add_mana(amt = 5):
+	mana += amt
+	if (mana >= max_mana):
+		mana = max_mana
+		can_possess = true
+
+func reward(money_r):
+	money += money_r
 	get_parent().update_score(money)
 
 func dmg(amt):
@@ -117,6 +129,7 @@ func resummon_weapon():
 	my_weapon.get_node("RigidBody2D").return_back()
 	
 var rbar_step
+onready var map = get_parent().get_node("Navigation2D/TileMap")
 func _ready():
 	$HPBar.max_value = hp
 	$HPBar.value = hp
@@ -131,16 +144,12 @@ func _ready():
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
 	$ChargeTimer.connect("timeout", self, "_on_progress_timeout")
 
-var i = 0
 func _on_retract_timeout():
 	$RetractBar.value += rbar_step
-	i += 1
 	if ($RetractBar.value >= $RetractBar.max_value):
 		$RetractTimer.stop()
 		$RetractBar.visible = false
 		$RetractBar.value = 0
-		print("retract timeout " + str(i * 0.04))
-		i = 0
 
 func _on_throw_timeout():
 	print("can throw again")
@@ -222,7 +231,16 @@ func die():
 var axis = Vector2.ZERO
 var collision
 
+var standing_on
+var void_timeout = 1
 func _physics_process(delta):
+	standing_on = (map.get_cellv(map.world_to_map(global_position)))
+	if (standing_on != -1 && !$VoidTimer.is_stopped()):
+		print("No longer above the void")
+		$VoidTimer.stop()
+	if (standing_on == -1 && $VoidTimer.is_stopped()):
+		print("Void timer start")
+		$VoidTimer.start(void_timeout)
 	if (can_throw && !has_sword && $AnimationPlayer.current_animation != "RetractAnim"):
 		$RetractAnim.show()
 		$AnimationPlayer.play("RetractAnim")
@@ -273,3 +291,10 @@ func _on_AimUp_area_exited(area):
 func _on_AimDown_area_exited(area):
 	if (area.has_method("mouseptr")):
 		aim_vertical = -1
+
+
+func _on_VoidTimer_timeout():
+	if (standing_on == -1):
+		die()
+	print("Bruh")
+	$VoidTimer.stop()

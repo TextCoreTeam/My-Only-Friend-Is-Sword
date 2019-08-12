@@ -19,4 +19,5 @@ func _ready():
 	mob.knock_thrust = 3000
 	mob.reward = 1
 	mob.shake_amt = 5
+	mob.mana_drop = 1
 	#mob.bullet_type = 0

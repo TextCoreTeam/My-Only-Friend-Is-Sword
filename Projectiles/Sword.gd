@@ -61,7 +61,7 @@ func return_velocity():
 func _physics_process(delta):
 	if (returning):
 		linear_velocity = return_velocity()
-	if (returning && (player.global_position - global_position).length() <= 50):
+	if (returning && (player.global_position - global_position).length() <= 40):
 		collision_layer = start_col
 		collision_mask = start_mask
 	if (abs(linear_velocity.x) < abs(speed_cap.x) || abs(linear_velocity.y) < abs(speed_cap.y) && !on_floor && !bouncing):

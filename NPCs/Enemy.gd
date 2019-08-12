@@ -6,6 +6,7 @@ var damage_amount
 var speed
 var player
 var can_take_dmg = true
+var mana_drop
 
 var knock_speed_damp	#knockback when hit by player
 var knock_speed
@@ -135,12 +136,17 @@ func attack_prepare():
 	print("Playing attack animation")
 	$AnimationPlayer.play("attack_lr")
 
+var mana_s = load("res://Objects/ManaCrystal.tscn")
+func spawn_mana():
+	world.spawn_objects_in_range(mana_s, global_position.x, global_position.y, 10)
+
 var angle
 var moving = false
 var player_above = -1	#0 -> player is above the mob || 1-> player is under the mob || -1 -> fuck you
 func _physics_process(delta):
 	if (hp < 1):
 		player.reward(reward)
+		spawn_mana()
 		world.spawn_particles_at(ondeath_particles, global_position.x, global_position.y)
 		queue_free()
 	if (world.wpaused):

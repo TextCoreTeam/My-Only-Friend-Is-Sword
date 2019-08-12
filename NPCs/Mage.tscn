@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://NPCs/Mage.gd" type="Script" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=4]
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=5]
 [ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=6]
+[ext_resource path="res://UI/PossessionLabel.tscn" type="PackedScene" id=7]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
@@ -144,6 +145,12 @@ shape = SubResource( 5 )
 
 [node name="KnockTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 0.15
+
+[node name="PossessionLabel" parent="." instance=ExtResource( 7 )]
+margin_left = -0.378235
+margin_top = -97.815
+margin_right = 59.6218
+margin_bottom = -83.815
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]
