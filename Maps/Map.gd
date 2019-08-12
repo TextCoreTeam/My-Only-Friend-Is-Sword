@@ -18,7 +18,7 @@ func spawn_particles_at(obj, x, y):
 	
 func spawn_object_at(obj, x, y):
 	objects.append(obj.instance())
-	add_child(objects.back())
+	add_child_below_node($Bottom, objects.back())
 	objects.back().set_global_position(Vector2(x, y))
 	
 func spawn_object_in_range(obj, x, y, rng):

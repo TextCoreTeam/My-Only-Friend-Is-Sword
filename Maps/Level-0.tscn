@@ -68,6 +68,7 @@ position = Vector2( 208.151, 1626.95 )
 scale = Vector2( 3.2, 2 )
 
 [node name="PhysicalLayer" type="TileMap" parent="."]
+editor/display_folded = true
 tile_set = ExtResource( 4 )
 cell_size = Vector2( 32, 32 )
 format = 1
@@ -83,6 +84,8 @@ scale = Vector2( 1.5, 1.5 )
 [node name="Fire2" parent="PhysicalLayer" instance=ExtResource( 6 )]
 position = Vector2( 1942.42, 1119.78 )
 scale = Vector2( 1.5, 1.5 )
+
+[node name="Bottom" type="Sprite" parent="."]
 
 [node name="Enemy4" parent="." instance=ExtResource( 7 )]
 position = Vector2( 873.267, 2462.43 )

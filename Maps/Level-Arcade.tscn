@@ -32,6 +32,8 @@ __meta__ = {
 "_edit_lock_": true
 }
 
+[node name="Bottom" type="Sprite" parent="."]
+
 [node name="Player" parent="." instance=ExtResource( 4 )]
 position = Vector2( 420.8, 1091.08 )
 

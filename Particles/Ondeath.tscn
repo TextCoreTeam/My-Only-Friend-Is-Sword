@@ -23,7 +23,7 @@ scale_random = 1.0
 color = Color( 0.643137, 0.576471, 1, 1 )
 
 [node name="Ondeath" type="Particles2D"]
-scale = Vector2( 2, 2 )
+scale = Vector2( 2.2, 2.2 )
 emitting = false
 amount = 300
 lifetime = 10.0
