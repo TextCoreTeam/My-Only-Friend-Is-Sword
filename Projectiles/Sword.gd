@@ -58,10 +58,18 @@ func return_back():
 func return_velocity():
 	return (player.get_global_position() - get_global_position()).normalized() * player.sword_speed
 
+var save_per = 5
+var saved = save_per
+var ret = Vector2.ZERO
 func _physics_process(delta):
+	if (saved >= save_per):
+		ret = return_velocity()
+		saved = 0
+	else:
+		saved += 1
 	if (returning):
 		linear_velocity = return_velocity()
-	if (returning && (player.global_position - global_position).length() <= 40):
+	if (returning && (player.global_position - global_position).length() <= 45):
 		collision_layer = start_col
 		collision_mask = start_mask
 	if (abs(linear_velocity.x) < abs(speed_cap.x) || abs(linear_velocity.y) < abs(speed_cap.y) && !on_floor && !bouncing):
@@ -78,7 +86,7 @@ func _on_RigidBody2D_body_entered(body):
 
 	if (body.has_method("pdmg")):
 		print("sword bumped into player")
-		body.knockback((-1) * return_velocity(), knock_speed_max, knock_thrust, true)
+		body.knockback((-1) * ret, knock_speed_max, knock_thrust, true)
 		body.return_sword()
 		queue_free()
 

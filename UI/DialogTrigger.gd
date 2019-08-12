@@ -1,6 +1,6 @@
 extends Area2D
 
-export (String) var text
+export (String, MULTILINE) var text
 export var oneshot = false
 var triggered = false
 

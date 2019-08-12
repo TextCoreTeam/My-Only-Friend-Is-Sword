@@ -232,7 +232,6 @@ anims/SlimeMoveLR = SubResource( 6 )
 [node name="VoidTimer" type="Timer" parent="."]
 
 [node name="FadeTimer" type="Timer" parent="."]
-wait_time = 0.1
 
 [node name="ManaProgress" type="TextureProgress" parent="."]
 margin_left = -37.0

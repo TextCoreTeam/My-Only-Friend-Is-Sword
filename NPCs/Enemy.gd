@@ -72,7 +72,7 @@ func knockback(amt):
 
 var bullet_s = load("res://Projectiles/Bullet.tscn")
 func _on_shoot_timeout():
-	if (!detected || !has_range_attack):
+	if (!detected || !has_range_attack || world.wpaused):
 		return
 	var rot = player_ptr.rotation
 	var direction = (player.global_position - global_position).normalized()

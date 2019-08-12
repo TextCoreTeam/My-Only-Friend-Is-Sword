@@ -72,6 +72,7 @@ visible = false
 position = Vector2( 32.5716, -25.0246 )
 
 [node name="AttackAnimLR" type="Sprite" parent="KinematicBody2D"]
+visible = false
 position = Vector2( 9.25243, 0.185448 )
 texture = ExtResource( 4 )
 hframes = 4

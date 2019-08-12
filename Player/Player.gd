@@ -20,6 +20,7 @@ var max_mana = 5
 var max_hp_v = 10
 var max_hp = max_hp_v
 var hp = max_hp
+var hp_v = hp
 
 var thrust = 1300
 var speed_max = 350
@@ -63,7 +64,7 @@ func set_hp(amt, maxhp):
 	$HPLabel.text = str(amt)
 
 var p_sprite
-func possess_revert():
+func possess_revert(force = false):
 	$Camera2D.shake(3, 30, 10)
 	world.spawn_particles_at(explosion_s, global_position.x, global_position.y)
 	possessing = false
@@ -74,7 +75,9 @@ func possess_revert():
 	thrust = thrust_v
 	speed_max = speed_max_v
 	knock_resistance = knock_resistance_v
-	set_hp(max_hp_v, max_hp_v)
+	if (force):
+		hp_v -= round(max_hp_v / 3)
+	set_hp(hp_v, max_hp_v)
 	$AnimationPlayer.stop()
 
 func possess():
@@ -92,6 +95,7 @@ func possess():
 	knock_resistance_p = pos_body.p_resist
 	knock_resistance = knock_resistance_p
 	$AnimationPlayer.play(pos_body.p_idle_anim)
+	hp_v = hp
 	set_hp(pos_body.p_hp, pos_body.p_hp)
 	pos_body.possessed = true
 	can_sword_attack = false
@@ -141,7 +145,7 @@ func knockback(velocity, maxspeed, kthrust, use_bonus = false, resistance = 170)
 var can_possess = false
 var possess_cost = 5
 
-func add_mana(amt = 5):
+func add_mana(amt = 1):
 	mana += amt
 	if (mana >= max_mana):
 		mana = max_mana
@@ -176,7 +180,7 @@ func return_sword():
 
 var sword_knock_thrust = 2500	#knockback on sword throw
 var sword_knock_speed_max = 3000
-onready var vertical_spawn_dst = sword_spawn_distance + 30
+onready var vertical_spawn_dst = sword_spawn_distance + 25
 var aim_vertical = -1 #-1 -> no 0 -> up 1 -> down
 func throw_sword():
 	var rot = $MousePtr.get_rotation()
@@ -332,7 +336,7 @@ func direction():
 
 func die():
 	if (!dead && possessing):
-		possess_revert()
+		possess_revert(true)
 	elif (!dead):
 		visible = false
 		dead = true
@@ -343,7 +347,8 @@ var axis = Vector2.ZERO
 var collision
 
 var standing_on
-var void_timeout = 0.9
+var void_timeout = 0.75
+var fade_time = 0.07
 var standing_offset = Vector2(0, 30)
 func _physics_process(delta):
 	standing_on = (map.get_cellv(map.world_to_map(global_position + standing_offset)))
@@ -359,7 +364,7 @@ func _physics_process(delta):
 	standing_on == -1 &&
 	$VoidTimer.is_stopped()):
 		print("Void timer start")
-		$FadeTimer.start()
+		$FadeTimer.start(fade_time)
 		$VoidTimer.start(void_timeout)
 	if (can_throw && !has_sword && $AnimationPlayer.current_animation != "RetractAnim"):
 		$RetractAnim.show()
@@ -421,7 +426,7 @@ func _on_VoidTimer_timeout():
 	$FadeTimer.stop()
 
 func _on_FadeTimer_timeout():
-	var amt = 0.09
+	var amt = 0.1
 	if ($Sprite.modulate.a - amt > 0):
 		$Sprite.modulate.a -= amt
 
