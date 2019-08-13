@@ -262,20 +262,32 @@ func resummon_weapon():
 var rbar_step
 onready var map = get_parent().get_node("Navigation2D/TileMap")
 
+func checkpoint_create(pos):
+	for prop_name in Globals.player.keys():
+		if (prop_name == "map" || prop_name == "global_position"):
+			continue
+		print(prop_name + ": " + str(get(prop_name)))
+		Globals.player[prop_name] = get(prop_name)
+	Globals.player["global_position"] = pos
+	Globals.player["map"] = Globals.map
+	
+func checkpoint_load():
+	for prop_name in Globals.player.keys():
+		if (prop_name == "map"):
+			continue
+		set(prop_name, Globals.player[prop_name])
+
 var start_layer
 var start_mask
 func _ready():
 	start_layer = collision_layer
 	start_mask = collision_mask
-	$ManaProgress.max_value = max_mana
-	$HPBar.max_value = max_hp
-	$HPBar.value = hp
-	$HPLabel.text = str(hp)
-	$HPBar.update()
 	rbar_step = $RetractBar.max_value / 20
 	retract_step = throw_cooldown / 20
-	if (Globals.checkpoint != Vector2.ZERO):
-		global_position = Globals.checkpoint
+	if (Globals.player["global_position"] != Vector2.ZERO):
+		checkpoint_load()
+	set_hp(hp, max_hp)
+	set_mana(mana, max_mana)
 	start_scale = scale
 	$RetractTimer.connect("timeout", self, "_on_retract_timeout")
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")

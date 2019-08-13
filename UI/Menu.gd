@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	pass
+	Globals.destroyed_entities.clear()
 
 func _on_NewGameBtn_pressed():
 	Globals.game_mode = 0

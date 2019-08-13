@@ -2,9 +2,10 @@ extends Node2D
 func _ready():
 	var level = get_parent()
 	level.name_str = ""
+	level.save_state = true
 	level.update_map_name()
 	level.get_node("GUI/score").visible = false
-	if (Globals.checkpoint == Vector2.ZERO):
+	if (Globals.player["global_position"] == Vector2.ZERO):
 		Globals.reset_player()
 		level.get_node("GUI").switch_ability()
 		level.show_msg(" Press RMB to proceed.; " + 

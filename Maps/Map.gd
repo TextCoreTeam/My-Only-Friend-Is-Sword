@@ -2,6 +2,7 @@ extends Node2D
 
 #	Methods and properties that are common for all maps
 var wpaused = false
+var save_state
 var name_str	# Map name
 #var overlay
 var msg_s = load("res://UI/MessageBox.tscn")
@@ -42,6 +43,14 @@ func update_map_name():
 
 func _ready():
 	randomize()
+	Globals.map = filename
+	print("loaded " + Globals.map)
+	if (save_state && Globals.destroyed_entities.has(Globals.map)):
+		var lg = Globals.destroyed_entities[Globals.map].size()
+		var i = 0
+		while(i < lg):
+			get_node(Globals.destroyed_entities[Globals.map][i]).queue_free()
+			i += 1
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

@@ -165,6 +165,11 @@ func _physics_process(delta):
 		player.reward(reward)
 		spawn_mana()
 		world.spawn_particles_at(ondeath_particles, global_position.x, global_position.y)
+		if (world.save_state):
+			if (!Globals.destroyed_entities.has(Globals.map)):
+				Globals.destroyed_entities[Globals.map] = []
+			Globals.destroyed_entities[Globals.map].append(get_path())
+			print("added " + get_path() + "to destroyed list")
 		queue_free()
 	if (world.wpaused):
 		return

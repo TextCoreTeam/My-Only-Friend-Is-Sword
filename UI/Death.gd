@@ -7,17 +7,17 @@ func _ready():
 	globals = get_node("/root/Globals")
 	if (globals.game_mode == 0):
 		scorelbl.visible = false
-	if (globals.game_mode == 1 || globals.checkpoint == Vector2.ZERO):
+	if (globals.game_mode == 1 || globals.player["global_position"] == Vector2.ZERO):
 		check.visible = false
 	scorelbl.text = "Score: " + str(globals.score)
 	pass
 
 func _on_NewGameBtn_pressed():
-	globals.checkpoint = Vector2.ZERO
+	Globals.player["global_position"] = Vector2.ZERO
 	print(get_tree().change_scene("res://UI/Menu.tscn"))
 
 func _on_ContinueBtn_pressed():
 	get_tree().quit()
 
 func _on_CheckpBtn_pressed():
-	print(get_tree().change_scene("res://Maps/Level-0.tscn"))
+	print(get_tree().change_scene(Globals.player["map"]))

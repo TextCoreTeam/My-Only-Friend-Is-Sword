@@ -10,6 +10,8 @@ var overlay
 var wpaused = false
 #var shade = load("res://NPCs/Shadow.tscn")
 
+var save_state = false
+
 const WSX = -2000	#World min x
 const WSY = -520	#World min y
 const WEX = 1000	#World max x
@@ -60,6 +62,7 @@ func update_score(points):
 	
 func _ready():
 	randomize()
+	Globals.map = filename
 	print(get_node("Player").unlock_ability("Fireball"))
 	#spawn_instances_in_world(box_s, 50)
 	spawn_instances_in_world(fire, 6)
