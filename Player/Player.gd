@@ -18,6 +18,7 @@ var knock_resistance_p
 
 var ability_current
 var ability_cost
+var ability_name
 
 var mana = 0
 var max_mana = 5
@@ -207,10 +208,20 @@ func throw_sword():
 	knockback(sword.get_node('RigidBody2D').linear_velocity, sword_knock_speed_max, sword_knock_thrust, false)
 	my_weapon = sword
 
+func unlock_ability(name):
+	var i = Globals.ability_list.size() - 1 
+	while (i >= 0):
+		if (Globals.ability_list[i] == name):
+			gui.add_ability(i)
+			return true
+		i -= 1
+	return false
+
 var spell_speed = 500
 func cast_pspell():
 	if (cast_tutorial):
 		cast_tutorial = false
+		unlock_ability("Fireball")
 	mana -= ability_cost
 	set_mana(mana, max_mana)
 	$ManaLabel.text = str(mana)
@@ -274,6 +285,7 @@ func _ready():
 	$RetractTimer.connect("timeout", self, "_on_retract_timeout")
 	$ThrowTimer.connect("timeout", self, "_on_throw_timeout")
 	$ChargeTimer.connect("timeout", self, "_on_progress_timeout")
+	gui.switch_ability()
 
 func _on_retract_timeout():
 	$RetractBar.value += rbar_step
@@ -329,13 +341,13 @@ func _input(event):
     	turn_left()
 	
 	if event is InputEventMouseButton:
-		if (event.is_pressed() && mana >= ability_cost && ability_current == 0 && event.button_index == BUTTON_RIGHT):
+		if (event.is_pressed() && event.button_index == BUTTON_RIGHT && mana >= ability_cost && ability_name == "Fireball"):
 			cast_fireball()
 		if (event.is_pressed() && possessing && event.button_index == BUTTON_RIGHT):
 			possess_revert()
 		if (event.is_pressed() &&
 		event.button_index == BUTTON_RIGHT &&
-		ability_current == 2 &&
+		ability_name == "Possess" &&
 		mana >= ability_cost &&
 		pos_queue):
 			cast_pspell()

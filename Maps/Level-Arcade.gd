@@ -60,6 +60,7 @@ func update_score(points):
 	
 func _ready():
 	randomize()
+	print(get_node("Player").unlock_ability("Fireball"))
 	#spawn_instances_in_world(box_s, 50)
 	spawn_instances_in_world(fire, 6)
 	spawn_instances_in_world(iceg, 4)
