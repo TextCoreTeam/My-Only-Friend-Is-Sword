@@ -44,7 +44,7 @@ emission_shape = 1
 emission_sphere_radius = 3.0
 flag_disable_z = true
 gravity = Vector3( 0, -100, 0 )
-angular_velocity = -1.#QNAN
+angular_velocity = -1.0
 orbit_velocity = 0.0
 orbit_velocity_random = 0.0
 
@@ -69,6 +69,7 @@ texture = ExtResource( 2 )
 hframes = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Bullet_area"]
+visible = false
 position = Vector2( -0.85437, 0.142395 )
 shape = SubResource( 1 )
 

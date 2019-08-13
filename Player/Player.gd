@@ -10,15 +10,13 @@ var motion = Vector2.ZERO
 const thrust_v = 1300
 const speed_max_v = 350
 
-var cast_tutorial = false #to lock spell list for tutorial
-
 var thrust_p
 var speed_max_p
 var knock_resistance_p
 
-var ability_current
-var ability_cost
-var ability_name
+var ability_current = 0
+var ability_cost = 0
+var ability_name = ""
 
 var mana = 0
 var max_mana = 5
@@ -219,9 +217,6 @@ func unlock_ability(name):
 
 var spell_speed = 500
 func cast_pspell():
-	if (cast_tutorial):
-		cast_tutorial = false
-		unlock_ability("Fireball")
 	mana -= ability_cost
 	set_mana(mana, max_mana)
 	$ManaLabel.text = str(mana)
@@ -477,7 +472,7 @@ func _on_FadeTimer_timeout():
 var pos_queue = false #possession queue (to select only one mob)
 var pos_body
 func _on_MouseArea_body_entered(body):
-	if (ability_current == 2 &&
+	if (ability_name == "Possess" &&
 	mana >= ability_cost &&
 	!pos_queue &&
 	body.has_method("mob") &&

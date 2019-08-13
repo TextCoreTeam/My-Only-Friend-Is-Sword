@@ -44,6 +44,9 @@ func _input(event):
 			text_advance()
 		else:
 			visible_characters = text.length()
+	if (event.is_pressed() && event is InputEventMouseButton && event.button_index == BUTTON_LEFT):
+		get_parent().get_parent().get_parent().wpaused = false
+		get_parent().queue_free()
 
 func _process(delta):
 	if(delta_time > speed):

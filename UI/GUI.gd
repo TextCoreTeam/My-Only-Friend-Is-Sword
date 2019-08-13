@@ -1,32 +1,39 @@
 extends CanvasLayer
 
-var ability = ["Possess"]
-var cost = [5]
 var ability_current = 0
-onready var ability_count = ability.size()
+onready var ability_count = Globals.player_ability.size()
 
 func add_ability(id):
-	ability.append(Globals.ability_list[id])
-	cost.append(Globals.cost_list[id])
-	ability_count = ability.size()
+	if (Globals.player_ability.has(Globals.ability_list[id])
+	|| id >= Globals.ability_list.size()):
+		return
+	Globals.player_ability.append(Globals.ability_list[id])
+	Globals.player_ability_cost.append(Globals.cost_list[id])
+	ability_count = Globals.player_ability.size()
 	switch_ability()
 
 func switch_ability():
+	ability_count = Globals.player_ability.size()
+	if (ability_count == 0):
+		$AbilityBox.visible = false
+		return
+	else:
+		if (!$AbilityBox.visible):
+			$AbilityBox.visible = true
 	if (ability_current < 0):
 		ability_current = ability_count - 1
 	if (ability_current >= ability_count):
 		ability_current = 0
-	$AbilityBox/Label.text = ability[ability_current]
-	$AbilityBox/AbilityBar.max_value = cost[ability_current]
+	$AbilityBox/Label.text = Globals.player_ability[ability_current]
+	$AbilityBox/AbilityBar.max_value = Globals.player_ability_cost[ability_current]
 	$AbilityBox/AbilityBar.value = player.mana
 	$AbilityBox/AbilityBar.update()
 	player.ability_current = ability_current
-	player.ability_name = ability[ability_current]
-	player.ability_cost = cost[ability_current]
+	player.ability_name = Globals.player_ability[ability_current]
+	player.ability_cost = Globals.player_ability_cost[ability_current]
 
 func _input(event):
-	if (world.wpaused || player.possessing || player.cast_tutorial):
-		print("bruh input")
+	if (world.wpaused || player.possessing):
 		return
 	if (event is InputEventMouseButton && event.is_pressed()):
 			if (event.button_index == BUTTON_WHEEL_UP):
