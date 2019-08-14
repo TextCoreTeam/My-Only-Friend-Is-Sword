@@ -263,19 +263,26 @@ var rbar_step
 onready var map = get_parent().get_node("Navigation2D/TileMap")
 
 func checkpoint_create(pos):
+	Globals.temp_entities.clear()
 	for prop_name in Globals.player.keys():
 		if (prop_name == "map" || prop_name == "global_position"):
 			continue
-		print(prop_name + ": " + str(get(prop_name)))
+		print("Saving " + prop_name + ": " + str(get(prop_name)))
 		Globals.player[prop_name] = get(prop_name)
 	Globals.player["global_position"] = pos
 	Globals.player["map"] = Globals.map
 	
 func checkpoint_load():
+	var i = 0
+	while(i < Globals.temp_entities.size()):
+		Globals.destroyed_entities[Globals.map].remove(Globals.temp_entities[i])
+		i += 1
+	Globals.temp_entities.clear()
 	for prop_name in Globals.player.keys():
 		if (prop_name == "map"):
 			continue
 		set(prop_name, Globals.player[prop_name])
+		print("Loading " + prop_name + str(Globals.player[prop_name]))
 
 var start_layer
 var start_mask

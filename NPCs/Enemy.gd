@@ -169,6 +169,7 @@ func _physics_process(delta):
 			if (!Globals.destroyed_entities.has(Globals.map)):
 				Globals.destroyed_entities[Globals.map] = []
 			Globals.destroyed_entities[Globals.map].append(get_path())
+			Globals.temp_entities.append(Globals.destroyed_entities.size() - 1)
 			print("added " + get_path() + "to destroyed list")
 		queue_free()
 	if (world.wpaused):

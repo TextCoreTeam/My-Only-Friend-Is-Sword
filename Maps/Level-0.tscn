@@ -151,7 +151,7 @@ position = Vector2( 1614.39, 1241.33 )
 
 [node name="DialogTrigger2" parent="." instance=ExtResource( 11 )]
 position = Vector2( 1193.77, 2682.52 )
-text = " Using your new spell you can possess living creatures using; magic energy:; Accumulate 5 mana, select nearby creature and press RMB; You can leave it's body manually using RMB; If possessed creature dies, you will abandon its body...; ...and lose 1/3 of your HP; Also, if you fall into the void, you will; immideately abandon possessed body"
+text = " Using your new spell you can possess living creatures!; Accumulate 5 mana, select nearby creature and press RMB; You can leave it's body manually using RMB; If possessed creature dies, you will abandon its body...; ...and lose 1/3 of your HP; Also, if you fall into the void, you will...; ...immideately abandon possessed body."
 oneshot = true
 
 [node name="DialogTrigger3" parent="." instance=ExtResource( 11 )]

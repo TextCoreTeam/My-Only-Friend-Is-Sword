@@ -14,6 +14,7 @@ var player = {	"global_position" : Vector2.ZERO,
 				"max_mana" : 0
 				}
 var destroyed_entities = {"" : []} #shit for destroyed static entities
+var temp_entities = [] #destroyed before checkpoint
 var player_ability = []
 var player_ability_cost = []
 
