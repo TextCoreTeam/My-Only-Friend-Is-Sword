@@ -6,12 +6,16 @@ var player_pause = false
 # Global and saveable values
 var score #to save score between the scenes (arcade)
 var map = ""
-var player = {	"global_position" : Vector2.ZERO, 
+var player = {	"x" : 0,
+				"y" : 0, 
 				"map" : "", 
 				"hp" : 0, 
 				"max_hp" : 0, 
 				"mana" : 0, 
-				"max_mana" : 0
+				"max_mana" : 0,
+				"xp" : 0,
+				"required_xp" : 0,
+				"lvl" : 0
 				}
 var destroyed_entities = {"" : []} #shit for destroyed static entities
 var temp_entities = [] #destroyed before checkpoint
@@ -22,11 +26,53 @@ var player_ability_cost = []
 var ability_list = 	["Fireball", 	"Blink", 	"Possess"]
 var cost_list = 	[1, 			3, 			5]
 
+func checkpoint():
+	return Vector2(player["x"], player["y"])
+
 func reset_player():
 	score = 0
-	player["global_position"] = Vector2.ZERO
+	player["x"] = 0
+	player["y"] = 0
 	player_ability = []
 	player_ability_cost = []
+
+const savefile = "user://mofis_save.dat"
+
+var saveable_objects = [	"player", "player_ability", "player_ability_cost",
+							"destroyed_entities"
+							]
+
+func save_game():
+	var save_game = File.new()
+	save_game.open(savefile, File.WRITE)
+	var i = 0
+	while (i < saveable_objects.size()):
+		save_game.store_line(to_json(get(saveable_objects[i])))
+		i += 1
+	save_game.close()
+
+func load_game():
+	var save_game = File.new()
+	if not save_game.file_exists(savefile):
+		return false
+	print(savefile)
+	save_game.open(savefile, File.READ)
+	var i = 0
+	while (i < saveable_objects.size()):
+		var data = parse_json(save_game.get_line())
+		if (typeof(data) == TYPE_DICTIONARY):
+			for prop_name in data.keys():
+				print("Loading " + prop_name + ": " + str(data[prop_name]))
+				get(saveable_objects[i])[prop_name] = data[prop_name]
+				#player[prop_name] 
+		elif (typeof(data) == TYPE_ARRAY):
+			var j = 0
+			while (j < data.size()):
+				get(saveable_objects[i])[j] = data[j]
+				j += 1
+		i += 1
+	save_game.close()
+	return true
 
 func _ready():
 	pass

@@ -26,6 +26,10 @@ var max_hp = max_hp_v
 var hp = max_hp
 var hp_v = hp
 
+var xp = 0
+var required_xp = 25
+var lvl = 0
+
 var thrust = 1300
 var speed_max = 350
 
@@ -166,8 +170,8 @@ func add_mana(amt = 1):
 	gui.switch_ability()
 
 func reward(money_r):
-	money += money_r
-	get_parent().update_score(money)
+	xp += money_r
+	get_parent().update_score(xp)
 
 func dmg(amt):
 	hp -= amt
@@ -267,12 +271,17 @@ onready var map = get_parent().get_node("Navigation2D/TileMap")
 func checkpoint_create(pos):
 	Globals.temp_entities.clear()
 	for prop_name in Globals.player.keys():
-		if (prop_name == "map" || prop_name == "global_position"):
+		if (prop_name == "map" ||
+		prop_name == "x" ||
+		prop_name == "y" ||
+		prop_name == "global_position"):
 			continue
 		print("Saving " + prop_name + ": " + str(get(prop_name)))
 		Globals.player[prop_name] = get(prop_name)
-	Globals.player["global_position"] = pos
+	Globals.player["x"] = pos.x
+	Globals.player["y"] = pos.y
 	Globals.player["map"] = Globals.map
+	Globals.save_game()
 	
 func checkpoint_load():
 	var i = 0
@@ -283,10 +292,12 @@ func checkpoint_load():
 		i += 1
 	Globals.temp_entities.clear()
 	for prop_name in Globals.player.keys():
-		if (prop_name == "map"):
+		if (prop_name == "map" ||
+		prop_name == "global_position"):
 			continue
 		set(prop_name, Globals.player[prop_name])
 		print("Loading " + prop_name + str(Globals.player[prop_name]))
+	global_position = Globals.checkpoint()
 
 var start_layer
 var start_mask
@@ -295,7 +306,7 @@ func _ready():
 	start_mask = collision_mask
 	rbar_step = $RetractBar.max_value / 20
 	retract_step = throw_cooldown / 20
-	if (Globals.player["global_position"] != Vector2.ZERO):
+	if (Globals.checkpoint() != Vector2.ZERO):
 		checkpoint_load()
 	set_hp(hp, max_hp)
 	set_mana(mana, max_mana)
@@ -402,7 +413,7 @@ func die():
 	elif (!dead):
 		visible = false
 		dead = true
-		Globals.score = money
+		Globals.score = xp	#for arcade mode
 		get_tree().change_scene("res://UI/Death.tscn")
 
 var axis = Vector2.ZERO

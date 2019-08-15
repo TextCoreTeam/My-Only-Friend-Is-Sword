@@ -5,7 +5,7 @@ func _ready():
 	level.save_state = true
 	level.update_map_name()
 	level.get_node("GUI/score").visible = false
-	if (Globals.player["global_position"] == Vector2.ZERO):
+	if (Globals.checkpoint() == Vector2.ZERO):
 		Globals.reset_player()
 		level.get_node("GUI").switch_ability()
 		level.show_msg(" Press RMB to proceed.; " + 
