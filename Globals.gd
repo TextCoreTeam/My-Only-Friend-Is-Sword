@@ -47,6 +47,7 @@ func save_game():
 	save_game.open(savefile, File.WRITE)
 	var i = 0
 	while (i < saveable_objects.size()):
+		print("serializing " + str(get(saveable_objects[i])))
 		save_game.store_line(to_json(get(saveable_objects[i])))
 		i += 1
 	save_game.close()
@@ -63,16 +64,31 @@ func load_game():
 		if (typeof(data) == TYPE_DICTIONARY):
 			for prop_name in data.keys():
 				print("Loading " + prop_name + ": " + str(data[prop_name]))
-				get(saveable_objects[i])[prop_name] = data[prop_name]
+				if (typeof(data[prop_name]) == TYPE_ARRAY):
+					get(saveable_objects[i])[prop_name] = []
+					var k = 0
+					while (k < data[prop_name].size()):
+						get(saveable_objects[i])[prop_name].append(data[prop_name][k])
+						k += 1
+				else:
+					get(saveable_objects[i])[prop_name] = data[prop_name]
 				#player[prop_name] 
 		elif (typeof(data) == TYPE_ARRAY):
+			get(saveable_objects[i]).clear()
 			var j = 0
 			while (j < data.size()):
-				get(saveable_objects[i])[j] = data[j]
+				get(saveable_objects[i]).append(data[j])
 				j += 1
 		i += 1
 	save_game.close()
 	return true
+
+func remove_from_map(name):
+		if (!Globals.destroyed_entities.has(Globals.map)):
+			print("Creating map destroyed obj list")
+			Globals.destroyed_entities[Globals.map] = []
+		Globals.destroyed_entities[Globals.map].append(name)
+		Globals.temp_entities.append(Globals.destroyed_entities[Globals.map].back())
 
 func _ready():
 	pass
