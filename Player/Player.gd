@@ -35,7 +35,9 @@ var knock_resistance_v = 170
 var sword_spawn_distance = 20
 var money = 0
 var dead = false
+
 var resistance_factor = 1
+var speed_factor = 1
 
 var can_throw = true
 var has_sword = true
@@ -275,7 +277,9 @@ func checkpoint_create(pos):
 func checkpoint_load():
 	var i = 0
 	while(i < Globals.temp_entities.size()):
-		Globals.destroyed_entities[Globals.map].remove(Globals.temp_entities[i])
+		print(Globals.map + " " + str(i) + " " + str(Globals.temp_entities[i]))
+		print("Undoing removal of " + Globals.temp_entities[i])
+		Globals.destroyed_entities[Globals.map].erase(Globals.temp_entities[i])
 		i += 1
 	Globals.temp_entities.clear()
 	for prop_name in Globals.player.keys():
@@ -383,7 +387,7 @@ func do_resistance(amt):
 		motion = Vector2.ZERO
 	
 func move(amt):
-	motion += amt
+	motion += amt * speed_factor
 	motion = motion.clamped(speed_max)
 
 func direction():

@@ -167,10 +167,11 @@ func _physics_process(delta):
 		world.spawn_particles_at(ondeath_particles, global_position.x, global_position.y)
 		if (world.save_state):
 			if (!Globals.destroyed_entities.has(Globals.map)):
+				print("Creating map destroyed obj list")
 				Globals.destroyed_entities[Globals.map] = []
 			Globals.destroyed_entities[Globals.map].append(get_path())
-			Globals.temp_entities.append(Globals.destroyed_entities.size() - 1)
-			print("added " + get_path() + "to destroyed list")
+			Globals.temp_entities.append(Globals.destroyed_entities[Globals.map].back())
+			print("added " + get_path() + " to destroyed list | id " + str(Globals.temp_entities.back()))
 		queue_free()
 	if (world.wpaused):
 		return

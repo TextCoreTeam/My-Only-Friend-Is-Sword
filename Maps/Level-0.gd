@@ -13,8 +13,8 @@ func _ready():
 		" Thinking you've been robbed, you nervously check your pockets...;" +
 		" ...and realize you have no hands or legs.; Finally, you understand that you are a ghost now.;" +
 		" And this place most likely is the Shadow Realm, as the legends say.;" +
-		" Suddenly, a very clear image of a glowing sword; appears in your mind.;" +
-		" Press LMB to throw the sword; Press LMB again to bring your sword back; As you can see, you can move just by throwing your sword; Try to not fall down; Be aware of enemies!; Throw the sword through fire to increase its damage; Good luck!")
+		" Suddenly, a very clear image of a glowing sword...; ...appears in your mind.;" +
+		" Press LMB to throw the sword.; Press LMB again to bring your sword back.; You realize you can move only by throwing your sword.; Time to go!")
 	
 func update_score(points):
 	$GUI/score.text = "Score: " + str(points)

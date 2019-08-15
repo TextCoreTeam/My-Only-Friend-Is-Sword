@@ -9,6 +9,13 @@ anchor_bottom = 1.0
 theme = ExtResource( 1 )
 script = ExtResource( 2 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_left = -102.842
+margin_top = -47.8333
+margin_right = 1184.16
+margin_bottom = 727.167
+color = Color( 0.176471, 0.2, 0.372549, 1 )
+
 [node name="CenterContainer" type="CenterContainer" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
