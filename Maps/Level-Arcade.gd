@@ -59,9 +59,14 @@ func spawn_instances_in_world(obj_res, q):
 
 func update_score(points):
 	$GUI/score.text = str(points)
-	
+
+var player
 func _ready():
 	randomize()
+	player = get_node("Player")
+	player.hp = 10
+	player.max_hp = 10
+	player.mana = 0
 	Globals.map = filename
 	print(get_node("Player").unlock_ability("Fireball"))
 	#spawn_instances_in_world(box_s, 50)
