@@ -5,7 +5,7 @@ var velocity = Vector2()
 func _on_timer_timeout():
 	queue_free()
 
-func dmg():
+func dmg(dmg = 1):
 	queue_free()
 
 func _ready():

@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://NPCs/Golem.gd" type="Script" id=2]
@@ -8,6 +8,9 @@
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=6]
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=7]
 [ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=8]
+[ext_resource path="res://UI/Font.tres" type="DynamicFont" id=9]
+[ext_resource path="res://UI/Sprites/white.png" type="Texture" id=10]
+[ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=11]
 
 [sub_resource type="Animation" id=1]
 resource_name = "attack_lr"
@@ -86,16 +89,19 @@ script = ExtResource( 2 )
 
 [node name="AttackAnimLR" type="Sprite" parent="KinematicBody2D"]
 visible = false
+position = Vector2( -40, -3 )
 texture = ExtResource( 3 )
+offset = Vector2( 34.26, 0 )
 hframes = 7
 frame = 6
 
 [node name="WalkAnimLR" type="Sprite" parent="KinematicBody2D"]
-position = Vector2( -20.5605, 17.1417 )
+position = Vector2( -31.5605, 17.1417 )
 scale = Vector2( 0.87, 0.87 )
 texture = ExtResource( 4 )
+offset = Vector2( 6.93, 0 )
 hframes = 7
-frame = 5
+frame = 2
 
 [node name="AttackAnimU" type="Sprite" parent="KinematicBody2D"]
 visible = false
@@ -180,6 +186,36 @@ __meta__ = {
 
 [node name="KnockTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 0.15
+
+[node name="MobInfo" type="Sprite" parent="KinematicBody2D"]
+
+[node name="MobInfo" type="Label" parent="KinematicBody2D/MobInfo"]
+margin_left = -71.0
+margin_top = -104.895
+margin_right = 19.0
+margin_bottom = -82.8954
+custom_fonts/font = ExtResource( 9 )
+text = "Slime"
+align = 1
+valign = 2
+
+[node name="HPBar" type="TextureProgress" parent="KinematicBody2D/MobInfo/MobInfo"]
+margin_left = -23.0
+margin_top = 234.0
+margin_right = 95.0
+margin_bottom = 246.0
+texture_under = ExtResource( 10 )
+texture_progress = ExtResource( 7 )
+nine_patch_stretch = true
+
+[node name="HpLabel" type="Label" parent="KinematicBody2D/MobInfo/MobInfo/HPBar"]
+margin_top = 2.0
+margin_right = 118.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 11 )
+text = "0"
+align = 1
+valign = 2
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]

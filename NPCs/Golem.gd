@@ -2,6 +2,8 @@ extends Sprite
 
 func _ready():
 	var mob = get_parent()
+	mob.mobname = "Golem"
+	mob.w_offset = -15
 	mob.hp = 8
 	mob.damage_amount = 2
 	mob.melee_cooldown = 1.75

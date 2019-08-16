@@ -47,11 +47,17 @@ var start_scale
 var player_ptr
 var world
 var shake_amt
+var mobname
 
 onready var navigation = get_parent().get_parent().get_node("Navigation2D")
 onready var map = get_parent().get_parent().get_node("Navigation2D/PhysicalLayer")
 
 func _ready():
+	$MobInfo/MobInfo.text = mobname
+	$MobInfo/MobInfo/HPBar.max_value = hp
+	$MobInfo/MobInfo/HPBar.value = hp
+	$MobInfo/MobInfo/HPBar.update()
+	$MobInfo/MobInfo/HPBar/HpLabel.text = str(hp)
 	world = get_parent().get_parent()
 	player_ptr = get_parent().get_node("PlayerPtr")
 	start_scale = scale
@@ -101,6 +107,9 @@ func dmg(num = 1):
 		can_take_dmg = false
 		$Blood.emitting = true
 		hp -= num
+		$MobInfo/MobInfo/HPBar.value = hp
+		$MobInfo/MobInfo/HPBar.update()
+		$MobInfo/MobInfo/HPBar/HpLabel.text = str(hp)
 
 var pid
 var can_attack = true
@@ -115,23 +124,34 @@ var dst	# distance to player
 var detected = false
 var heading_right = true #false->left true->right
 
+var w_offset
 func turn_right():
 	if (!heading_right):
 		player_above = -1
 		heading_right = true
-		scale.x *= -1
-		$Aim.scale.x *= -1
-		if (possessable):
-			$Possession.scale.x *= -1
+		$WalkAnimLR.flip_h = false
+		$AttackAnimLR.flip_h = false
+		$WalkAnimLR.offset = Vector2.ZERO
+		$AttackAnimLR.offset = Vector2.ZERO
+		#scale.x *= -1
+		#$Aim.scale.x *= -1
+		#if (possessable):
+		#	$Possession.scale.x *= -1
+		#$MobInfo.scale.x *= -1
 	
 func turn_left():
 	if (heading_right):
 		player_above = -1
-		heading_right = false
-		scale.x = -start_scale.x
-		$Aim.scale.x = -start_scale.x
-		if (possessable):
-			$Possession.scale.x = -start_scale.x
+		heading_right = true
+		$WalkAnimLR.flip_h = true
+		$AttackAnimLR.flip_h = true
+		$WalkAnimLR.offset = Vector2(w_offset, 0)
+		$AttackAnimLR.offset = Vector2(w_offset, 0)
+		#scale.x = -start_scale.x
+		#$Aim.scale.x = -start_scale.x
+		#if (possessable):
+		#	$Possession.scale.x = -start_scale.x
+		#$MobInfo.scale.x = -start_scale.x
 
 var player_in_melee_hitbox = false
 
@@ -160,6 +180,8 @@ var possessed = false
 var player_above = -1	#0 -> player is above the mob || 1-> player is under the mob || -1 -> fuck you
 func _physics_process(delta):
 	if (possessed):
+		if (world.save_state):
+			Globals.remove_from_map(get_path())
 		queue_free()
 	if (hp < 1):
 		player.reward(reward)

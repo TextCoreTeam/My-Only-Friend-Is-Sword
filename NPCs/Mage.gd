@@ -7,6 +7,8 @@ extends Sprite
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var mob = get_parent()
+	mob.mobname = "Mage"
+	mob.w_offset = -20
 	mob.hp = 3
 	mob.damage_amount = 2
 	mob.melee_cooldown = 2

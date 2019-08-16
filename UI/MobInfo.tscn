@@ -1,0 +1,35 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=1]
+[ext_resource path="res://UI/Sprites/white.png" type="Texture" id=2]
+[ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=3]
+
+[node name="Info" type="Sprite"]
+
+[node name="MobInfo" type="Label" parent="."]
+margin_left = -48.0
+margin_top = -36.8954
+margin_right = 42.0
+margin_bottom = -25.8954
+custom_fonts/font = ExtResource( 1 )
+text = "Slime"
+align = 1
+valign = 2
+
+[node name="HPBar" type="TextureProgress" parent="MobInfo"]
+margin_left = 2.0
+margin_top = 63.8954
+margin_right = 92.0
+margin_bottom = 75.8954
+texture_under = ExtResource( 2 )
+texture_progress = ExtResource( 3 )
+nine_patch_stretch = true
+
+[node name="HpLabel" type="Label" parent="MobInfo/HPBar"]
+margin_top = 2.0
+margin_right = 90.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 1 )
+text = "0"
+align = 1
+valign = 2

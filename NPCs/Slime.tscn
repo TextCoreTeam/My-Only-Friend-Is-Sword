@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://NPCs/Enemy.gd" type="Script" id=1]
 [ext_resource path="res://UI/Possession.tscn" type="PackedScene" id=2]
@@ -7,6 +7,8 @@
 [ext_resource path="res://Particles/Blood.tscn" type="PackedScene" id=5]
 [ext_resource path="res://UI/Sprites/progress_p.png" type="Texture" id=6]
 [ext_resource path="res://UI/Sprites/btn_normal.png" type="Texture" id=7]
+[ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=8]
+[ext_resource path="res://UI/Sprites/white.png" type="Texture" id=9]
 
 [sub_resource type="CanvasItemMaterial" id=1]
 render_priority = 10
@@ -78,6 +80,7 @@ position = Vector2( 3.36359, -0.699253 )
 script = ExtResource( 1 )
 
 [node name="Possession" parent="KinematicBody2D" instance=ExtResource( 2 )]
+position = Vector2( -1.88322, 81.6992 )
 
 [node name="AttackCooldown" type="Timer" parent="KinematicBody2D"]
 process_mode = 0
@@ -139,6 +142,7 @@ scale = Vector2( 0.137554, 1.43786 )
 texture = ExtResource( 6 )
 
 [node name="MeleeHitbox" type="Area2D" parent="KinematicBody2D"]
+editor/display_folded = true
 position = Vector2( 32.5716, -25.0246 )
 
 [node name="Sprite" type="Sprite" parent="KinematicBody2D/MeleeHitbox"]
@@ -152,6 +156,7 @@ position = Vector2( -2.42284, 23.1774 )
 shape = SubResource( 5 )
 
 [node name="MeleeZone" type="Area2D" parent="KinematicBody2D"]
+editor/display_folded = true
 position = Vector2( 15.0264, -18.5373 )
 __meta__ = {
 "_edit_group_": true,
@@ -164,6 +169,36 @@ shape = SubResource( 6 )
 
 [node name="KnockTimer" type="Timer" parent="KinematicBody2D"]
 wait_time = 0.15
+
+[node name="MobInfo" type="Sprite" parent="KinematicBody2D"]
+
+[node name="MobInfo" type="Label" parent="KinematicBody2D/MobInfo"]
+margin_left = -48.0
+margin_top = -36.8954
+margin_right = 42.0
+margin_bottom = -25.8954
+custom_fonts/font = ExtResource( 8 )
+text = "Slime"
+align = 1
+valign = 2
+
+[node name="HPBar" type="TextureProgress" parent="KinematicBody2D/MobInfo/MobInfo"]
+margin_left = 2.0
+margin_top = 63.8954
+margin_right = 92.0
+margin_bottom = 75.8954
+texture_under = ExtResource( 9 )
+texture_progress = ExtResource( 6 )
+nine_patch_stretch = true
+
+[node name="HpLabel" type="Label" parent="KinematicBody2D/MobInfo/MobInfo/HPBar"]
+margin_top = 2.0
+margin_right = 90.0
+margin_bottom = 13.0
+custom_fonts/font = ExtResource( 8 )
+text = "0"
+align = 1
+valign = 2
 [connection signal="timeout" from="KinematicBody2D/AttackCooldown" to="KinematicBody2D" method="_on_AttackCooldown_timeout"]
 [connection signal="animation_finished" from="KinematicBody2D/AnimationPlayer" to="KinematicBody2D" method="_on_AnimationPlayer_animation_finished"]
 [connection signal="body_entered" from="KinematicBody2D/MeleeHitbox" to="KinematicBody2D" method="_on_MeleeHitbox_body_entered"]
