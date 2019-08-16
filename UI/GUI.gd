@@ -46,7 +46,11 @@ onready var world = get_parent()
 var player
 func _ready():
 	player = world.get_node("Player")
+	$ExpBar.modulate.a = 0.6
 	$AbilityBox.modulate.a = 0.5
 
-#func _process(delta):
-#	pass
+func _process(delta):
+	if (world.wpaused && $ExpBar.visible):
+		$ExpBar.visible = false
+	if (!world.wpaused && !$ExpBar.visible && Globals.game_mode == 0 && world.show_exp):
+		$ExpBar.visible = true

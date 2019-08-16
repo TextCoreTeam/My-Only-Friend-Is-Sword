@@ -1,32 +1,13 @@
-extends Area2D
+extends KinematicBody2D
 
-# Declare member variables here. Examples:
-# var a = 2
-# var b = "text"
-
-# Called when the node enters the scene tree for the first time.
+export var boss_name = "IceGolem"
+onready var world = get_parent()
 func _ready():
-	pass # Replace with function body.
-
-var in_zone = false
-var player
+	pass
+	
 func _physics_process(delta):
-	if (in_zone && player.motion == Vector2.ZERO && player.axis == Vector2.ZERO):
-		$Timer.start()
-
-
-
-func _on_Death_zone_body_entered(body):
-	if body.has_method("pdmg"):
-		player = body
-		in_zone = true
-
-
-func _on_Death_zone_body_exited(body):
-	if body.has_method("pdmg"):
-		player = body
-		in_zone = false
-
-func _on_Timer_timeout():
-	if (in_zone):
-		player.die()
+	if (world.has_node(boss_name)):
+		return
+	else:
+		print("!!!!!!!!!!!!!!!!!!!!!!!!! Boss killed. Removing barrier...")
+		queue_free()

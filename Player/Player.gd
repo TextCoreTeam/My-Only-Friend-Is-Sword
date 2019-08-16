@@ -26,6 +26,7 @@ var max_hp = max_hp_v
 var hp = max_hp
 var hp_v = hp
 
+const lvup_factor = 2.1
 var xp = 0
 var required_xp = 25
 var lvl = 0
@@ -169,9 +170,17 @@ func add_mana(amt = 1):
 	$ManaLabel.text = str(mana)
 	gui.switch_ability()
 
+func check_level():
+	var lvup = false
+	if (xp >= required_xp):
+		lvup = true
+		required_xp *= lvup_factor
+		lvl += 1
+	get_parent().update_score(xp, required_xp, lvup)
+
 func reward(money_r):
 	xp += money_r
-	get_parent().update_score(xp)
+	check_level()
 
 func dmg(amt):
 	hp -= amt
@@ -424,6 +433,8 @@ var void_timeout = 0.75
 var fade_time = 0.07
 var standing_offset = Vector2(0, 30)
 func _physics_process(delta):
+	if (world.wpaused):
+		return
 	standing_on = (map.get_cellv(map.world_to_map(global_position + standing_offset)))
 	if (standing_on == -1 && possessing):
 		possess_revert()

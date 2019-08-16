@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/Menu.gd" type="Script" id=2]
+[ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=3]
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -22,9 +23,9 @@ anchor_bottom = 1.0
 
 [node name="MenuCol" type="VBoxContainer" parent="CenterContainer"]
 margin_left = 387.0
-margin_top = 239.0
+margin_top = 216.0
 margin_right = 637.0
-margin_bottom = 360.0
+margin_bottom = 384.0
 custom_constants/separation = 30
 
 [node name="Title" type="Label" parent="CenterContainer/MenuCol"]
@@ -36,38 +37,44 @@ align = 1
 [node name="GameBtnContainer" type="CenterContainer" parent="CenterContainer/MenuCol"]
 margin_top = 52.0
 margin_right = 250.0
-margin_bottom = 121.0
+margin_bottom = 168.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MenuCol/GameBtnContainer"]
-margin_left = 42.0
-margin_right = 207.0
-margin_bottom = 69.0
+margin_left = 9.0
+margin_right = 240.0
+margin_bottom = 116.0
 custom_constants/separation = 25
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer"]
-margin_right = 165.0
+margin_right = 231.0
 margin_bottom = 22.0
 custom_constants/separation = 35
 
 [node name="NewGameBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer"]
-margin_right = 58.0
+margin_right = 106.0
 margin_bottom = 22.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Story"
+text = "New Game"
 
-[node name="ContinueBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer"]
-margin_left = 93.0
-margin_right = 165.0
+[node name="ContBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer"]
+margin_left = 141.0
+margin_right = 231.0
 margin_bottom = 22.0
+text = "Continue"
+
+[node name="ArcadeBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer"]
+margin_top = 47.0
+margin_right = 231.0
+margin_bottom = 69.0
 focus_mode = 0
 enabled_focus_mode = 0
-text = "Arcade"
+text = "Arcade Mode"
 
 [node name="QuitBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer"]
-margin_top = 47.0
-margin_right = 165.0
-margin_bottom = 69.0
+margin_top = 94.0
+margin_right = 231.0
+margin_bottom = 116.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
@@ -76,6 +83,19 @@ text = "Quit"
 position = Vector2( 505, 310 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
+
+[node name="VerLbl" type="Label" parent="."]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 702.0
+margin_top = -153.0
+margin_right = 758.0
+margin_bottom = -142.0
+grow_horizontal = 0
+custom_fonts/font = ExtResource( 3 )
+align = 2
+valign = 2
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer/NewGameBtn" to="." method="_on_NewGameBtn_pressed"]
-[connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer/ContinueBtn" to="." method="_on_ContinueBtn_pressed"]
+[connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer/ContBtn" to="." method="_on_ContBtn_pressed"]
+[connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/ArcadeBtn" to="." method="_on_ArcadeBtn_pressed"]
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/QuitBtn" to="." method="_on_QuitBtn_pressed"]

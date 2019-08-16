@@ -53,6 +53,7 @@ onready var navigation = get_parent().get_parent().get_node("Navigation2D")
 onready var map = get_parent().get_parent().get_node("Navigation2D/PhysicalLayer")
 
 func _ready():
+	$TakeDMGTimer.wait_time = 0.8
 	$MobInfo/MobInfo.text = mobname
 	$MobInfo/MobInfo/HPBar.max_value = hp
 	$MobInfo/MobInfo/HPBar.value = hp
@@ -178,19 +179,20 @@ var angle
 var moving = false
 var possessed = false
 var player_above = -1	#0 -> player is above the mob || 1-> player is under the mob || -1 -> fuck you
+onready var me = get_parent().get_path()
 func _physics_process(delta):
 	if (possessed):
 		if (world.save_state):
-			Globals.remove_from_map(get_path())
-		queue_free()
+			Globals.remove_from_map(me)
+		get_parent().queue_free()
 	if (hp < 1):
 		player.reward(reward)
 		spawn_mana()
 		world.spawn_particles_at(ondeath_particles, global_position.x, global_position.y)
 		if (world.save_state):
-			Globals.remove_from_map(get_path())
-			print("added " + get_path() + " to destroyed list | id " + str(Globals.temp_entities.back()))
-		queue_free()
+			Globals.remove_from_map(me)
+			print("added " + me + " to destroyed list")
+		get_parent().queue_free()
 	if (world.wpaused):
 		return
 	dst = (player.global_position - global_position).length()

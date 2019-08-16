@@ -57,7 +57,7 @@ func spawn_instances_in_world(obj_res, q):
 		spawn_instance_in_world(obj_res.instance())
 		i += 1
 
-func update_score(points):
+func update_score(points, kldg = 0, kldg2 = false):
 	$GUI/score.text = str(points)
 
 var player

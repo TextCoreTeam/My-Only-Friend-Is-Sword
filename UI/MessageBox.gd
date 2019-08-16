@@ -8,7 +8,6 @@ var pages = []
 var player
 
 func init():
-	player = get_parent().get_node("Player")
 	visible_characters = 0
 	parse_dialog_text()
 	text = pages[current_page]
@@ -16,7 +15,7 @@ func init():
 	set_process(true)
 
 func _ready():
-	pass
+	 pass
 
 func parse_dialog_text():
 	pages = dialog_text.split(";")

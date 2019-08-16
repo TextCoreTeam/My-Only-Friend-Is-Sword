@@ -1,4 +1,5 @@
 extends Node
+var version = "v1.3"
 # Temp values
 var game_mode	#0 -- story || 1 -- arcade
 var player_pause = false

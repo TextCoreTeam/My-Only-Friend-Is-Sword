@@ -1,0 +1,44 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://Objects/Teleport.gd" type="Script" id=1]
+[ext_resource path="res://Objects/Sprites/teleport.png" type="Texture" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "idle"
+length = 3.3
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2, 1.4, 1.6, 1.8, 2, 2.2, 2.4, 2.6, 2.8, 3 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 6, 5, 4, 3, 2, 1, 0 ]
+}
+
+[sub_resource type="CapsuleShape2D" id=2]
+radius = 24.4856
+height = 108.716
+
+[node name="Teleport" type="Area2D"]
+script = ExtResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+hframes = 9
+frame = 5
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "idle"
+playback_speed = 2.0
+anims/idle = SubResource( 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( 0, 43.7263 )
+rotation = 1.5708
+shape = SubResource( 2 )
+[connection signal="body_entered" from="." to="." method="_on_Teleport_body_entered"]
