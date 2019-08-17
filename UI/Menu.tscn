@@ -1,8 +1,25 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://UI/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/Menu.gd" type="Script" id=2]
 [ext_resource path="res://UI/font_small.tres" type="DynamicFont" id=3]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fg:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Menu" type="Control"]
 anchor_right = 1.0
@@ -95,7 +112,20 @@ grow_horizontal = 0
 custom_fonts/font = ExtResource( 3 )
 align = 2
 valign = 2
+
+[node name="Fg" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 208.0
+margin_top = 132.0
+margin_right = 824.0
+margin_bottom = 481.0
+mouse_filter = 2
+color = Color( 0, 0, 0, 1 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 1 )
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer/NewGameBtn" to="." method="_on_NewGameBtn_pressed"]
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer/ContBtn" to="." method="_on_ContBtn_pressed"]
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/ArcadeBtn" to="." method="_on_ArcadeBtn_pressed"]
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/QuitBtn" to="." method="_on_QuitBtn_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

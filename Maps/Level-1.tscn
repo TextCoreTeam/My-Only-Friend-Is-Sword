@@ -27,3 +27,6 @@ format = 1
 [node name="Bottom" type="Sprite" parent="."]
 
 [node name="Player" parent="." instance=ExtResource( 4 )]
+
+[node name="Timer" type="Timer" parent="."]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]

@@ -41,7 +41,12 @@ func show_msg(msg_str):		# Messagebox. Text can be split in pages using ";" razd
 	var dialog = msg_s.instance()
 	dialog.get_node("RichTextLabel").dialog_text = msg_str
 	dialog.get_node("RichTextLabel").init()
-	$GUI.add_child(dialog)
+	$GUI.add_child_below_node($GUI/Bottom, dialog)
+
+func show_msg_delayed(msgs, time):
+	timed_task = "dialog_delay"
+	delayed_string = msgs
+	$Timer.start(time)
 
 func update_map_name():
 	$GUI/LevelName.text = name_str
@@ -63,3 +68,10 @@ func _ready():
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+var timed_task = "dialog_delay"
+var delayed_string = ""
+func _on_Timer_timeout():
+	if (timed_task == "dialog_delay"):
+		show_msg(delayed_string)
+		$Timer.stop()
