@@ -30,6 +30,7 @@ func _on_ContBtn_pressed():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if (action == "newgame"):
+		Globals.reset_player()
 		get_tree().change_scene_to(game_start)
 	elif (action == "continue"):
 		get_tree().change_scene(Globals.player["map"])

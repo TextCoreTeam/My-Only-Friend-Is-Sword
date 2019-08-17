@@ -62,6 +62,7 @@ func update_score(points, kldg = 0, kldg2 = false):
 
 var player
 func _ready():
+	get_node("GUI").fade_out("Arcade", "", 2.2)
 	randomize()
 	player = get_node("Player")
 	player.hp = 10

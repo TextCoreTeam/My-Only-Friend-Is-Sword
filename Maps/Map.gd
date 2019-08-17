@@ -74,4 +74,5 @@ var delayed_string = ""
 func _on_Timer_timeout():
 	if (timed_task == "dialog_delay"):
 		show_msg(delayed_string)
+		delayed_string = ""
 		$Timer.stop()

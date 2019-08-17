@@ -1,7 +1,7 @@
 extends RichTextLabel
 
 var delta_time = 0
-export var speed = 0.05
+export var speed = 0.04
 export(String, MULTILINE) var dialog_text = ""
 var current_page = 0
 var pages = []
@@ -15,7 +15,7 @@ func init():
 	set_process(true)
 
 func _ready():
-	 pass
+	Globals.dialog_open = true
 
 func parse_dialog_text():
 	pages = dialog_text.split(";")
@@ -31,6 +31,7 @@ func text_advance():
 			text = pages[current_page]
 		else:
 			get_parent().get_parent().get_parent().wpaused = false
+			Globals.dialog_open = false
 			get_parent().queue_free()
 
 func text_update():
@@ -43,8 +44,9 @@ func _input(event):
 			text_advance()
 		else:
 			visible_characters = text.length()
-	if (event.is_pressed() && event is InputEventMouseButton && event.button_index == BUTTON_LEFT):
+	if (event.is_pressed() && event is InputEventKey && event.scancode == KEY_X):
 		get_parent().get_parent().get_parent().wpaused = false
+		Globals.dialog_open = false
 		get_parent().queue_free()
 
 func _process(delta):

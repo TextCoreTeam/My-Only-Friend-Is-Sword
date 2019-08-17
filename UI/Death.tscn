@@ -1,7 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://UI/Theme.tres" type="Theme" id=1]
 [ext_resource path="res://UI/Death.gd" type="Script" id=2]
+
+[sub_resource type="Animation" id=1]
+resource_name = "FadeIn"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/path = NodePath("Fg:modulate")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
 
 [node name="Death" type="Control"]
 anchor_right = 1.0
@@ -14,62 +30,62 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 
 [node name="MenuCol" type="VBoxContainer" parent="CenterContainer"]
-margin_left = 450.0
-margin_top = 229.0
-margin_right = 574.0
-margin_bottom = 370.0
+margin_left = 444.0
+margin_top = 225.0
+margin_right = 579.0
+margin_bottom = 374.0
 custom_constants/separation = 30
 
 [node name="VSplitContainer" type="VBoxContainer" parent="CenterContainer/MenuCol"]
-margin_right = 124.0
-margin_bottom = 44.0
+margin_right = 135.0
+margin_bottom = 48.0
 
 [node name="Title" type="Label" parent="CenterContainer/MenuCol/VSplitContainer"]
-margin_right = 124.0
-margin_bottom = 20.0
+margin_right = 135.0
+margin_bottom = 22.0
 text = "You Died"
 align = 1
 
 [node name="ScoreLbl" type="Label" parent="CenterContainer/MenuCol/VSplitContainer"]
-margin_top = 24.0
-margin_right = 124.0
-margin_bottom = 44.0
+margin_top = 26.0
+margin_right = 135.0
+margin_bottom = 48.0
 text = "Score: "
 align = 1
 
 [node name="GameBtnContainer" type="CenterContainer" parent="CenterContainer/MenuCol"]
-margin_top = 74.0
-margin_right = 124.0
-margin_bottom = 141.0
+margin_top = 78.0
+margin_right = 135.0
+margin_bottom = 149.0
 size_flags_horizontal = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer/MenuCol/GameBtnContainer"]
-margin_right = 124.0
-margin_bottom = 67.0
+margin_right = 135.0
+margin_bottom = 71.0
 custom_constants/separation = 27
 
 [node name="CheckpBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer"]
-margin_right = 124.0
-margin_bottom = 20.0
+margin_right = 135.0
+margin_bottom = 22.0
 text = "Checkpoint"
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer"]
-margin_top = 47.0
-margin_right = 124.0
-margin_bottom = 67.0
+margin_top = 49.0
+margin_right = 135.0
+margin_bottom = 71.0
 custom_constants/separation = 35
 
 [node name="NewGameBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer"]
-margin_right = 52.0
-margin_bottom = 20.0
+margin_right = 58.0
+margin_bottom = 22.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Menu"
 
 [node name="ContinueBtn" type="Button" parent="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer"]
-margin_left = 87.0
-margin_right = 124.0
-margin_bottom = 20.0
+margin_left = 93.0
+margin_right = 135.0
+margin_bottom = 22.0
 focus_mode = 0
 enabled_focus_mode = 0
 text = "Quit"
@@ -78,6 +94,18 @@ text = "Quit"
 position = Vector2( 505, 310 )
 current = true
 zoom = Vector2( 0.5, 0.5 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/FadeIn = SubResource( 1 )
+
+[node name="Fg" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 231.0
+margin_top = 148.0
+margin_right = 797.0
+margin_bottom = 480.0
+color = Color( 0, 0, 0, 1 )
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/CheckpBtn" to="." method="_on_CheckpBtn_pressed"]
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer/NewGameBtn" to="." method="_on_NewGameBtn_pressed"]
 [connection signal="pressed" from="CenterContainer/MenuCol/GameBtnContainer/VBoxContainer/HBoxContainer/ContinueBtn" to="." method="_on_ContinueBtn_pressed"]
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

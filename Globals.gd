@@ -3,6 +3,7 @@ var version = "v1.3"
 # Temp values
 var game_mode	#0 -- story || 1 -- arcade
 var player_pause = false
+var dialog_open = false
 
 # Global and saveable values
 var score #to save score between the scenes (arcade)
@@ -18,6 +19,7 @@ var player = {	"x" : 0,
 				"required_xp" : 0,
 				"lvl" : 0
 				}
+var loc_name = {"title" : "", "location" : ""}
 var destroyed_entities = {"" : []} #shit for destroyed static entities
 var temp_entities = [] #destroyed before checkpoint
 var player_ability = []

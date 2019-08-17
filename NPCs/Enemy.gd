@@ -103,6 +103,8 @@ func mob():	#kludge for mob identification because im a f4g
 
 func dmg(num = 1):
 	if (can_take_dmg):
+		if (!detected):
+			detected = true
 		print("Mob took damage")
 		$TakeDMGTimer.start(1)
 		can_take_dmg = false
@@ -143,7 +145,7 @@ func turn_right():
 func turn_left():
 	if (heading_right):
 		player_above = -1
-		heading_right = true
+		heading_right = false
 		$WalkAnimLR.flip_h = true
 		$AttackAnimLR.flip_h = true
 		$WalkAnimLR.offset = Vector2(w_offset, 0)

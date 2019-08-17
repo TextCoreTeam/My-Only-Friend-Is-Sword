@@ -4,11 +4,12 @@ func _ready():
 	level.show_exp = false
 	level.save_state = true
 	level.name_str = "Shadow Realm\nPart 1"
+	Globals.loc_name["title"] = "Prologue"
+	level.get_node("GUI").fade_out(Globals.loc_name["title"], level.name_str)
 	if (Globals.checkpoint() == Vector2.ZERO):
-		level.get_node("GUI").fade_out("Prologue", level.name_str)
 		Globals.reset_player()
 		level.get_node("GUI").switch_ability()
-		level.show_msg_delayed(" Press RMB to proceed.; " + 
+		level.show_msg_delayed("" + 
 		" You wake up in a strange place surrounded by deafening silence...;" +
 		" Thinking you've been robbed, you nervously check your pockets...;" +
 		" ...and realize you have no hands or legs.; Finally, you understand that you are a ghost now.;" +

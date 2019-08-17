@@ -55,7 +55,8 @@ func _process(delta):
 	if (!world.wpaused && !$ExpBar.visible && Globals.game_mode == 0 && world.show_exp):
 		$ExpBar.visible = true
 		
-func fade_out(title = "", subtitle = ""):
+func fade_out(title = "", subtitle = "", spd = 1):
+	$AnimationPlayer.playback_speed = spd
 	world.wpaused = true
 	$Rect.visible = true
 	$Rect/Title.text = title
@@ -72,4 +73,5 @@ func fade_in():
 	$AnimationPlayer.queue("FadeIn")
 
 func _on_AnimationPlayer_animation_finished(anim_name):
-	world.wpaused = false
+	if (!Globals.dialog_open):
+		world.wpaused = false
